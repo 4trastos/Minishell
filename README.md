@@ -6,64 +6,24 @@ The shell is a program that interacts with the user through a terminal or takes 
 
 # Parse Comillas Dobles ("") y Comillas Simples (''):
 
-1. `readline`: Esta función se utiliza para leer una línea de entrada desde la terminal. Proporciona características como el historial de comandos y la edición de líneas.
+En Bash, las comillas dobles ("") y las comillas simples ('') tienen significados diferentes y afectan cómo el shell interpreta el contenido que está entre ellas.
 
-2. `rl_clear_history`: Borra el historial de comandos que se ha acumulado utilizando la función `readline`.
+'Comillas Dobles (""):'
 
-3. `rl_on_new_line`: Esta función notifica a `readline` que se ha completado una nueva línea y que debe empezar a leer la entrada del usuario desde el principio.
+* Permite la expansión de variables: Dentro de las comillas dobles, Bash interpreta y expande las variables. Por ejemplo, si tienes una variable $VAR y la usas dentro de comillas dobles ("$VAR"), Bash sustituirá el valor de $VAR en la cadena.
+* Permite la interpretación de algunos caracteres de escape: Dentro de las comillas dobles, Bash interpreta y procesa algunos caracteres de escape especiales, como \n para nueva línea o \t para tabulación.
 
-4. `rl_replace_line`: Reemplaza la línea actual en la terminal con una nueva línea proporcionada como argumento.
+EJEMPLO:
++-+-+-+-+-+-+-+-+-+-+-+--+-+-+-+--+-+-+-+-+-+-+-+
+|   VAR="world"                                 |
+|   echo "Hello $VAR"  # Salida: Hello world    |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-5. `rl_redisplay`: Esta función redibuja la línea actual en la terminal. Se utiliza después de modificar la línea utilizando otras funciones de `readline`.
-
-6. `add_history`: Agrega una línea al historial de comandos que se puede acceder y navegar utilizando `readline`.
-
-7. `printf`: Imprime texto formateado en la salida estándar.
-
-8. `malloc`: Reserva un bloque de memoria en el montículo.
-
-9. `free`: Libera un bloque de memoria previamente asignado dinámicamente con `malloc`.
-
-10. `write`: Escribe datos en un descriptor de archivo, como la salida estándar.
-
-11. `access`: Comprueba si el usuario tiene permisos de acceso a un archivo.
-
-12. `open`: Abre un archivo o crea uno nuevo si no existe.
-
-13. `read`: Lee datos desde un archivo abierto.
-
-14. `close`: Cierra un descriptor de archivo abierto.
-
-15. `fork`: Crea un nuevo proceso hijo del proceso actual.
-
-16. `wait`, `waitpid`, `wait3`, `wait4`: Se utilizan para esperar a que un proceso hijo termine y recopilar su estado de salida.
-
-17. `signal`, `sigaction`, `kill`: Se utilizan para manejar señales del sistema, como SIGINT (interrupción de terminal) o SIGTERM (terminación).
-
-18. `exit`: Termina la ejecución del programa actual y devuelve un valor de salida al sistema operativo.
-
-19. `getcwd`, `chdir`: Se utilizan para obtener y cambiar el directorio de trabajo actual.
-
-20. `stat`, `lstat`, `fstat`: Se utilizan para obtener información sobre archivos, como los permisos o el tamaño.
-
-21. `unlink`: Elimina un archivo del sistema de archivos.
-
-22. `execve`: Ejecuta un programa en el contexto del proceso actual.
-
-23. `dup`, `dup2`: Duplica un descriptor de archivo.
-
-24. `pipe`: Crea un par de descriptores de archivo conectados a través de una tubería.
-
-25. `opendir`, `readdir`, `closedir`: Se utilizan para abrir, leer y cerrar directorios.
-
-26. `strerror`, `perror`: Se utilizan para convertir códigos de error en cadenas de caracteres legibles.
-
-27. `isatty`, `ttyname`, `ttyslot`: Se utilizan para obtener información sobre dispositivos de terminal.
-
-28. `ioctl`: Controla el comportamiento de dispositivos de E/S, como terminales.
-
-29. `getenv`: Obtiene el valor de una variable de entorno.
-
-30. `tcsetattr`, `tcgetattr`: Configura y obtiene los atributos del terminal.
-
-31. `tgetent`, `tgetflag`, `tgetnum`, `tgetstr`, `tgoto`, `tputs`: Se utilizan para interactuar con la base de datos de términos de la biblioteca de control de pantalla `termcap`. Estas funciones son utilizadas principalmente para controlar la terminal y realizar operaciones como obtener la capacidad de borrar la pantalla o mover el cursor.
+Comillas Simples (''):
+No permite la expansión de variables: Dentro de las comillas simples, Bash trata el contenido de manera literal y no expande ninguna variable.
+No interpreta caracteres de escape: Bash trata todos los caracteres dentro de las comillas simples como caracteres literales. No interpreta ni procesa ningún carácter de escape.
+bash
+Copiar código
+VAR="world"
+echo 'Hello $VAR'  # Salida: Hello $VAR
+En resumen, las comillas dobles permiten la expansión de variables y la interpretación de algunos caracteres de escape, mientras que las comillas simples evitan la expansión de variables y la interpretación de caracteres de escape, tratando todo el contenido de manera literal.
