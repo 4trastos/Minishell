@@ -4,7 +4,7 @@ The shell is a program that interacts with the user through a terminal or takes 
 
 # Shell Programas
 
-# Funciones Permitidas
+# Parse Comillas Dobles ("") y Comillas Simples (''):
 
 1. `readline`: Esta función se utiliza para leer una línea de entrada desde la terminal. Proporciona características como el historial de comandos y la edición de líneas.
 
