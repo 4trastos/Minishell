@@ -1,21 +1,22 @@
 # Minishell
 
-The shell is a program that interacts with the user through a terminal or takes input from a file and executes a sequence of commands that are passed to the Operating System. In this chapter, you are going to learn how to write your own shell program.
+El shell es un programa que interactúa con el usuario a través de una terminal o toma la entrada de un archivo y ejecuta una secuencia de comandos que se pasan al Sistema Operativo. En este capítulo aprenderás a escribir tu propio programa de shell.
 
-# Shell Programs
+# Programas de Shell
 
-## Parsing Double Quotes ("") and Single Quotes ('')
+## Análisis de Comillas Dobles ("") y Comillas Simples ('')
 
-In Bash, double quotes ("") and single quotes ('') have different meanings and affect how the shell interprets the content that is between them.
+En Bash, las comillas dobles ("") y las comillas simples ('') tienen significados diferentes y afectan cómo el shell interpreta el contenido que está entre ellas.
 
-### Double Quotes (""):
+### Comillas Dobles (""):
 
-- Allows variable expansion: Within double quotes, Bash interprets and expands variables. For example, if you have a variable $VAR and use it within double quotes ("$VAR"), Bash will substitute the value of $VAR in the string.
+- Permite la expansión de variables: Dentro de las comillas dobles, Bash interpreta y expande las variables. Por ejemplo, si tienes una variable $VAR y la usas dentro de comillas dobles ("$VAR"), Bash sustituirá el valor de $VAR en la cadena.
 
-- Interprets some escape characters: Within double quotes, Bash interprets and processes some special escape characters, such as \n for newline or \t for tab.
+- Permite la interpretación de algunos caracteres de escape: Dentro de las comillas dobles, Bash interpreta y procesa algunos caracteres de escape especiales, como \n para nueva línea o \t para tabulación.
 
-**Example:**
+**EJEMPLO:**
 
 ```bash
-VAR="world"
-echo "Hello $VAR"  # Output: Hello world
+VAR="mundo"
+echo "Hola $VAR"  # Salida: Hola mundo
+
