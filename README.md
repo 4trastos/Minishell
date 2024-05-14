@@ -19,7 +19,7 @@ En Bash, las comillas dobles ("") y las comillas simples ('') tienen significado
 ```bash
 VAR="mundo"
 echo "Hola $VAR"  # Salida: Hola mundo
-
+```
 ### Comillas Simples (''):
 
 - No permite la expansión de variables: Dentro de las comillas simples, Bash trata el contenido de manera literal y no expande ninguna variable.
@@ -31,3 +31,4 @@ echo "Hola $VAR"  # Salida: Hola mundo
 ```bash
 VAR="mundo"
 echo 'Hola $VAR'  # Salida: Hola $VAR
+```
