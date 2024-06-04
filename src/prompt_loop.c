@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:13:54 by nicgonza          #+#    #+#             */
-/*   Updated: 2024/06/03 11:36:49 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/04 18:02:45 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,11 @@ static void	check_commands(t_string *cmd_input, t_tools *tools)
 
 	built = builtins();
 	tokens = create_tokens(built, tools, cmd_input);
-	list_app_function(tokens, (t_function)ft_errormsg);
+	// list_app_function(tokens, (t_function)ft_errormsg);
 	i = 0;
 	while (i < tokens->size)
 	{
 		get_op(tokens->data[i]);
-		printf("Operador: %d\n", tokens->data[i]->op);
 		i++;
 	}
 	if (executor(tokens, tools) > 0)

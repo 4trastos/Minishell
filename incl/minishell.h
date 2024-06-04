@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:14:29 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/03 13:11:44 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/04 18:24:33 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,9 +188,11 @@ int			ft_myexport(char **dup, t_tools *tools, char *prompt);
 // int			ft_myexport(char **dup, char **env, char *prompt);
 int			ft_customenvp(char **dup);
 void		ft_isquotes(char *str, int *quotes, int *single);
-void		ft_writestr(char *echo, int flag, char **env, bool dollar);
+void		ft_writestr(char **echo, int flag, char **env, int index);
+void		ft_writedollar(char **echo, int flag, char **env, int i);
 int			ft_exit(char *prompt, char *built, int blt);
 t_list		*create_tokens(t_list *built, t_tools *tools, t_string *cmd_input);
+void		ft_hatedollar(char *str, char **env);
 
 /*** SIGNAL ***/
 

@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/03 12:21:46 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/04 13:58:01 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,29 +25,6 @@ void	get_builts(t_string *built, unsigned int i)
 		built->blt = BT_EXPORT;
 	else if (i == 4)
 		built->blt = BT_UNSET;
-}
-
-void	ft_myprintecho(char **echo, t_tools *tools, int flag, int i)
-{
-	int		k;
-	int		quotes;
-	int		single;
-	bool	dollar;
-
-	k = i;
-	quotes = 0;
-	single = 0;
-	dollar = false;
-	ft_isquotes(echo[k], &quotes, &single);
-	if (ft_strchr(echo[i], '$') != NULL)
-		dollar = true;
-	if (quotes > 1 || single > 1)
-	{
-		write(1, "Tiene dobles comillas\n", 22);
-	}
-	else
-		ft_writestr(echo[i], flag, tools->env, dollar);
-	return ;
 }
 
 int	ft_mychdir(char *prompt)

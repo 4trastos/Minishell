@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/05/30 15:14:55 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:42:11 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,8 @@ t_string	*parse_tokens(t_tools *tools, t_list *built, char *str,
 
 	start = *i;
 	flag = 0;
-	while (str[*i] != '"' && str[*i] != 92 && str[*i] != '|' && str[*i]
-		&& str[*i] != '<' && str[*i] != '>' && str[*i] != ';' && str[*i] != 39
-		&& str[*i] != 36)
+	while (str[*i] != 92 && str[*i] != '|' && str[*i]
+		&& str[*i] != '<' && str[*i] != '>' && str[*i] != ';')
 		(*i)++;
 	aux = ft_substr(str, start, *i - start);
 	check_builtins(tools, built, aux, &flag);

@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:13:54 by nicgonza          #+#    #+#             */
-/*   Updated: 2024/05/30 19:30:44 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/04 12:26:11 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,34 +81,5 @@ void	ft_isquotes(char *str, int *quotes, int *single)
 		else if (str[i] == 39)
 			(*single)++;
 		i++;
-	}
-}
-
-void	ft_writestr(char *echo, int flag, char **env, bool dollar)
-{
-	int	index;
-
-	index = 0;
-	if (dollar)
-	{
-		echo++;
-		index = ft_findenv(env, echo);
-		if (index == -1)
-			return ;
-		printf("%s", env[index] + (ft_strlen(echo) + 1));
-		if (flag == 0)
-			printf("\n");
-	}
-	else
-	{
-		while (echo[index] != '\0')
-		{
-			while (echo[index] == '"' || echo[index] == 39)
-				index++;
-			write(1, &echo[index], 1);
-			index++;
-		}
-		if (flag == 0)
-			write(1, "\n", 1);
 	}
 }
