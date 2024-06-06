@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/04 15:30:50 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:22:47 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,22 @@
 
 void	ft_myprintecho(char **echo, t_tools *tools, int flag, int i)
 {
-	int		k;
-	int		quotes;
-	int		single;
-	bool	dollar;
+	int	single;
+	int	doubles;
 
-	k = 0;
-	quotes = 0;
+
 	single = 0;
-	dollar = false;
-	while (echo[k] != NULL)
+	doubles = 0;
+	echo++;
+	while (i > 0)
 	{
-		ft_isquotes(echo[k], &quotes, &single);
-		if (ft_strchr(echo[k], '$') != NULL)
-			dollar = true;
-		k++;
+		echo++;
+		i--;
 	}
-	if (quotes > 1 || single > 1)
-		write(1, "Tiene dobles comillas\n", 22);
-	else if (dollar)
-		ft_writedollar(echo, flag, tools->env, i);
-	else
-		ft_writestr(echo, flag, tools->env, i);
+	echo--;
+	ft_putquotes(echo, tools->env, doubles, single);
+	if (flag == 0)
+		write(1, "\n", 1);
 	return ;
 }
 
@@ -121,26 +115,21 @@ void	terminator(t_tools *tools, char *prompt, char *built, int blt)
 	int		k;
 	int		quotes;
 	int		single;
-	bool	dollar;
+	int		mark;
 
 	k = 0;
 	quotes = 0;
 	single = 0;
-	dollar = false;
-	ft_isquotes(echo[i], &quotes, &single);
+	mark = 0;
 	while (echo[k] != NULL)
 	{
-		if (ft_strchr(echo[k], '$') != NULL)
-			dollar = true;
+		ft_isquotes(echo[k], &quotes, &single);
 		k++;
 	}
-	if (quotes > 1 || single > 1)
-	{
-		write(1, "Tiene dobles comillas\n", 22);
-	}
-	else if (dollar)
-		ft_writedollar(echo[i], flag, tools->env);
-	else
-		ft_writestr(echo, flag, tools->env, i);
+	if (single > 1)
+		mark = 1;
+	ft_writedollar(echo, tools->env, i, mark);
+	if (flag == 0)
+		write(1, "\n", 1);
 	return ;
 } */

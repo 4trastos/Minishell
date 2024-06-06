@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:14:29 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/04 18:24:33 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/06 15:30:20 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,8 +163,10 @@ void		ft_putstr_fd(char *s, int fd);
 void		get_pwd(t_tools *tools);
 void		get_old_pwd(t_tools *tools);
 char		**ft_split(char const *s, char c);
+char		**davsplit(char const *s, char c);
 int			ft_isgoodenv(char *str);
 int			custom_strncmp(char *prompt, char *built, int len, int blt);
+int			ft_isalnum(int c);
 
 /*** ERROR ***/
 
@@ -185,11 +187,10 @@ int			ft_echocmp(char *str, char *dst);
 int			ft_myunset(char **env, char *name);
 int			ft_findenv(char **env, char *name);
 int			ft_myexport(char **dup, t_tools *tools, char *prompt);
-// int			ft_myexport(char **dup, char **env, char *prompt);
 int			ft_customenvp(char **dup);
-void		ft_isquotes(char *str, int *quotes, int *single);
+void		ft_isquotes(char *str, char **env, int *doubles, int *single);
 void		ft_writestr(char **echo, int flag, char **env, int index);
-void		ft_writedollar(char **echo, int flag, char **env, int i);
+void		ft_putquotes(char **echo, char **env, int doubles, int single);
 int			ft_exit(char *prompt, char *built, int blt);
 t_list		*create_tokens(t_list *built, t_tools *tools, t_string *cmd_input);
 void		ft_hatedollar(char *str, char **env);

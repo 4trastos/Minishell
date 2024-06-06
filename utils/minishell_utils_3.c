@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:13:54 by nicgonza          #+#    #+#             */
-/*   Updated: 2024/06/04 12:26:11 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/06 19:29:29 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ int	ft_findenv(char **env, char *name)
 	len = 0;
 	while (name[len] != '=' && name[len] != '\0')
 		len++;
+	if (name[len - 1] == '"')
+		len--;
 	while (env[i] != NULL)
 	{
-		if (ft_strncmp(env[i], name, len) == 0)
+		if (ft_strncmp(env[i], name, len) == 0 && env[i][len] == '=')
 			return (i);
 		i++;
 	}
@@ -69,7 +71,41 @@ char	*ft_createname(char *name, char c)
 	return (ptr);
 }
 
-void	ft_isquotes(char *str, int *quotes, int *single)
+void	ft_isquotes(char *str, char **env, int *doubles, int *single)
+{
+	if ((*doubles || !*doubles) && !*single)
+		ft_hatedollar(str, env);
+	if (*single)
+	{
+		while (*str != '\0')
+		{
+			while (*str == '\'' && *str != '\0')
+				str++;
+			write(1, &(*str), 1);
+			str++;
+		}
+	}
+}
+
+/* int	ft_findenv(char **env, char *name)
+{
+	int	len;
+	int	i;
+
+	i = 0;
+	len = 0;
+	while (name[len] != '=' && name[len] != '\0')
+		len++;
+	while (env[i] != NULL)
+	{
+		if (ft_strncmp(env[i], name, len) == 0)
+			return (i);
+		i++;
+	}
+	return (-1);
+} */
+
+/* void	ft_isquotes(char *str, char **env, int *doubles, int *single)
 {
 	int	i;
 
@@ -77,9 +113,9 @@ void	ft_isquotes(char *str, int *quotes, int *single)
 	while (str[i] != '\0')
 	{
 		if (str[i] == '"')
-			(*quotes)++;
+			(*doubles)++;
 		else if (str[i] == 39)
 			(*single)++;
 		i++;
 	}
-}
+} */

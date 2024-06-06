@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:13:54 by nicgonza          #+#    #+#             */
-/*   Updated: 2024/05/29 13:07:55 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:42:00 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,14 @@ void	ft_putstr(char *str)
 		write(1, &str[i], 1);
 		i++;
 	}
+}
+
+int	ft_isalnum(int c)
+{
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+		return (1);
+	else if (c >= '0' && c <= '9')
+		return (1);
+	else
+		return (0);
 }
