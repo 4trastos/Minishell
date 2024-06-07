@@ -6,14 +6,15 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:49:08 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/07 16:02:46 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/07 20:17:01 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/minishell.h"
 
-static void	ft_doubles(char c, int *doubles, int *single)
+static void	ft_doubles(char c, int *doubles, int *single, int *post_exp)
 {
+	(void)post_exp;
 	if (c == '"')
 	{
 		if (!*single)
@@ -25,8 +26,9 @@ static void	ft_doubles(char c, int *doubles, int *single)
 		write(1, &c, 1);
 }
 
-static void	ft_singles(char c, int *doubles, int *single)
+static void	ft_singles(char c, int *doubles, int *single, int *post_exp)
 {
+	(void)post_exp;
 	if (c == '\'')
 	{
 		if (!*doubles)
@@ -41,16 +43,18 @@ static void	ft_singles(char c, int *doubles, int *single)
 void	ft_putquotes(char **echo, char **env, int doubles, int single)
 {
 	int	j;
+	int	post_exp;
 
 	while (*echo != NULL)
 	{
 		j = 0;
+		ft_quotescount(*echo, &doubles, &single, &post_exp);
 		while ((*echo)[j] != '\0')
 		{
-			if ((*echo)[j] == '\'')
-				ft_singles((*echo)[j], &doubles, &single);
 			if ((*echo)[j] == '"')
-				ft_doubles((*echo)[j], &doubles, &single);
+				ft_doubles((*echo)[j], &doubles, &single, &post_exp);
+			if ((*echo)[j] == '\'')
+				ft_singles((*echo)[j], &doubles, &single, &post_exp);
 			else if ((*echo)[j] == '$')
 			{
 				ft_isquotes(&(*echo)[j], env, &doubles, &single);
@@ -94,3 +98,58 @@ char	*ft_findhome(char **envp)
 	}
 	return (NULL);
 }
+
+
+/* void	ft_putquotes(char **echo, char **env, int doubles, int single)
+{
+	int	j;
+
+	while (*echo != NULL)
+	{
+		j = 0;
+		while ((*echo)[j] != '\0')
+		{
+			if ((*echo)[j] == '\'')
+				ft_singles((*echo)[j], &doubles, &single);
+			if ((*echo)[j] == '"')
+				ft_doubles((*echo)[j], &doubles, &single);
+			else if ((*echo)[j] == '$')
+			{
+				ft_isquotes(&(*echo)[j], env, &doubles, &single);
+				break ;
+			}
+			else
+				write(1, &(*echo)[j], 1);
+			j++;
+		}
+		if ((*echo)++ != NULL)
+			write(1, " ", 1);
+		echo++;
+	}
+} */
+
+/* static void	ft_doubles(char c, int *doubles, int *single)
+{
+	if (c == '"')
+	{
+		if (!*single)
+			*doubles = !*doubles;
+		else
+			write(1, &c, 1);
+	}
+	else
+		write(1, &c, 1);
+}
+
+static void	ft_singles(char c, int *doubles, int *single)
+{
+	if (c == '\'')
+	{
+		if (!*doubles)
+			*single = !*single;
+		else
+			write(1, &c, 1);
+	}
+	else
+		write(1, &c, 1);
+} */

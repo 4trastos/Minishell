@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:14:29 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/07 16:03:58 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/07 19:49:00 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,7 @@ int			ft_exit(char *prompt, char *built, int blt);
 t_list		*create_tokens(t_list *built, t_tools *tools, t_string *cmd_input);
 void		ft_hatedollar(char *str, char **env);
 void		ft_putquotes(char **echo, char **env, int doubles, int single);
+void		ft_quotescount(char *str, int *doubles, int *single, int *post_exp);
 
 /*** SIGNAL ***/
 
