@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:49:08 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/06 19:29:24 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:02:46 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,57 +66,31 @@ void	ft_putquotes(char **echo, char **env, int doubles, int single)
 	}
 }
 
-
-/* static void	ft_doubles(char c, int *doubles, int *single)
+void	ft_myenv(char **env)
 {
-	if (c == '"')
-	{
-		if (!*single)
-			*doubles = !*doubles;
-		else
-			write(1, &c, 1);
-	}
-	else
-		write(1, &c, 1);
-}
+	int	i;
 
-static void	ft_singles(char c, int *doubles, int *single)
-{
-	if (c == '\'')
+	i = 0;
+	while (env[i] != NULL)
 	{
-		if (!*doubles)
-			*single = !*single;
-		else
-			write(1, &c, 1);
-	}
-	else
-		write(1, &c, 1);
-}
-
-void	ft_putquotes(char **echo, char **env, int doubles, int single)
-{
-	int	j;
-
-	while (*echo != NULL)
-	{
-		j = 0;
-		while ((*echo)[j] != '\0')
+		if (ft_strchr(env[i], '=') != NULL)
 		{
-			if ((*echo)[j] == '\'')
-				ft_singles((*echo)[j], &doubles, &single);
-			if ((*echo)[j] == '"')
-				ft_doubles((*echo)[j], &doubles, &single);
-			else if ((*echo)[j] == '$')
-			{
-				ft_isquotes(*echo, env, &doubles, &single);
-				break ;
-			}
-			else
-				write(1, &(*echo)[j], 1);
-			j++;
+			ft_putstr(env[i]);
+			write(1, "\n", 1);
+			i++;
 		}
-		if ((*echo)++ != NULL)
-			write(1, " ", 1);
-		echo++;
+		else
+			i++;
 	}
-} */
+}
+
+char	*ft_findhome(char **envp)
+{
+	while (*envp)
+	{
+		if (ft_strncmp(*envp, "HOME=", 5) == 0)
+			return (*envp + 5);
+		envp++;
+	}
+	return (NULL);
+}

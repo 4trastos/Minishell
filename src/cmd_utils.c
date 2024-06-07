@@ -58,18 +58,16 @@ void	ft_close_pipes(t_executor *exe)
 	}
 }
 
-char	*get_command(t_list *tokens, t_executor *exe)
+void	get_command(t_list *tokens, t_executor *exe, t_tools *tools)
 {
 	int		i;
 	int		flag;
-	char	*cmd;
 
 	i = 0;
 	flag = 0;
-	cmd = NULL;
 	while (tokens->data[i] != NULL)
 	{
-		if (tokens->data[i]->op == OP_NONE)
+		if (tokens->data[i]->op == OP_NONE || tokens->data[i]->op == OP_BUILTIN || tokens->data[i]->op == OP_DOLLAR_SIGN)
 		{
 			if (flag == exe->i)
 				break ;
@@ -77,9 +75,17 @@ char	*get_command(t_list *tokens, t_executor *exe)
 		}
 		i++;
 	}
-	cmd = get_cmd_aux(tokens, i);
-	exe->fullcmd = ft_split(tokens->data[i]->str, ' ');
-	return (cmd);
+	if (tokens->data[i]->op == OP_BUILTIN && exe->num_cmd == 1)
+	{
+		terminator(tools, tools->prompt, tokens->data[i]->str, tokens->data[i]->blt);
+	}
+	else
+	{	
+		exe->cmd = get_cmd_aux(tokens, i);
+		exe->fullcmd = ft_split(tokens->data[i]->str, ' ');
+		ft_exec_cmd(tools, tokens, exe, i);
+		free(exe->cmd);
+	}
 }
 
 void	ft_close_fd(t_executor *exe)

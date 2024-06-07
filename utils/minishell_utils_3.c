@@ -6,12 +6,11 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:13:54 by nicgonza          #+#    #+#             */
-/*   Updated: 2024/06/06 19:29:29 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:02:50 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/minishell.h"
-
 
 int	ft_findenv(char **env, char *name)
 {
@@ -87,35 +86,10 @@ void	ft_isquotes(char *str, char **env, int *doubles, int *single)
 	}
 }
 
-/* int	ft_findenv(char **env, char *name)
+char	*ft_findvarvalue(char *str)
 {
-	int	len;
-	int	i;
-
-	i = 0;
-	len = 0;
-	while (name[len] != '=' && name[len] != '\0')
-		len++;
-	while (env[i] != NULL)
-	{
-		if (ft_strncmp(env[i], name, len) == 0)
-			return (i);
-		i++;
-	}
-	return (-1);
-} */
-
-/* void	ft_isquotes(char *str, char **env, int *doubles, int *single)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '"')
-			(*doubles)++;
-		else if (str[i] == 39)
-			(*single)++;
-		i++;
-	}
-} */
+	while (*str != '=')
+		str++;
+	str++;
+	return (str);
+}

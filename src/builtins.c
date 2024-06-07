@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/06 14:22:47 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:59:09 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	ft_myprintecho(char **echo, t_tools *tools, int flag, int i)
 {
 	int	single;
 	int	doubles;
-
 
 	single = 0;
 	doubles = 0;
@@ -85,12 +84,9 @@ t_list	*builtins(void)
 
 void	terminator(t_tools *tools, char *prompt, char *built, int blt)
 {
-	char	**dup;
-
-	dup = NULL;
 	(void)built;
 	if (blt == BT_CD)
-		ft_mychdir(prompt);
+		ft_mychdir(prompt, tools);
 	else if (blt == BT_ECHO)
 	{
 		if (ft_strlen(prompt) == 4)
@@ -100,14 +96,15 @@ void	terminator(t_tools *tools, char *prompt, char *built, int blt)
 	}
 	else if (blt == BT_EXPORT)
 	{
-		dup = dup_matrix(tools->env);
-		if (!dup)
+		tools->exp = dup_matrix(tools->env);
+		if (!tools->exp)
 			return ;
-		ft_myexport(dup, tools, prompt);
-		ft_doublefree(dup);
+		ft_myexport(tools->exp, tools, prompt);
 	}
 	else if (blt == BT_UNSET)
 		ft_myunset(tools->env, prompt);
+	else if (blt == BT_ENV)
+		ft_myenv(tools->env);
 }
 
 /* void	ft_myprintecho(char **echo, t_tools *tools, int flag, int i)

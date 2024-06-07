@@ -43,6 +43,7 @@ void	check_builtins(t_tools *tools, t_list *built, char *input, int *flag)
 	int				len;
 
 	i = 0;
+	(void)tools;
 	while (i < built->size)
 	{
 		get_builts(built->data[i], (i + 1));
@@ -54,11 +55,7 @@ void	check_builtins(t_tools *tools, t_list *built, char *input, int *flag)
 		len = ft_strlen(built->data[i]->str);
 		if (custom_strncmp(input, built->data[i]->str, len,
 				built->data[i]->blt) == 0)
-		{
-			terminator(tools, input, built->data[i]->str,
-				built->data[i]->blt);
-			*flag = 1;
-		}
+			*flag = built->data[i]->blt;
 		i++;
 	}
 }

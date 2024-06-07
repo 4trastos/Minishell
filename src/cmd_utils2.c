@@ -14,7 +14,7 @@
 
 int	ft_setparams(t_list *tokens, t_executor *exe)
 {
-	exe->num_cmd = get_cmds(tokens);
+	exe->num_cmd = get_cmds(tokens, exe);
 	exe->num_pipes = get_pipes(tokens, exe);
 	if (exe->num_pipes < 0)
 		return (-1);

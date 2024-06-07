@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:14:29 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/06 15:30:20 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:03:58 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,22 @@ extern int		g_signal;
 
 typedef struct s_tools
 {
-	int			number_paths;
-	int			here_doc;
-	int			pipe_numb;
-	int			*pipe;
-	char		*commands;
-	char		**env;
-	char		*pwd;
-	char		*old_pwd;
-	bool		init;
-	bool		error;
-	t_string	**builtins;
-	t_list		*history;
+	int				number_paths;
+	int				here_doc;
+	int				pipe_numb;
+	int				*pipe;
+	unsigned int	sizetokens;
+	char			*commands;
+	char			**env;
+	char			**exp;
+	char			**aux;
+	char			*pwd;
+	char			*old_pwd;
+	bool			init;
+	bool			error;
+	char			*prompt;
+	t_string		**builtins;
+	t_list			*history;
 }	t_tools;
 
 typedef enum s_builtin
@@ -59,6 +63,7 @@ typedef enum s_builtin
 	BT_ECHO,
 	BT_EXPORT,
 	BT_UNSET,
+	BT_ENV,
 }	t_builtin;
 
 typedef enum s_operator
@@ -102,6 +107,7 @@ typedef struct s_executor
 	int		i;
 	int		status;
 	int		exit_code;
+	int		num_built;
 	pid_t	*pid;
 	char	*cmd;
 	char	*rute;
@@ -125,6 +131,7 @@ int			check_exit(t_string *cmd_input);
 
 void		parse_shell(t_tools *tools);
 char		*ft_findpath(char **envp);
+char		*ft_findhome(char **envp);
 t_string	*parse_strings(char c, char *str, unsigned int *i);
 t_string	*parse_operators(char c, char *str, unsigned int *i);
 t_string	*parse_tokens(t_tools *tools, t_list *built, char *str,
@@ -167,6 +174,8 @@ char		**davsplit(char const *s, char c);
 int			ft_isgoodenv(char *str);
 int			custom_strncmp(char *prompt, char *built, int len, int blt);
 int			ft_isalnum(int c);
+void		ft_myenv(char **env);
+char		*ft_findvarvalue(char *str);
 
 /*** ERROR ***/
 
@@ -187,13 +196,14 @@ int			ft_echocmp(char *str, char *dst);
 int			ft_myunset(char **env, char *name);
 int			ft_findenv(char **env, char *name);
 int			ft_myexport(char **dup, t_tools *tools, char *prompt);
-int			ft_customenvp(char **dup);
+int			ft_customenvp(t_tools *tools);
 void		ft_isquotes(char *str, char **env, int *doubles, int *single);
 void		ft_writestr(char **echo, int flag, char **env, int index);
 void		ft_putquotes(char **echo, char **env, int doubles, int single);
 int			ft_exit(char *prompt, char *built, int blt);
 t_list		*create_tokens(t_list *built, t_tools *tools, t_string *cmd_input);
 void		ft_hatedollar(char *str, char **env);
+void		ft_putquotes(char **echo, char **env, int doubles, int single);
 
 /*** SIGNAL ***/
 

@@ -6,12 +6,11 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:13:54 by nicgonza          #+#    #+#             */
-/*   Updated: 2024/05/30 19:40:07 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:51:49 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/minishell.h"
-
 
 char	**dup_matrix(char **matrix)
 {

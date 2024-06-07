@@ -101,7 +101,7 @@ int	executor(t_list *tokens, t_tools *tools)
 		}
 		i++;
 	}
-	if (execute_cmd(tokens, &executor) < 0)
+	if (execute_cmd(tokens, &executor, tools) < 0)
 		return (1);
 	delete_heredoc(&executor);
 	return (0);

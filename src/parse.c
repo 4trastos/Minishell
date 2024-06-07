@@ -81,7 +81,6 @@ t_string	*parse_tokens(t_tools *tools, t_list *built, char *str,
 				unsigned int *i)
 {
 	t_string		*new;
-	char			*aux;
 	unsigned int	start;
 	int				flag;
 
@@ -90,12 +89,14 @@ t_string	*parse_tokens(t_tools *tools, t_list *built, char *str,
 	while (str[*i] != 92 && str[*i] != '|' && str[*i]
 		&& str[*i] != '<' && str[*i] != '>' && str[*i] != ';')
 		(*i)++;
-	aux = ft_substr(str, start, *i - start);
-	check_builtins(tools, built, aux, &flag);
-	new = terminal_string(aux);
-	free (aux);
-	if (flag == 1)
+	tools->prompt  = ft_substr(str, start, *i - start);
+	check_builtins(tools, built, tools->prompt, &flag);
+	new = terminal_string(tools->prompt);
+	if (flag != 0)
+	{
 		new->op = OP_BUILTIN;
+		new->blt = flag;
+	}
 	return (new);
 }
 

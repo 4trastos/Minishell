@@ -12,7 +12,7 @@
 
 #include "../incl/minishell.h"
 
-int	get_cmds(t_list *tokens)
+int	get_cmds(t_list *tokens, t_executor *exe)
 {
 	int	i;
 	int	num_cmd;
@@ -21,8 +21,11 @@ int	get_cmds(t_list *tokens)
 	num_cmd = 0;
 	while (i < (int)tokens->size)
 	{
-		if (tokens->data[i]->op == OP_NONE)
+		if (tokens->data[i]->op == OP_NONE || tokens->data[i]->op == OP_BUILTIN
+			|| tokens->data[i]->op == OP_DOLLAR_SIGN)
 			num_cmd++;
+		if (tokens->data[i]->op == OP_BUILTIN)
+			exe->num_built++;
 		i++;
 	}
 	return (num_cmd);
@@ -59,7 +62,7 @@ void	create_pipes(t_executor *exe)
 	}
 }
 
-void	ft_exec_cmd(t_executor *exe)
+void	ft_exec_cmd(t_tools *tools, t_list *tokens, t_executor *exe, int i)
 {
 	exe->pid[exe->i] = fork();
 	if (!exe->pid[exe->i])
@@ -76,32 +79,41 @@ void	ft_exec_cmd(t_executor *exe)
 		else
 			ft_dup2(exe->pipe_fd[2 * exe->i - 2], exe->pipe_fd[2 * exe->i + 1]);
 		ft_close_pipes(exe);
-		exe->rute = get_rute(exe->cmd, exe->path);
-		if (!exe->rute)
-			perror("comand");
-		exe->exit_code = execve(exe->rute, exe->fullcmd, exe->env);
-		if (exe->exit_code == -1)
-			perror("excve");
+		if (tokens->data[i]->op == OP_BUILTIN)
+		{
+			terminator(tools, tools->prompt, tokens->data[i]->str, tokens->data[i]->blt);
+			exe->exit_code = 0;
+		}
+		else if (tokens->data[i]->op == OP_NONE)
+		{
+			exe->rute = get_rute(exe->cmd, exe->path);
+			if (!exe->rute)
+				perror("comand");
+			exe->exit_code = execve(exe->rute, exe->fullcmd, tools->env);
+			if (exe->exit_code == -1)
+				perror("excve");
+		}
+		else if (tokens->data[i]->op == OP_DOLLAR_SIGN)
+		{
+			ft_hatedollar(tokens->data[i]->str, tools->env);
+			printf("\n");
+		}
 		exit(exe->exit_code);
 	}
 }
 
-int	execute_cmd(t_list *tokens, t_executor *exe)
+int	execute_cmd(t_list *tokens, t_executor *exe, t_tools *tools)
 {
 	if (ft_setparams(tokens, exe) == -1)
 		return (-1);
 	create_pipes(exe);
 	exe->i = -1;
 	while (++exe->i < exe->num_cmd)
-	{
-		exe->cmd = get_command(tokens, exe);
-		ft_exec_cmd(exe);
-		free(exe->cmd);
-	}
+		get_command(tokens, exe, tools);
 	exe->i = -1;
 	ft_close_pipes(exe);
 	while (++exe->i < exe->num_cmd)
-		waitpid(exe->pid[exe->i], &exe->status, 0);
+		waitpid(-1, &exe->status, 0);
 	if (WIFEXITED(exe->status))
 		exe->exit_code = WEXITSTATUS(exe->status);
 	ft_close_fd(exe);

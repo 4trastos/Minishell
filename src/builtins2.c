@@ -25,33 +25,36 @@ void	get_builts(t_string *built, unsigned int i)
 		built->blt = BT_EXPORT;
 	else if (i == 4)
 		built->blt = BT_UNSET;
+	else if (i == 5)
+		built->blt = BT_ENV;
 }
 
-int	ft_mychdir(char *prompt)
+int	ft_mychdir(char *prompt, t_tools *tools)
 {
 	char	cwd[MAX_PATH_LEN];
 	char	*path;
+	int		i;
 
 	path = prompt;
 	while (*path == ' ' || *path == 'c' || *path == 'd')
 		path++;
+	path = ft_strtrim(path, " ");
 	if (*path == '\0')
 	{
-		printf("Error: Ruta vacía\n");
-		return (0);
+		if (chdir(ft_findhome(tools->env)) != 0)
+			perror("chdir");
 	}
-	if (getcwd(cwd, sizeof(cwd)) != NULL)
-		printf("%s\n", path);
-	else
+	else if (*path == '$')
 	{
+		path++;
+		i = ft_findenv(tools->env, path);
+		if (chdir(ft_findvarvalue(tools->env[i])) != 0)
+			perror("chdir");
+	}
+	else if (getcwd(cwd, sizeof(cwd)) == NULL)
 		perror("getcwd");
-		return (0);
-	}
-	if (chdir(path) != 0)
-	{
+	else if (chdir(path) != 0)
 		perror("chdir");
-		return (0);
-	}
 	return (0);
 }
 
@@ -89,12 +92,17 @@ int	ft_myexport(char **dup, t_tools *tools, char *prompt)
 	int		index;
 	int		i;
 
+	(void)dup;
 	str = prompt;
 	while (*str == ' ' || *str == 'e' || *str == 'x' || *str == 'p'
 		|| *str == 'o' || *str == 'r' || *str == 't')
 		str++;
-	if (*str == '\0')
-		return (ft_customenvp(dup));
+	if (*str == '\0' || tools->sizetokens > 1)
+	{
+		ft_customenvp(tools);
+		ft_printenvp(tools);
+		return (0);
+	}
 	name = ft_split(str, ' ');
 	i = 0;
 	while (name[i] != NULL)

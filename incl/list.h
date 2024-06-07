@@ -19,7 +19,7 @@
 # include <limits.h>
 # include <stddef.h>
 
-# define BUILTS "cd echo export unset"
+# define BUILTS "cd echo export unset env"
 # define MAX_PATH_LEN 4096
 
 typedef struct s_tools	t_tools;
@@ -38,12 +38,12 @@ typedef void			(*t_function)(void *);
 
 t_list		*new_list(void);
 t_string	*terminal_string(char *str);
-void		ft_printenvp(char **str);
+void		ft_printenvp(t_tools *tools);
 void		ft_printlist(t_list *tokens);
 t_list		*insert_in_list(t_list *tokens, t_string *command);
 void		list_app_function(t_list *list, t_function f);
 void		list_expresion(t_list *tokens);
-int			ft_mychdir(char *prompt);
+int			ft_mychdir(char *prompt, t_tools *tools);
 int			ft_findenv(char **env, char *name);
 void		ft_addname(t_tools *tools, char *name);
 void		ft_addvalue(char **env, char *name, int index);

@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/03 12:53:57 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:00:02 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,34 +25,34 @@ static void	ft_printenvp_ii(char *str, int *flag)
 		{
 			if (*flag == 1)
 			{
-				write(1, "\"", 1);
+				printf("\"");
 				*flag = 2;
 			}
 		}
-		write(1, &str[i], 1);
+		printf("%c", str[i]);
 		i++;
 	}
 }
 
-void	ft_printenvp(char **str)
+void	ft_printenvp(t_tools *tools)
 {
 	int	i;
 	int	flag;
 
 	i = 0;
-	while (str[i] != NULL)
+	while (tools->exp[i] != NULL)
 	{
-		ft_putstr("declare -x ");
+		printf("declare -x ");
 		flag = 0;
-		ft_printenvp_ii(str[i], &flag);
+		ft_printenvp_ii(tools->exp[i], &flag);
 		if (flag == 1)
 		{
-			write(1, "\"", 1);
-			write(1, "\"", 1);
+			printf("\"");
+			printf("\"");
 		}
 		else if (flag == 2)
-			write(1, "\"", 1);
-		write(1, "\n", 1);
+			printf("\"");
+		printf("\n");
 		i++;
 	}
 }
@@ -67,7 +67,7 @@ int	ft_strcmp(char *str1, char *str2)
 	return (*(unsigned char *)str1 - *(unsigned char *)str2);
 }
 
-int	ft_customenvp(char **dup)
+int	ft_customenvp(t_tools *tools)
 {
 	char	*aux;
 	int		i;
@@ -78,19 +78,18 @@ int	ft_customenvp(char **dup)
 	{
 		swapped = 0;
 		i = 0;
-		while (dup[i + 1] != NULL)
+		while (tools->exp[i + 1] != NULL)
 		{
-			if (ft_strcmp(dup[i], dup[i + 1]) > 0)
+			if (ft_strcmp(tools->exp[i], tools->exp[i + 1]) > 0)
 			{
-				aux = dup[i];
-				dup[i] = dup[i + 1];
-				dup[i + 1] = aux;
+				aux = tools->exp[i];
+				tools->exp[i] = tools->exp[i + 1];
+				tools->exp[i + 1] = aux;
 				swapped = 1;
 			}
 			i++;
 		}
 	}
-	ft_printenvp(dup);
 	return (0);
 }
 

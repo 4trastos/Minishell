@@ -62,6 +62,7 @@ t_list	*insert_in_list(t_list *list, t_string *command)
 	{
 		list->data[i] = terminal_string(command->str);
 		list->data[i]->op = command->op;
+				list->data[i]->blt = command->blt;
 		list->size++;
 	}
 	return (list);

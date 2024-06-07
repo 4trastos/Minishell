@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usuario <usuario@student.42.fr>            +#+  +:+       +#+        */
+/*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:13:54 by nicgonza          #+#    #+#             */
-/*   Updated: 2024/05/20 20:21:13 by usuario          ###   ########.fr       */
+/*   Updated: 2024/06/07 15:49:02 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/minishell.h"
-
-
 
 static char	*ft_sticky(char const *s1, char const *s2, char *cadena)
 {
