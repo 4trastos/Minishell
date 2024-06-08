@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:13:54 by nicgonza          #+#    #+#             */
-/*   Updated: 2024/06/07 16:02:50 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/08 14:57:28 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,10 @@ char	*ft_createname(char *name, char c)
 
 void	ft_isquotes(char *str, char **env, int *doubles, int *single)
 {
-	if ((*doubles || !*doubles) && !*single)
+	(void)doubles;
+	if (*single == -1)
 		ft_hatedollar(str, env);
-	if (*single)
+	if (*single == 1 || *single == 0)
 	{
 		while (*str != '\0')
 		{

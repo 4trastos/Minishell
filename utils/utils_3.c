@@ -6,13 +6,34 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:49:08 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/07 20:13:20 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/08 16:43:12 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/minishell.h"
 
-void	ft_quotescount(char *str, int *doubles, int *single, int *post_exp)
+void	ft_quotescount(char *str, int *doubles, int *single)
+{
+	int s;
+	int i;
+
+	s = 0;
+	i = 0;
+	(void)doubles;
+	while (*str != '\0')
+	{
+		if (str[i] == '\'')
+		{
+			s++;
+			*single = !*single;
+		}
+		i++;
+	}
+	if (s % 2 != 0 && *single)
+		ft_errormsg("Error\n");
+}
+
+/* void	ft_quotescount(char *str, int *doubles, int *single, int *post_exp)
 {
 	int	i;
 
@@ -30,21 +51,4 @@ void	ft_quotescount(char *str, int *doubles, int *single, int *post_exp)
 			(*post_exp) = i;
 		i++;
 	}
-	printf("dobles -> %d #### simples -> %d ### posción del expansor -> %d\n", *doubles, *single, *post_exp);
-}
-
-/* void	ft_quotescount(char *str, char **env, int *doubles, int *single)
-{
-	int	i;
-
-	i = 0;
-	(void)env;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '"')
-			(*doubles)++;
-		else if (str[i] == 39)
-			(*single)++;
-		i++;
-	}
-} */
+}*/

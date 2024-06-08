@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:14:29 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/07 19:49:00 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/08 18:41:28 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ void		insert_global(t_list *list, char *command, int numb);
 void		terminator(t_tools *tools, char *prompt, char *built, int blt);
 void		check_builtins(t_tools *tools, t_list *built, char *input,
 				int *flag);
-void		ft_myprintecho(char **echo, t_tools *tools, int flag, int i);
+void		ft_myprintecho(char *echo, t_tools *tools, int flag);
 int			ft_builtcmp(t_list *built, char *str, int len, int post);
 void		get_builts(t_string *built, unsigned int i);
 int			ft_echocmp(char *str, char *dst);
@@ -199,12 +199,11 @@ int			ft_myexport(char **dup, t_tools *tools, char *prompt);
 int			ft_customenvp(t_tools *tools);
 void		ft_isquotes(char *str, char **env, int *doubles, int *single);
 void		ft_writestr(char **echo, int flag, char **env, int index);
-void		ft_putquotes(char **echo, char **env, int doubles, int single);
+void		ft_putquotes(char *echo, char **env, int doubles, int single);
 int			ft_exit(char *prompt, char *built, int blt);
 t_list		*create_tokens(t_list *built, t_tools *tools, t_string *cmd_input);
 void		ft_hatedollar(char *str, char **env);
-void		ft_putquotes(char **echo, char **env, int doubles, int single);
-void		ft_quotescount(char *str, int *doubles, int *single, int *post_exp);
+void		ft_quotescount(char *str, int *doubles, int *single);
 
 /*** SIGNAL ***/
 

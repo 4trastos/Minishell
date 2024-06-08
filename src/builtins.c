@@ -6,58 +6,50 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/07 15:59:09 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/08 20:29:52 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/minishell.h"
 
-void	ft_myprintecho(char **echo, t_tools *tools, int flag, int i)
+void	ft_myprintecho(char *echo, t_tools *tools, int flag)
 {
 	int	single;
 	int	doubles;
 
 	single = 0;
 	doubles = 0;
-	echo++;
-	while (i > 0)
-	{
-		echo++;
-		i--;
-	}
-	echo--;
 	ft_putquotes(echo, tools->env, doubles, single);
 	if (flag == 0)
 		write(1, "\n", 1);
 	return ;
 }
 
-static int	ft_myecho(char *str, t_tools *tools)
+static int	ft_myecho(char *echo, t_tools *tools)
 {
-	int		i;
-	int		flag;
-	char	**echo;
+	int	flag;
 
-	echo = ft_split(str, ' ');
-	if (ft_strlist(echo) == 1)
+	while (*echo == ' ')
+		echo++;
+	if (ft_strncmp(echo, "echo", 4) == 0)
+		echo += 4;
+	while (*echo == ' ')
+		echo++;
+	if (*echo == '-' && *(echo + 1) == 'n')
 	{
-		write(1, "\n", 1);
-		ft_doublefree(echo);
+		while (*echo == '-' || *echo == 'n' || *echo == ' ')
+			echo++;
+		flag = 1;
+	}
+	while (*echo == ' ')
+		echo++;
+	if (*echo == '\0')
+	{
+		if (flag == 0)
+			write(1, "\n", 1);
 		return (0);
 	}
-	i = 1;
-	flag = 0;
-	while (echo[i] != NULL && ft_strncmp(echo[i], "-n", 3) == 0)
-	{
-		if (echo[i + 1] == NULL)
-		{
-			ft_doublefree(echo);
-			return (0);
-		}
-		flag = 1;
-		i++;
-	}
-	ft_myprintecho(echo, tools, flag, i);
+	ft_myprintecho(echo, tools, flag);
 	return (0);
 }
 
