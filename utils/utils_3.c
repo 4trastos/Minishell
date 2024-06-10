@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:49:08 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/08 16:43:12 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/10 09:34:01 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_quotescount(char *str, int *doubles, int *single)
 {
-	int s;
-	int i;
+	int	s;
+	int	i;
 
 	s = 0;
 	i = 0;
