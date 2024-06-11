@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/08 20:29:52 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:22:34 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,16 @@
 
 void	ft_myprintecho(char *echo, t_tools *tools, int flag)
 {
-	int	single;
-	int	doubles;
+	int	i;
 
-	single = 0;
-	doubles = 0;
-	ft_putquotes(echo, tools->env, doubles, single);
+	i = 0;
+	i = ft_validator(echo, tools->env);
+	if (i == 1)
+	{
+		write(1, "Error\n", 6);
+		return ;
+	}
+	ft_putquotes(echo, tools->env);
 	if (flag == 0)
 		write(1, "\n", 1);
 	return ;
@@ -91,7 +95,7 @@ void	terminator(t_tools *tools, char *prompt, char *built, int blt)
 		tools->exp = dup_matrix(tools->env);
 		if (!tools->exp)
 			return ;
-		ft_myexport(tools->exp, tools, prompt);
+		ft_myexport(tools, prompt);
 	}
 	else if (blt == BT_UNSET)
 		ft_myunset(tools->env, prompt);
@@ -99,25 +103,15 @@ void	terminator(t_tools *tools, char *prompt, char *built, int blt)
 		ft_myenv(tools->env);
 }
 
-/* void	ft_myprintecho(char **echo, t_tools *tools, int flag, int i)
-{
-	int		k;
-	int		quotes;
-	int		single;
-	int		mark;
 
-	k = 0;
-	quotes = 0;
+/* void	ft_myprintecho(char *echo, t_tools *tools, int flag)
+{
+	int	single;
+	int	doubles;
+
 	single = 0;
-	mark = 0;
-	while (echo[k] != NULL)
-	{
-		ft_isquotes(echo[k], &quotes, &single);
-		k++;
-	}
-	if (single > 1)
-		mark = 1;
-	ft_writedollar(echo, tools->env, i, mark);
+	doubles = 0;
+	ft_putquotes(echo, tools->env, doubles, single);
 	if (flag == 0)
 		write(1, "\n", 1);
 	return ;

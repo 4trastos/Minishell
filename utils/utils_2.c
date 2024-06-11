@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:49:08 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/10 13:52:51 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:55:50 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	ft_doubles(char *str, char **env, int *test)
 	}
 }
 
-void	ft_putquotes(char *echo, char **env, int doubles, int single)
+void	ft_putquotes(char *echo, char **env)
 {
 	char	*new;
 	char	*end;
@@ -47,8 +47,6 @@ void	ft_putquotes(char *echo, char **env, int doubles, int single)
 	int		flag;
 	int		test;
 
-	(void)doubles;
-	(void)single;
 	flag = 0;
 	while (*echo != '\0')
 	{
@@ -72,7 +70,7 @@ void	ft_putquotes(char *echo, char **env, int doubles, int single)
 				}
 				else
 				{
-					write(1, "Error", 5);
+					write(1, "ERROR DENTRO DEL OK\n",20);
 					return ;
 				}
 			}
@@ -88,19 +86,21 @@ void	ft_putquotes(char *echo, char **env, int doubles, int single)
 					echo = end++;
 				}
 				else
-				{
-					write(1, "Error", 5);
 					return ;
-				}
 			}
 			else if (*echo == '$' && *(echo + 1) != '\0')
 			{
-				ft_doubles(echo, env, &test);
-				if (test != -1)
+				test = ft_hatedollar(echo, env);
+				if (test == -1)
+					return ;
+				else
 				{
-					int i = 0;
-					while (++i <= 4)
+					len = 0;
+					while (env[test][len] != '=')
+					{
+						len++;
 						echo++;
+					}
 				}
 			}
 			else
@@ -138,60 +138,3 @@ char	*ft_findhome(char **envp)
 	}
 	return (NULL);
 }
-
-
-/* void	ft_putquotes(char **echo, char **env, int doubles, int single)
-{
-	int	j;
-	int	post_exp;
-
-	while (*echo != NULL)
-	{
-		j = 0;
-		ft_quotescount(*echo, &doubles, &single, &post_exp);
-		while ((*echo)[j] != '\0')
-		{
-			if ((*echo)[j] == '"')
-				ft_doubles((*echo)[j], &doubles, &single, &post_exp);
-			if ((*echo)[j] == '\'')
-				ft_singles((*echo)[j], &doubles, &single, &post_exp);
-			else if ((*echo)[j] == '$')
-			{
-				ft_isquotes(&(*echo)[j], env, &doubles, &single);
-				break ;
-			}
-			else
-				write(1, &(*echo)[j], 1);
-			j++;
-		}
-		if ((*echo)++ != NULL)
-			write(1, " ", 1);
-		echo++;
-	}
-} */
-
-/* static void	ft_doubles(char c, int *doubles, int *single)
-{
-	if (c == '"')
-	{
-		if (!*single)
-			*doubles = !*doubles;
-		else
-			write(1, &c, 1);
-	}
-	else
-		write(1, &c, 1);
-}
-
-static void	ft_singles(char c, int *doubles, int *single)
-{
-	if (c == '\'')
-	{
-		if (!*doubles)
-			*single = !*single;
-		else
-			write(1, &c, 1);
-	}
-	else
-		write(1, &c, 1);
-} */

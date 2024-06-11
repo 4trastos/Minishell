@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:14:29 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/10 11:47:44 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:22:39 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,15 +195,17 @@ void		get_builts(t_string *built, unsigned int i);
 int			ft_echocmp(char *str, char *dst);
 int			ft_myunset(char **env, char *name);
 int			ft_findenv(char **env, char *name);
-int			ft_myexport(char **dup, t_tools *tools, char *prompt);
+int			ft_myexport(t_tools *tools, char *prompt);
 int			ft_customenvp(t_tools *tools);
 void		ft_isquotes(char *str, char **env, int *doubles, int *single);
 void		ft_writestr(char **echo, int flag, char **env, int index);
-void		ft_putquotes(char *echo, char **env, int doubles, int single);
+void		ft_putquotes(char *echo, char **env);
 int			ft_exit(char *prompt, char *built, int blt);
 t_list		*create_tokens(t_list *built, t_tools *tools, t_string *cmd_input);
 int			ft_hatedollar(char *str, char **env);
-void		ft_quotescount(char *str, int *doubles, int *single);
+int			ft_testdollar(char *str, char **env);
+char		*ft_updatexport(char *prompt);
+int			ft_validator(char *echo, char **env);
 
 /*** SIGNAL ***/
 

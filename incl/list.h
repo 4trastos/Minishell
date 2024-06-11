@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:31:05 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/03 13:11:00 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:44:38 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ t_list		*create_tokens(t_list *built, t_tools *tools, t_string *cmd_input);
 int			ft_strcmp(char *str1, char *str2);
 void		ft_putstr(char *str);
 void		ft_updatevalue(char **env, char *name, int index);
+void		ft_void(int test);
 
 /*** DELETE ***/
 

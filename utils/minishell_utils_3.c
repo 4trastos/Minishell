@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:13:54 by nicgonza          #+#    #+#             */
-/*   Updated: 2024/06/10 13:24:55 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:49:43 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,11 @@ int	ft_findenv(char **env, char *name)
 	i = 0;
 	len = 0;
 	aux = name;
-	while (*name != '=' && *name != '\0' && *name != '\'')
+	while (*name != '=' && *name != '\0' && *name != '\'' && *name != '"')
 	{
 		len++;
 		name++;
 	}
-	/* if (name[len - 1] == '"')
-		len--; */
 	while (env[i] != NULL)
 	{
 		if (ft_strncmp(env[i], aux, len) == 0 && env[i][len] == '=')
@@ -100,23 +98,3 @@ char	*ft_findvarvalue(char *str)
 	str++;
 	return (str);
 }
-
-/* int	ft_findenv(char **env, char *name)
-{
-	int	len;
-	int	i;
-
-	i = 0;
-	len = 0;
-	while (name[len] != '=' && name[len] != '\0')
-		len++;
-	if (name[len - 1] == '"')
-		len--;
-	while (env[i] != NULL)
-	{
-		if (ft_strncmp(env[i], name, len) == 0 && env[i][len] == '=')
-			return (i);
-		i++;
-	}
-	return (-1);
-} */

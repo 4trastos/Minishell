@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/08 18:30:40 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:12:30 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,25 +85,20 @@ int	ft_myunset(char **env, char *name)
 	return (0);
 }
 
-int	ft_myexport(char **dup, t_tools *tools, char *prompt)
+int	ft_myexport(t_tools *tools, char *prompt)
 {
 	char	**name;
-	char	*str;
 	int		index;
 	int		i;
 
-	(void)dup;
-	str = prompt;
-	while (*str == ' ' || *str == 'e' || *str == 'x' || *str == 'p'
-		|| *str == 'o' || *str == 'r' || *str == 't')
-		str++;
-	if (*str == '\0' || tools->sizetokens > 1)
+	prompt = ft_updatexport(prompt);
+	if (*prompt == '\0' || tools->sizetokens > 1)
 	{
 		ft_customenvp(tools);
 		ft_printenvp(tools);
 		return (0);
 	}
-	name = ft_split(str, ' ');
+	name = ft_split(prompt, ' ');
 	i = 0;
 	while (name[i] != NULL)
 	{

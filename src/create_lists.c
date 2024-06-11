@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:42:21 by davgalle          #+#    #+#             */
-/*   Updated: 2024/05/30 15:13:28 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:57:02 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_list	*insert_in_list(t_list *list, t_string *command)
 	{
 		list->data[i] = terminal_string(command->str);
 		list->data[i]->op = command->op;
-				list->data[i]->blt = command->blt;
+		list->data[i]->blt = command->blt;
 		list->size++;
 	}
 	return (list);
