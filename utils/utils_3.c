@@ -6,18 +6,49 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:49:08 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/11 15:23:16 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:46:11 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/minishell.h"
 
-int	ft_validator(char *echo, char **env)
+static int	ft_processdollar(char *echo, char **env)
+{
+	int	len;
+	int	test;
+
+	test = ft_testdollar(echo, env);
+	if (test == -1)
+		return (0);
+	while (env[test][len] != '=')
+	{
+		len++;
+		echo++;
+	}
+	return (0);
+}
+
+static int	ft_checkquote(char *echo, int *len, char quote)
 {
 	char	*end;
+
+	end = NULL;
+	echo++;
+	end = ft_strchr(echo, quote);
+	if (end != NULL)
+	{
+		*len = end - echo;
+		echo = end + 1;
+		return (1);
+	}
+	else
+		return (0);
+}
+
+int	ft_validator(char *echo, char **env)
+{
 	int		len;
 	int		flag;
-	int		test;
 
 	len = 0;
 	flag = 0;
@@ -30,47 +61,19 @@ int	ft_validator(char *echo, char **env)
 			if (flag)
 				write(1, " ", 1);
 			flag = 0;
-			if (*echo == '\'')
+			if (*echo == '\'' || *echo == '"')
 			{
-				echo++;
-				end = ft_strchr(echo, '\'');
-				if (end != NULL)
-				{
-					len = end - echo;
-					echo = end++;
-				}
-				else
+				if (!ft_checkquote(echo, &len, *echo))
 					return (1);
-			}
-			else if (*echo == '"')
-			{
-				echo++;
-				end = ft_strchr(echo, '"');
-				if (end != NULL)
-				{
-					len = end - echo;
-					echo = end++;
-				}
-				else
-					return (1);
+				echo += len + 2;
 			}
 			else if (*echo == '$' && *(echo + 1) != '\0')
 			{
-				test = ft_testdollar(echo, env);
-				if (test == -1)
+				if (ft_processdollar(echo, env))
 					return (1);
-				else
-				{
-					len = 0;
-					while (env[test][len] != '=')
-					{
-						len++;
-						echo++;
-					}
-				}
 			}
 			else
-				ft_void(test);
+				ft_void(0);
 		}
 		echo++;
 	}
