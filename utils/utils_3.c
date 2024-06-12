@@ -6,27 +6,11 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:49:08 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/11 16:46:11 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:40:30 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/minishell.h"
-
-static int	ft_processdollar(char *echo, char **env)
-{
-	int	len;
-	int	test;
-
-	test = ft_testdollar(echo, env);
-	if (test == -1)
-		return (0);
-	while (env[test][len] != '=')
-	{
-		len++;
-		echo++;
-	}
-	return (0);
-}
 
 static int	ft_checkquote(char *echo, int *len, char quote)
 {
@@ -45,7 +29,7 @@ static int	ft_checkquote(char *echo, int *len, char quote)
 		return (0);
 }
 
-int	ft_validator(char *echo, char **env)
+int	ft_validator(char *echo)
 {
 	int		len;
 	int		flag;
@@ -59,26 +43,21 @@ int	ft_validator(char *echo, char **env)
 		else if (*echo != ' ')
 		{
 			if (flag)
-				write(1, " ", 1);
+				ft_void(0);
 			flag = 0;
 			if (*echo == '\'' || *echo == '"')
 			{
 				if (!ft_checkquote(echo, &len, *echo))
 					return (1);
-				echo += len + 2;
+				echo += len + 1;
 			}
-			else if (*echo == '$' && *(echo + 1) != '\0')
-			{
-				if (ft_processdollar(echo, env))
-					return (1);
-			}
-			else
-				ft_void(0);
 		}
-		echo++;
+		if (*echo != '\0')
+			echo++;
 	}
 	return (0);
 }
+
 
 char	*ft_updatexport(char *prompt)
 {
@@ -90,4 +69,3 @@ char	*ft_updatexport(char *prompt)
 		prompt++;
 	return (prompt);
 }
-

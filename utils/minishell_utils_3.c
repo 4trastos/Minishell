@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:13:54 by nicgonza          #+#    #+#             */
-/*   Updated: 2024/06/11 12:49:43 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/12 11:19:39 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,19 @@ int	ft_findenv(char **env, char *name)
 	i = 0;
 	len = 0;
 	aux = name;
-	while (*name != '=' && *name != '\0' && *name != '\'' && *name != '"')
+	while (*name != '=' && *name != '\0' && *name != '\'' && *name != ' '
+		&& *name != '"')
 	{
 		len++;
 		name++;
 	}
+	name = aux;
 	while (env[i] != NULL)
 	{
 		if (ft_strncmp(env[i], aux, len) == 0 && env[i][len] == '=')
 			return (i);
 		i++;
 	}
-	name = aux;
 	return (-1);
 }
 

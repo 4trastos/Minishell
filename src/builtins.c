@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/11 15:22:34 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:40:40 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ void	ft_myprintecho(char *echo, t_tools *tools, int flag)
 {
 	int	i;
 
-	i = 0;
-	i = ft_validator(echo, tools->env);
+	i = ft_validator(echo);
 	if (i == 1)
 	{
 		write(1, "Error\n", 6);

@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:49:08 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/11 14:55:50 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/12 10:59:14 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ static void	ft_doubles(char *str, char **env, int *test)
 				str++;
 			}
 		}
-		write(1, &(*str), 1);
-		str++;
+		write(1, str, 1);
+		if (*str != '\0')
+			str++;
 	}
 }
 
@@ -67,12 +68,10 @@ void	ft_putquotes(char *echo, char **env)
 					new = ft_substr(echo, 0, len);
 					ft_putstr(new);
 					echo = end++;
+					free(new);
 				}
 				else
-				{
-					write(1, "ERROR DENTRO DEL OK\n",20);
 					return ;
-				}
 			}
 			else if (*echo == '"')
 			{
@@ -84,6 +83,7 @@ void	ft_putquotes(char *echo, char **env)
 					new = ft_substr(echo, 0, len);
 					ft_doubles(new, env, &test);
 					echo = end++;
+					free(new);
 				}
 				else
 					return ;
@@ -104,7 +104,7 @@ void	ft_putquotes(char *echo, char **env)
 				}
 			}
 			else
-				write(1, &(*echo), 1);
+				write(1, echo, 1);
 		}
 		echo++;
 	}

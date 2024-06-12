@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:14:29 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/11 15:22:39 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:40:48 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,10 +151,10 @@ int			ft_strncmp(char *str, char *dst, int numb);
 size_t		ft_strlen(const char *s);
 char		**dup_matrix(char **matrix);
 char		*ft_strdup(char *s1);
-char		*ft_strtrim(char const *s1, char const *set);
+char		*ft_strtrim(char *s1, char *set);
 char		*ft_strchr(char *str, int c);
 char		*ft_strchr_hd(char *s, int c);
-char		*ft_substr(char const *s, unsigned int start, size_t len);
+char		*ft_substr(char *s, unsigned int start, size_t len);
 char		*ft_substrop(char const *s, unsigned int start, size_t len);
 void		*ft_bzero(void *str, size_t n);
 void		*ft_calloc(size_t n, size_t b);
@@ -205,7 +205,7 @@ t_list		*create_tokens(t_list *built, t_tools *tools, t_string *cmd_input);
 int			ft_hatedollar(char *str, char **env);
 int			ft_testdollar(char *str, char **env);
 char		*ft_updatexport(char *prompt);
-int			ft_validator(char *echo, char **env);
+int			ft_validator(char *echo);
 
 /*** SIGNAL ***/
 
