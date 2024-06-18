@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:31:05 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/12 09:50:43 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/18 18:42:27 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <limits.h>
 # include <stddef.h>
 
-# define BUILTS "cd echo export unset env"
+# define BUILTS "cd echo export unset env exit"
 # define MAX_PATH_LEN 4096
 
 typedef struct s_tools	t_tools;
@@ -55,6 +55,8 @@ int			ft_strcmp(char *str1, char *str2);
 void		ft_putstr(char *str);
 void		ft_updatevalue(char **env, char *name, int index);
 void		ft_void(int test);
+void		ft_doubles(char *str, int *i, int *test, t_tools *tools);
+void		ft_cstdoubles(char **echo, char **env, t_tools *tools);
 
 /*** DELETE ***/
 

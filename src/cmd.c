@@ -6,13 +6,13 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:31:05 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/03 13:21:18 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:49:37 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/minishell.h"
 
-int	get_cmds(t_list *tokens, t_executor *exe)
+int	get_cmds(t_list *tokens)
 {
 	int	i;
 	int	num_cmd;
@@ -21,11 +21,10 @@ int	get_cmds(t_list *tokens, t_executor *exe)
 	num_cmd = 0;
 	while (i < (int)tokens->size)
 	{
-		if (tokens->data[i]->op == OP_NONE || tokens->data[i]->op == OP_BUILTIN
-			|| tokens->data[i]->op == OP_DOLLAR_SIGN)
+		if ((tokens->data[i]->op == OP_NONE || tokens->data[i]->op == OP_BUILTIN
+				|| tokens->data[i]->op == OP_DOLLAR_SIGN)
+			&& tokens->data[i]->str[0] != 0)
 			num_cmd++;
-		if (tokens->data[i]->op == OP_BUILTIN)
-			exe->num_built++;
 		i++;
 	}
 	return (num_cmd);
@@ -80,32 +79,22 @@ void	ft_exec_cmd(t_tools *tools, t_list *tokens, t_executor *exe, int i)
 			ft_dup2(exe->pipe_fd[2 * exe->i - 2], exe->pipe_fd[2 * exe->i + 1]);
 		ft_close_pipes(exe);
 		if (tokens->data[i]->op == OP_BUILTIN)
-		{
-			terminator(tools, tools->prompt, tokens->data[i]->str, tokens->data[i]->blt);
-			exe->exit_code = 0;
-		}
+			ft_built(tools, tokens, i);
 		else if (tokens->data[i]->op == OP_NONE)
-		{
-			exe->rute = get_rute(exe->cmd, exe->path);
-			if (!exe->rute)
-				perror("comand");
-			exe->exit_code = execve(exe->rute, exe->fullcmd, tools->env);
-			if (exe->exit_code == -1)
-				perror("excve");
-		}
+			ft_execve(exe, tools);
 		else if (tokens->data[i]->op == OP_DOLLAR_SIGN)
-		{
-			ft_hatedollar(tokens->data[i]->str, tools->env);
-			printf("\n");
-		}
-		exit(exe->exit_code);
+			ft_expand(tokens, tools, i);
+		exit(tools->exit_code);
 	}
 }
 
 int	execute_cmd(t_list *tokens, t_executor *exe, t_tools *tools)
 {
 	if (ft_setparams(tokens, exe) == -1)
+	{
+		ft_close_fd(exe);
 		return (-1);
+	}
 	create_pipes(exe);
 	exe->i = -1;
 	while (++exe->i < exe->num_cmd)
@@ -113,9 +102,11 @@ int	execute_cmd(t_list *tokens, t_executor *exe, t_tools *tools)
 	exe->i = -1;
 	ft_close_pipes(exe);
 	while (++exe->i < exe->num_cmd)
-		waitpid(-1, &exe->status, 0);
+		waitpid(exe->pid[exe->i], &exe->status, 0);
 	if (WIFEXITED(exe->status))
-		exe->exit_code = WEXITSTATUS(exe->status);
+		tools->exit_code = WEXITSTATUS(exe->status);
+	else if (WIFSIGNALED(exe->status))
+		tools->exit_code = 128 + WTERMSIG(exe->status);
 	ft_close_fd(exe);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:14:29 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/12 12:40:48 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:21:09 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_tools
 	int				number_paths;
 	int				here_doc;
 	int				pipe_numb;
+	int				exit_code;
 	int				*pipe;
 	unsigned int	sizetokens;
 	char			*commands;
@@ -64,6 +65,7 @@ typedef enum s_builtin
 	BT_EXPORT,
 	BT_UNSET,
 	BT_ENV,
+	BT_EXIT,
 }	t_builtin;
 
 typedef enum s_operator
@@ -106,7 +108,6 @@ typedef struct s_executor
 	int		*pipe_fd;
 	int		i;
 	int		status;
-	int		exit_code;
 	int		num_built;
 	pid_t	*pid;
 	char	*cmd;
@@ -114,6 +115,7 @@ typedef struct s_executor
 	char	**fullcmd;
 	char	**path;
 	char	**env;
+	char	**aux;
 }	t_executor;
 
 /*** MAIN ***/
@@ -144,6 +146,7 @@ void		get_op(t_string *token);
 void		ft_built_ins(void);
 int			ft_opcmp(char *str, char c);
 bool		ft_opdollar(char *str, char c);
+t_list		**ft_split_tokens(t_list *tokens);
 
 /*** UTILS ***/
 
@@ -151,10 +154,10 @@ int			ft_strncmp(char *str, char *dst, int numb);
 size_t		ft_strlen(const char *s);
 char		**dup_matrix(char **matrix);
 char		*ft_strdup(char *s1);
-char		*ft_strtrim(char *s1, char *set);
+char		*ft_strtrim(char const *s1, char const *set);
 char		*ft_strchr(char *str, int c);
 char		*ft_strchr_hd(char *s, int c);
-char		*ft_substr(char *s, unsigned int start, size_t len);
+char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_substrop(char const *s, unsigned int start, size_t len);
 void		*ft_bzero(void *str, size_t n);
 void		*ft_calloc(size_t n, size_t b);
@@ -176,6 +179,11 @@ int			custom_strncmp(char *prompt, char *built, int len, int blt);
 int			ft_isalnum(int c);
 void		ft_myenv(char **env);
 char		*ft_findvarvalue(char *str);
+char		**ft_create_shlvl(char **env, int len);
+int			ft_get_code(int cod);
+int			ft_isdigit(int c);
+int			ft_export_name(char *str);
+int			ft_find_out(t_list *l);
 
 /*** ERROR ***/
 
@@ -197,15 +205,15 @@ int			ft_myunset(char **env, char *name);
 int			ft_findenv(char **env, char *name);
 int			ft_myexport(t_tools *tools, char *prompt);
 int			ft_customenvp(t_tools *tools);
-void		ft_isquotes(char *str, char **env, int *doubles, int *single);
+void		ft_isquotes(char *str, char **env, t_tools *tools, int *single);
 void		ft_writestr(char **echo, int flag, char **env, int index);
-void		ft_putquotes(char *echo, char **env);
-int			ft_exit(char *prompt, char *built, int blt);
 t_list		*create_tokens(t_list *built, t_tools *tools, t_string *cmd_input);
-int			ft_hatedollar(char *str, char **env);
+int			ft_hatedollar(char *str, char **env, t_tools *tools);
 int			ft_testdollar(char *str, char **env);
 char		*ft_updatexport(char *prompt);
 int			ft_validator(char *echo);
+void		ft_putquotes(char *echo, char **env, t_tools *tools);
+void		ft_exit(char *str);
 
 /*** SIGNAL ***/
 

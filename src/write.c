@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:18:54 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/11 13:44:27 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:45:52 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,17 @@ int	ft_testdollar(char *str, char **env)
 	return (index);
 }
 
-int	ft_hatedollar(char *str, char **env)
+int	ft_hatedollar(char *str, char **env, t_tools *tools)
 {
 	int	index;
 
 	str++;
+	if (*str == '?')
+	{
+		write(1, ft_itoa(tools->exit_code),
+			ft_strlen(ft_itoa(tools->exit_code)));
+		return (2);
+	}
 	index = ft_findenv(env, str);
 	if (index == -1)
 	{

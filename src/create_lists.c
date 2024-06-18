@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:42:21 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/11 12:57:02 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:50:50 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ t_list	*create_tokens(t_list *built, t_tools *tools, t_string *cmd_input)
 		else
 			command = parse_tokens(tools, built, str, &i);
 		tokens = insert_in_list(tokens, command);
+		string_delete(command);
 		free(command);
 	}
 	return (tokens);

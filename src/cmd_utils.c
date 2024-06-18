@@ -75,16 +75,18 @@ void	get_command(t_list *tokens, t_executor *exe, t_tools *tools)
 		}
 		i++;
 	}
-	if (tokens->data[i]->op == OP_BUILTIN && exe->num_cmd == 1)
+	if (exe->num_cmd == 1 && tokens->data[i]->op == OP_BUILTIN && exe->outfile == 1)
 	{
 		terminator(tools, tools->prompt, tokens->data[i]->str, tokens->data[i]->blt);
+		tools->exit_code = 0;
 	}
 	else
-	{	
+	{
 		exe->cmd = get_cmd_aux(tokens, i);
 		exe->fullcmd = ft_split(tokens->data[i]->str, ' ');
 		ft_exec_cmd(tools, tokens, exe, i);
 		free(exe->cmd);
+		ft_doublefree(exe->fullcmd);
 	}
 }
 
@@ -94,4 +96,8 @@ void	ft_close_fd(t_executor *exe)
 		close(exe->infile);
 	if (exe->outfile != 1)
 		close(exe->outfile);
+	free(exe->pipe_fd);
+	free(exe->pid);
+	exe->num_cmd = 0;
+	exe->num_pipes = 0;
 }

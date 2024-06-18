@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/04 11:42:11 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:00:33 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_string	*parse_tokens(t_tools *tools, t_list *built, char *str,
 	while (str[*i] != 92 && str[*i] != '|' && str[*i]
 		&& str[*i] != '<' && str[*i] != '>' && str[*i] != ';')
 		(*i)++;
-	tools->prompt  = ft_substr(str, start, *i - start);
+	tools->prompt = ft_substr(str, start, *i - start);
 	check_builtins(tools, built, tools->prompt, &flag);
 	new = terminal_string(tools->prompt);
 	if (flag != 0)

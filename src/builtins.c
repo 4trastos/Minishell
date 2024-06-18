@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/12 12:40:40 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/18 12:02:01 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_myprintecho(char *echo, t_tools *tools, int flag)
 		write(1, "Error\n", 6);
 		return ;
 	}
-	ft_putquotes(echo, tools->env);
+	ft_putquotes(echo, tools->env, tools);
 	if (flag == 0)
 		write(1, "\n", 1);
 	return ;
@@ -71,9 +71,11 @@ t_list	*builtins(void)
 		command = NULL;
 		command = terminal_string(str[i]);
 		builtins = insert_in_list(builtins, (void *)command);
+		string_delete(command);
 		free(command);
 		i++;
 	}
+	ft_doublefree(str);
 	return (builtins);
 }
 
@@ -92,26 +94,12 @@ void	terminator(t_tools *tools, char *prompt, char *built, int blt)
 	else if (blt == BT_EXPORT)
 	{
 		tools->exp = dup_matrix(tools->env);
-		if (!tools->exp)
-			return ;
 		ft_myexport(tools, prompt);
 	}
 	else if (blt == BT_UNSET)
 		ft_myunset(tools->env, prompt);
 	else if (blt == BT_ENV)
 		ft_myenv(tools->env);
+	else if (blt == BT_EXIT)
+		ft_void(0);
 }
-
-
-/* void	ft_myprintecho(char *echo, t_tools *tools, int flag)
-{
-	int	single;
-	int	doubles;
-
-	single = 0;
-	doubles = 0;
-	ft_putquotes(echo, tools->env, doubles, single);
-	if (flag == 0)
-		write(1, "\n", 1);
-	return ;
-} */

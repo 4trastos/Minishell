@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:25:32 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/03 13:18:40 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:54:31 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,80 @@ void	ft_setexe(t_executor *executor, t_tools *tools)
 	executor->here_doc_id = 0;
 	executor->env = dup_matrix(tools->env);
 	executor->path = ft_split(ft_findpath(tools->env), ':');
+}
+
+static int	ft_count(t_list *t)
+{
+	unsigned int	i;
+	int				count;
+
+	i = 0;
+	count = 1;
+	while (i < t->size)
+	{
+		if (t->data[i]->op == OP_PIPE && (i != 0 || i != t->size - 1))
+		{
+			if (t->data[i - 1]->op == OP_OUTPUT_REDIRECT
+				|| t->data[i - 1]->op == OP_OUTPUT_REDIRECT_APPEND)
+				count++;
+			else if (t->data[i + 1]->op == OP_INPUT_REDIRECT
+				|| t->data[i + 1]->op == OP_HERE_DOC)
+				count++;
+		}
+		i++;
+	}
+	return (count);
+}
+
+t_list **ft_split_tokens(t_list *tokens)
+{
+	t_list			**new;
+	int				i;
+	unsigned int	j;
+	int				x;
+
+	new = (t_list **)malloc(sizeof(t_list *) * ft_count(tokens) + 8);
+	i = 0;
+	j = 0;
+	while (i < ft_count(tokens))
+	{
+		new[i] = new_list();
+		x = 0;
+		while (j < tokens->size)
+		{
+			if (tokens->data[j]->op == OP_PIPE && (j != 0 || j != tokens->size - 1))
+			{
+				if (tokens->data[j - 1]->op == OP_OUTPUT_REDIRECT || tokens->data[j - 1]->op == OP_OUTPUT_REDIRECT_APPEND)
+				{
+					j++;
+					break;
+				}
+				else if (tokens->data[j + 1]->op == OP_INPUT_REDIRECT || tokens->data[j + 1]->op == OP_HERE_DOC)
+				{
+					j++;
+					break;
+				}
+			}
+			new[i] = insert_in_list(new[i], tokens->data[j]);
+			j++;
+			x++;
+		}
+		i++;
+	}
+	new[i] = NULL;
+	return (new);
+}
+
+int	ft_find_out(t_list *l)
+{
+	int	i;
+
+	i = 0;
+	while (i < (int)l->size)
+	{
+		if (l->data[i]->op == 2 || l->data[i]->op == 5)
+			return (1);
+		i++;
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 15:33:23 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/03 12:20:50 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/18 14:17:28 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,37 @@ void	ft_updatevalue(char **env, char *name, int index)
 	}
 	new[i] = '\0';
 	env[index] = new;
+}
+
+int	ft_export_name(char *str)
+{
+	int	i;
+
+	i = 0;
+	if ((str[i] < 'a' && str[i] > 'z') || (str[i] < 'A' && str[i] > 'Z'))
+		return (1);
+	while (str[++i] != '\0' && str[i] != '=')
+	{
+		if (ft_isalnum(str[i]) == 0 && str[i] != '_')
+			return (1);
+	}
+	return (0);
+}
+
+void	ft_myenv(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i] != NULL)
+	{
+		if (ft_strchr(env[i], '=') != NULL)
+		{
+			ft_putstr(env[i]);
+			write(1, "\n", 1);
+			i++;
+		}
+		else
+			i++;
+	}
 }

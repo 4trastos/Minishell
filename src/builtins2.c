@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/11 11:12:30 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:38:19 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	get_builts(t_string *built, unsigned int i)
 		built->blt = BT_UNSET;
 	else if (i == 5)
 		built->blt = BT_ENV;
+	else if (i == 6)
+		built->blt = BT_EXIT;
 }
 
 int	ft_mychdir(char *prompt, t_tools *tools)

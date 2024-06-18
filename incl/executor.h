@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:31:05 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/03 13:09:59 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:50:11 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	ft_exec_cmd(t_tools *tools, t_list *tokens, t_executor *exe, int i);
 void	ft_dup2(int zero, int first);
 void	create_pipes(t_executor *exe);
 int		get_pipes(t_list *tokens, t_executor *exe);
-int		get_cmds(t_list *tokens, t_executor *exe);
-void 	get_command(t_list *tokens, t_executor *exe, t_tools *tools);
+int		get_cmds(t_list *tokens);
+void	get_command(t_list *tokens, t_executor *exe, t_tools *tools);
 void	ft_close_pipes(t_executor *exe);
 char	*get_rute(char *comand, char **paths);
 void	ft_close_fd(t_executor *exe);
@@ -56,5 +56,8 @@ void	ft_free_exe(t_executor *exe);
 int		ft_setparams(t_list *tokens, t_executor *exe);
 char	*get_cmd_aux(t_list *tokens, int i);
 void	ft_setexe(t_executor *executor, t_tools *tools);
+void	ft_built(t_tools *tools, t_list *tokens, int i);
+void	ft_expand(t_list *tokens, t_tools *tools, int i);
+void	ft_execve(t_executor *exe, t_tools *tools);
 
 #endif

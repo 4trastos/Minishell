@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:49:08 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/12 12:40:30 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:24:52 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	ft_validator(char *echo)
 	return (0);
 }
 
-
 char	*ft_updatexport(char *prompt)
 {
 	while (*prompt == ' ')
@@ -68,4 +67,19 @@ char	*ft_updatexport(char *prompt)
 	while (*prompt == ' ')
 		prompt++;
 	return (prompt);
+}
+
+int	ft_get_code(int cod)
+{
+	while (cod >= 256)
+		cod -= 256;
+	return (cod);
+}
+
+int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	else
+		return (0);
 }

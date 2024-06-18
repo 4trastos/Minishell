@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/07 16:00:02 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:39:58 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,4 @@ int	ft_customenvp(t_tools *tools)
 		}
 	}
 	return (0);
-}
-
-int	ft_exit(char *prompt, char *built, int blt)
-{
-	int	i;
-	int	len;
-
-	len = ft_strlen(built);
-	i = custom_strncmp(prompt, built, len, blt);
-	if (i != 0)
-		return (0);
-	return (blt);
 }

@@ -6,33 +6,81 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:49:08 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/12 10:59:14 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/18 18:51:51 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/minishell.h"
 
-static void	ft_doubles(char *str, char **env, int *test)
+static int	ft_searchquote(char *str, char **echo, char quote, t_tools *tools)
 {
-	int	i;
+	char	*end;
+	char	*new;
+	int		test;
+	int		i;
+	int		len;
 
 	i = 0;
+	end = NULL;
+	str++;
+	end = ft_strchr(str, quote);
+	if (end != NULL)
+	{
+		len = end - str;
+		new = ft_substr(str, 0, len);
+		if (quote == '\'')
+			ft_putstr(new);
+		else if (quote == '"')
+			ft_doubles(new, &i, &test, tools);
+		(*echo) += len;
+		free(new);
+		return (1);
+	}
+	else
+		return (0);
+}
+
+void	ft_cstdoubles(char **echo, char **env, t_tools *tools)
+{
+	int	test;
+	int	i;
+
+	test = ft_hatedollar(*echo, env, tools);
+	if (test == -1)
+		return ;
+	else if (test != 2)
+	{
+		i = 0;
+		while (env[test][i] != '=')
+		{
+			i++;
+			(*echo)++;
+		}
+	}
+	else
+		(*echo)++;
+}
+
+void	ft_doubles(char *str, int *i, int *test, t_tools *tools)
+{
 	while (*str != '\0')
 	{
 		if (*str == '$')
 		{
-			*test = ft_hatedollar(str, env);
+			*test = ft_hatedollar(str, tools->env, tools);
 			if (*test == -1)
 				return ;
-			else
+			else if (*test != 2 && *test != -1)
 			{
-				while (env[*test][i] != '=')
+				while (tools->env[*test][*i] != '=')
 				{
-					i++;
+					(*i)++;
 					str++;
 				}
 				str++;
 			}
+			else
+				str++;
 		}
 		write(1, str, 1);
 		if (*str != '\0')
@@ -40,13 +88,9 @@ static void	ft_doubles(char *str, char **env, int *test)
 	}
 }
 
-void	ft_putquotes(char *echo, char **env)
+void	ft_putquotes(char *echo, char **env, t_tools *tools)
 {
-	char	*new;
-	char	*end;
-	int		len;
 	int		flag;
-	int		test;
 
 	flag = 0;
 	while (*echo != '\0')
@@ -58,83 +102,16 @@ void	ft_putquotes(char *echo, char **env)
 			if (flag)
 				write(1, " ", 1);
 			flag = 0;
-			if (*echo == '\'')
+			if (*echo == '\'' || *echo == '"')
 			{
-				echo++;
-				end = ft_strchr(echo, '\'');
-				if (end != NULL)
-				{
-					len = end - echo;
-					new = ft_substr(echo, 0, len);
-					ft_putstr(new);
-					echo = end++;
-					free(new);
-				}
-				else
-					return ;
-			}
-			else if (*echo == '"')
-			{
-				echo++;
-				end = ft_strchr(echo, '"');
-				if (end != NULL)
-				{
-					len = end - echo;
-					new = ft_substr(echo, 0, len);
-					ft_doubles(new, env, &test);
-					echo = end++;
-					free(new);
-				}
-				else
+				if (!ft_searchquote(echo, &echo, *echo, tools))
 					return ;
 			}
 			else if (*echo == '$' && *(echo + 1) != '\0')
-			{
-				test = ft_hatedollar(echo, env);
-				if (test == -1)
-					return ;
-				else
-				{
-					len = 0;
-					while (env[test][len] != '=')
-					{
-						len++;
-						echo++;
-					}
-				}
-			}
+				ft_cstdoubles(&echo, env, tools);
 			else
 				write(1, echo, 1);
 		}
 		echo++;
 	}
-}
-
-void	ft_myenv(char **env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i] != NULL)
-	{
-		if (ft_strchr(env[i], '=') != NULL)
-		{
-			ft_putstr(env[i]);
-			write(1, "\n", 1);
-			i++;
-		}
-		else
-			i++;
-	}
-}
-
-char	*ft_findhome(char **envp)
-{
-	while (*envp)
-	{
-		if (ft_strncmp(*envp, "HOME=", 5) == 0)
-			return (*envp + 5);
-		envp++;
-	}
-	return (NULL);
 }

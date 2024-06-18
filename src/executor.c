@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:25:32 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/03 13:19:19 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:55:13 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,18 @@ static void	ft_empty_doc(t_executor *exe)
 
 void	delete_heredoc(t_executor *exe)
 {
+	char	*file;
+
 	while (exe->here_doc_id >= 0)
 	{
-		unlink(get_doc_name(exe));
+		file = get_doc_name(exe);
+		unlink(file);
+		free(file);
 		exe->here_doc_id--;
 	}
 	unlink(".empty");
+	ft_doublefree(exe->env);
+	ft_doublefree(exe->path);
 }
 
 int	get_infile(t_string *infile, t_executor *exe)
@@ -40,16 +46,16 @@ int	get_infile(t_string *infile, t_executor *exe)
 	{
 		exe->infile = open(infile->str, O_RDONLY);
 		if (exe->infile < 0)
-			return (-1);
+		{
+			perror("file");
+			ft_empty_doc(exe);
+		}
 	}
 	else
 	{
 		status = here_doc(infile->str, exe);
 		if (status < 0)
-		{
 			unlink(get_doc_name(exe));
-			return (-1);
-		}
 		else if (status == 1)
 		{
 			unlink(get_doc_name(exe));
@@ -67,13 +73,13 @@ int	get_outfile(t_string *outfile, t_executor *exe)
 	{
 		exe->outfile = open(outfile->str, O_CREAT | O_RDWR | O_TRUNC, 0644);
 		if (exe->outfile < 0)
-			return (-1);
+			exe->outfile = 1;
 	}
 	else
 	{
 		exe->outfile = open(outfile->str, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (exe->outfile < 0)
-			return (-1);
+			exe->outfile = 1;
 	}
 	return (0);
 }

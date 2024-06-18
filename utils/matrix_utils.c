@@ -18,9 +18,13 @@ char	**dup_matrix(char **matrix)
 	char	**dup;
 
 	i = 0;
+	if (matrix == NULL)
+		return (NULL);
 	while (matrix[i] != NULL)
 		i++;
 	dup = (char **)malloc(sizeof(char *) * (i + 1));
+	if (!dup)
+		return (NULL);
 	i = 0;
 	while (matrix[i] != NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:13:54 by nicgonza          #+#    #+#             */
-/*   Updated: 2024/06/04 18:02:45 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:29:32 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,14 @@ int	check_exit(t_string *cmd_input)
 {
 	char	*str;
 	char	*aux;
+	char	**mtx;
 	int		start;
 	int		i;
 
 	str = cmd_input->str;
+	mtx = ft_split(str, ' ');
+	if (ft_mtx_len(mtx) > 2)
+		return (free(mtx), 1);
 	i = 0;
 	start = 0;
 	while (str[start] == ' ')
@@ -30,8 +34,7 @@ int	check_exit(t_string *cmd_input)
 	aux = ft_substr(str, start, i - start);
 	if (ft_strcmp("exit", aux) == 0)
 	{
-		free(aux);
-		return (0);
+		ft_exit(cmd_input->str);
 	}
 	free(aux);
 	return (1);
@@ -63,20 +66,39 @@ void	check_builtins(t_tools *tools, t_list *built, char *input, int *flag)
 static void	check_commands(t_string *cmd_input, t_tools *tools)
 {
 	t_list			*tokens;
+	t_list			**arr_tokens;
 	t_list			*built;
 	unsigned int	i;
 
 	built = builtins();
 	tokens = create_tokens(built, tools, cmd_input);
-	// list_app_function(tokens, (t_function)ft_errormsg);
 	i = 0;
 	while (i < tokens->size)
 	{
 		get_op(tokens->data[i]);
 		i++;
 	}
-	if (executor(tokens, tools) > 0)
-		write (1, "mal\n", 4);
+	arr_tokens = ft_split_tokens(tokens);
+	i = 0;
+	while (arr_tokens[i] != NULL)
+	{
+		if (arr_tokens[i + 1] == NULL)
+		{
+			if (executor(arr_tokens[i], tools) > 0)
+				write(1, "ERROR\n", 7);
+			i++;
+		}
+		else if ((arr_tokens[i + 1]->data[0]->op == 1
+				|| arr_tokens[i + 1]->data[0]->op == 4)
+			&& ft_find_out(arr_tokens[i]) == 0)
+			i++;
+		else
+		{
+			if (executor(arr_tokens[i], tools) > 0)
+				write(1, "ERROR\n", 7);
+			i++;
+		}
+	}
 	list_delete(tokens);
 	list_delete(built);
 }
@@ -108,4 +130,32 @@ bool	prompt_loop(t_string *cmd_input, t_tools *tools)
 	string_delete(cmd_input);
 	free(cmd_input);
 	return (next_command);
+}
+
+void	ft_exit(char *str)
+{
+	int		code;
+	char	**mtx;
+	int		i;
+
+	mtx = ft_split(str, ' ');
+	if (ft_mtx_len(mtx) > 2)
+	{
+		write(2, "too many arguments\n", 20);
+		return ;
+	}
+	if (ft_mtx_len(mtx) == 1)
+		exit(0);
+	i = -1;
+	while (mtx[1][++i] != '\0')
+	{
+		if (ft_isdigit(mtx[1][i]) == 0)
+		{
+			write(2, "only numeric arguments allowed\n", 32);
+			return (ft_doublefree(mtx));
+		}
+	}
+	code = ft_atoi(mtx[1]);
+	code = ft_get_code(code);
+	exit(code);
 }

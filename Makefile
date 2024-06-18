@@ -6,7 +6,7 @@
 #    By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 16:32:45 by davgalle          #+#    #+#              #
-#    Updated: 2024/06/12 08:53:09 by davgalle         ###   ########.fr        #
+#    Updated: 2024/06/18 14:19:43 by davgalle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ SRC = src/main.c \
 		utils/utils.c \
 		utils/utils_2.c \
 		utils/utils_3.c \
+		utils/utils_4.c \
 		utils/matrix_utils.c \
 		utils/minishell_utils.c \
 		utils/minishell_utils_2.c \

@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:13:54 by nicgonza          #+#    #+#             */
-/*   Updated: 2024/06/12 11:19:39 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:18:01 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	ft_findenv(char **env, char *name)
 	name = aux;
 	while (env[i] != NULL)
 	{
-		if (ft_strncmp(env[i], aux, len) == 0 && env[i][len] == '=')
+		if (ft_strncmp(env[i], aux, len) == 0 && (env[i][len] == '='
+			|| env[i][len] == '\0'))
 			return (i);
 		i++;
 	}
@@ -75,11 +76,10 @@ char	*ft_createname(char *name, char c)
 	return (ptr);
 }
 
-void	ft_isquotes(char *str, char **env, int *doubles, int *single)
+void	ft_isquotes(char *str, char **env, t_tools *tools, int *single)
 {
-	(void)doubles;
 	if (*single == -1)
-		ft_hatedollar(str, env);
+		ft_hatedollar(str, env, tools);
 	if (*single == 1 || *single == 0)
 	{
 		while (*str != '\0')

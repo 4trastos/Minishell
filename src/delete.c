@@ -14,17 +14,27 @@
 
 void	string_delete(t_string *string)
 {
+	string->blt = 0;
+	string->op = 0;
 	string->size = 0;
 	free(string->str);
-	string->str = NULL;
 }
 
 void	list_delete(t_list *list)
 {
-	list->size = 0;
+	unsigned int	i;
+
+	i = -1;
+	while (++i < list->size)
+	{
+		string_delete(list->data[i]);
+		free(list->data[i]);
+	}
+	list->value = NULL;
+	list->i = 0;
 	list->tokens = 0;
-	if (list->data)
-		free(list->data);
-	list->data = NULL;
+	list->size = 0;
+	list->builts_numb = 0;
+	free(list->data);
 	free(list);
 }
