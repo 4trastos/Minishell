@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:14:29 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/18 11:21:09 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:24:52 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ void		get_old_pwd(t_tools *tools);
 char		**ft_split(char const *s, char c);
 char		**davsplit(char const *s, char c);
 int			ft_isgoodenv(char *str);
-int			custom_strncmp(char *prompt, char *built, int len, int blt);
+int			custom_strncmp(char *prompt, char *built, int len);
 int			ft_isalnum(int c);
 void		ft_myenv(char **env);
 char		*ft_findvarvalue(char *str);

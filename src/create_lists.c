@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:42:21 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/18 10:50:50 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:07:06 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,15 @@ t_list	*create_tokens(t_list *built, t_tools *tools, t_string *cmd_input)
 			command = parse_pipes(str[i], str, &i);
 		else if (str[i] == '<' || str[i] == '>')
 			command = parse_operators(str[i], str, &i);
-		else if (str[i] == '"' || str[i] == 39)
+		else if (str[i] == '"' || str[i] == '\'')
+		{
 			command = parse_strings(str[i], str, &i);
+			if (!command)
+			{
+				free(command);
+				return (NULL);
+			}
+		}
 		else
 			command = parse_tokens(tools, built, str, &i);
 		tokens = insert_in_list(tokens, command);

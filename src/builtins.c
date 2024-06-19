@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/18 12:02:01 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:16:13 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	ft_myprintecho(char *echo, t_tools *tools, int flag)
 {
-	int	i;
+	int	result;
 
-	i = ft_validator(echo);
-	if (i == 1)
+	result = ft_validator(echo);
+	if (result == 1)
 	{
-		write(1, "Error\n", 6);
+		write(1, "ERROR\n", 6);
 		return ;
 	}
 	ft_putquotes(echo, tools->env, tools);

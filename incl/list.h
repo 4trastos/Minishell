@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:31:05 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/18 18:42:27 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:55:15 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,28 @@ typedef void			(*t_function)(void *);
 /*** LIST & NODES ***/
 
 t_list		*new_list(void);
+t_list		*create_tokens(t_list *built, t_tools *tools, t_string *cmd_input);
+t_list		*insert_in_list(t_list *tokens, t_string *command);
 t_string	*terminal_string(char *str);
+char		*ft_createname(char *name, char c);
+char		*ft_searchqu(char *str, char c, unsigned int *i);
 void		ft_printenvp(t_tools *tools);
 void		ft_printlist(t_list *tokens);
-t_list		*insert_in_list(t_list *tokens, t_string *command);
 void		list_app_function(t_list *list, t_function f);
 void		list_expresion(t_list *tokens);
-int			ft_mychdir(char *prompt, t_tools *tools);
-int			ft_findenv(char **env, char *name);
 void		ft_addname(t_tools *tools, char *name);
 void		ft_addvalue(char **env, char *name, int index);
-char		*ft_createname(char *name, char c);
-int			ft_strlist(char **echo);
-void		ft_doublefree(char **echo);
-t_list		*create_tokens(t_list *built, t_tools *tools, t_string *cmd_input);
-int			ft_strcmp(char *str1, char *str2);
 void		ft_putstr(char *str);
+void		ft_doublefree(char **echo);
 void		ft_updatevalue(char **env, char *name, int index);
 void		ft_void(int test);
 void		ft_doubles(char *str, int *i, int *test, t_tools *tools);
 void		ft_cstdoubles(char **echo, char **env, t_tools *tools);
+int			ft_strlist(char **echo);
+int			ft_strcmp(char *str1, char *str2);
+int			ft_mychdir(char *prompt, t_tools *tools);
+int			ft_findenv(char **env, char *name);
+int			custom_strnstr(char *str, char *built);
 
 /*** DELETE ***/
 

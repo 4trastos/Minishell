@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/18 11:00:33 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:07:49 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,14 @@ t_string	*parse_strings(char c, char *str, unsigned int *i)
 {
 	t_string		*new;
 	char			*aux;
-	unsigned int	start;
+	int				result;
 
-	start = *i + 1;
-	(*i)++;
-	while (str[*i] != '\0' && str[*i] != c)
-		(*i)++;
-	aux = ft_substr(str, start, *i - start);
+	result = ft_validator(str);
+	if (result == 1)
+		return (NULL);
+	aux = ft_searchqu(str, c, i);
 	new = terminal_string(aux);
 	free(aux);
-	if (str[*i] == c && str[*i] != '\0')
-		(*i)++;
 	return (new);
 }
 

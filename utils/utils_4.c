@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_4.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davgalle <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:18:50 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/18 14:19:21 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:50:26 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,23 @@ char	*ft_findhome(char **envp)
 		envp++;
 	}
 	return (NULL);
+}
+
+int	custom_strncmp(char *prompt, char *built, int len)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	if (!prompt)
+		return (1);
+	while (i <= len && built[i] != '\0')
+	{
+		if (built[i] != prompt[j])
+			return (1);
+		i++;
+		j++;
+	}
+	return (0);
 }

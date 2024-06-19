@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:13:54 by nicgonza          #+#    #+#             */
-/*   Updated: 2024/06/07 15:43:21 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:54:18 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,25 @@ void	ft_doublefree(char **echo)
 	free (echo);
 }
 
-int	custom_strncmp(char *prompt, char *built, int len, int blt)
+int	custom_strnstr(char *str, char *built)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	(void)blt;
-	if (!prompt)
+	if (!str)
 		return (1);
-	while (i <= len && built[i] != '\0')
+	while (built[i] != '\0')
 	{
-		if (built[i] != prompt[j])
+		if (built[i] != str[j])
 			return (1);
 		i++;
 		j++;
 	}
-	return (0);
+	if (str[j] == '\0' || str[j] == ' ')
+		return (0);
+	return (1);
 }
 
 void	ft_putstr(char *str)

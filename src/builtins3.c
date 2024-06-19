@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/18 10:39:58 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:06:55 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,24 @@ int	ft_customenvp(t_tools *tools)
 		}
 	}
 	return (0);
+}
+
+char	*ft_searchqu(char *str, char c, unsigned int *i)
+{
+	char	*end;
+	char	*new;
+	int		len;
+
+	end = NULL;
+	str++;
+	(*i)++;
+	end = ft_strchr(str, c);
+	if (end != NULL)
+	{
+		len = end - str;
+		new = ft_substr(str, 0, len);
+		*i += len + 1;
+		return (new);
+	}
+	return (NULL);
 }
