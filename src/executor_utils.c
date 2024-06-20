@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:25:32 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/18 10:54:31 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:02:17 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	ft_count(t_list *t)
 	return (count);
 }
 
-t_list **ft_split_tokens(t_list *tokens)
+t_list	**ft_split_tokens(t_list *tokens)
 {
 	t_list			**new;
 	int				i;
@@ -66,17 +66,20 @@ t_list **ft_split_tokens(t_list *tokens)
 		x = 0;
 		while (j < tokens->size)
 		{
-			if (tokens->data[j]->op == OP_PIPE && (j != 0 || j != tokens->size - 1))
+			if (tokens->data[j]->op == OP_PIPE
+				&& (j != 0 || j != tokens->size - 1))
 			{
-				if (tokens->data[j - 1]->op == OP_OUTPUT_REDIRECT || tokens->data[j - 1]->op == OP_OUTPUT_REDIRECT_APPEND)
+				if (tokens->data[j - 1]->op == OP_OUTPUT_REDIRECT
+					|| tokens->data[j - 1]->op == OP_OUTPUT_REDIRECT_APPEND)
 				{
 					j++;
-					break;
+					break ;
 				}
-				else if (tokens->data[j + 1]->op == OP_INPUT_REDIRECT || tokens->data[j + 1]->op == OP_HERE_DOC)
+				else if (tokens->data[j + 1]->op == OP_INPUT_REDIRECT
+					|| tokens->data[j + 1]->op == OP_HERE_DOC)
 				{
 					j++;
-					break;
+					break ;
 				}
 			}
 			new[i] = insert_in_list(new[i], tokens->data[j]);

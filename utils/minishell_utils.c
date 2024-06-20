@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:13:54 by nicgonza          #+#    #+#             */
-/*   Updated: 2024/06/07 15:45:52 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:55:53 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ char	*ft_strchr(char *s, int c)
 	i = 0;
 	while (s[i] != '\0')
 	{
+		if (s[i] == '\\')
+			return (NULL);
 		if (s[i] == (unsigned char)c)
 			return ((char *)&s[i]);
 		i++;

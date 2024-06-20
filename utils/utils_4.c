@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:18:50 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/19 16:50:26 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/20 09:26:44 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,33 @@ int	custom_strncmp(char *prompt, char *built, int len)
 		j++;
 	}
 	return (0);
+}
+
+void	ft_executator(t_list *tokens, t_tools *tools)
+{
+	t_list			**arr_tokens;
+	unsigned int	i;
+
+	arr_tokens = ft_split_tokens(tokens);
+	i = 0;
+	while (arr_tokens[i] != NULL)
+	{
+		if (arr_tokens[i + 1] == NULL)
+		{
+			if (executor(arr_tokens[i], tools) > 0)
+				write(1, "ERROR\n", 6);
+			i++;
+		}
+		else if ((arr_tokens[i + 1]->data[0]->op == 1
+				|| arr_tokens[i + 1]->data[0]->op == 4)
+			&& ft_find_out(arr_tokens[i]) == 0)
+			i++;
+		else
+		{
+			if (executor(arr_tokens[i], tools) > 0)
+				write(1, "ERROR\n", 6);
+			i++;
+		}
+	}
+	list_matrix_delete(arr_tokens);
 }

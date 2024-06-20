@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:04:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/03 13:18:08 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:08:08 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,30 @@ void	list_delete(t_list *list)
 	list->builts_numb = 0;
 	free(list->data);
 	free(list);
+}
+
+void	list_matrix_delete(t_list **arr_tokens)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (arr_tokens[i] != NULL)
+	{
+		list_delete(arr_tokens[i]);
+		i++;
+	}
+	free(arr_tokens);
+}
+
+void	ft_doublefree(char **echo)
+{
+	int	i;
+
+	i = 0;
+	while (echo[i] != NULL)
+	{
+		free(echo[i]);
+		i++;
+	}
+	free (echo);
 }

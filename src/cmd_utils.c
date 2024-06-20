@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:31:05 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/03 13:22:45 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/20 10:55:03 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,9 @@ void	get_command(t_list *tokens, t_executor *exe, t_tools *tools)
 	flag = 0;
 	while (tokens->data[i] != NULL)
 	{
-		if (tokens->data[i]->op == OP_NONE || tokens->data[i]->op == OP_BUILTIN || tokens->data[i]->op == OP_DOLLAR_SIGN)
+		if (tokens->data[i]->op == OP_NONE
+			|| tokens->data[i]->op == OP_BUILTIN
+			|| tokens->data[i]->op == OP_DOLLAR_SIGN)
 		{
 			if (flag == exe->i)
 				break ;
@@ -75,9 +77,11 @@ void	get_command(t_list *tokens, t_executor *exe, t_tools *tools)
 		}
 		i++;
 	}
-	if (exe->num_cmd == 1 && tokens->data[i]->op == OP_BUILTIN && exe->outfile == 1)
+	if (exe->num_cmd == 1 && tokens->data[i]->op == OP_BUILTIN
+		&& exe->outfile == 1)
 	{
-		terminator(tools, tools->prompt, tokens->data[i]->str, tokens->data[i]->blt);
+		terminator(tools, tools->prompt, tokens->data[i]->str,
+			tokens->data[i]->blt);
 		tools->exit_code = 0;
 	}
 	else

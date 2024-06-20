@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:13:54 by nicgonza          #+#    #+#             */
-/*   Updated: 2024/06/19 17:55:45 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:07:19 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	check_exit(t_string *cmd_input)
 	{
 		ft_exit(cmd_input->str);
 	}
+	ft_doublefree(mtx);
 	free(aux);
 	return (1);
 }
@@ -63,14 +64,12 @@ void	check_builtins(t_tools *tools, t_list *built, char *input, int *flag)
 static void	check_commands(t_string *cmd_input, t_tools *tools)
 {
 	t_list			*tokens;
-	t_list			**arr_tokens;
 	t_list			*built;
 	unsigned int	i;
 
 	built = builtins();
 	tokens = create_tokens(built, tools, cmd_input);
 	i = 0;
-	// list_app_function(tokens, (t_function)ft_errormsg);
 	if (tokens != NULL)
 	{
 		while (i < tokens->size)
@@ -78,27 +77,7 @@ static void	check_commands(t_string *cmd_input, t_tools *tools)
 			get_op(tokens->data[i]);
 			i++;
 		}
-		arr_tokens = ft_split_tokens(tokens);
-		i = 0;
-		while (arr_tokens[i] != NULL)
-		{
-			if (arr_tokens[i + 1] == NULL)
-			{
-				if (executor(arr_tokens[i], tools) > 0)
-					write(1, "ERROR\n", 6);
-				i++;
-			}
-			else if ((arr_tokens[i + 1]->data[0]->op == 1
-					|| arr_tokens[i + 1]->data[0]->op == 4)
-				&& ft_find_out(arr_tokens[i]) == 0)
-				i++;
-			else
-			{
-				if (executor(arr_tokens[i], tools) > 0)
-					write(1, "ERROR\n", 6);
-				i++;
-			}
-		}
+		ft_executator(tokens, tools);
 		list_delete(tokens);
 	}
 	list_delete(built);
@@ -160,3 +139,47 @@ void	ft_exit(char *str)
 	code = ft_get_code(code);
 	exit(code);
 }
+
+/* static void	check_commands(t_string *cmd_input, t_tools *tools)
+{
+	t_list			*tokens;
+	t_list			**arr_tokens;
+	t_list			*built;
+	unsigned int	i;
+
+	built = builtins();
+	tokens = create_tokens(built, tools, cmd_input);
+	i = 0;
+	// list_app_function(tokens, (t_function)ft_errormsg);
+	if (tokens != NULL)
+	{
+		while (i < tokens->size)
+		{
+			get_op(tokens->data[i]);
+			i++;
+		}
+		arr_tokens = ft_split_tokens(tokens);
+		i = 0;
+		while (arr_tokens[i] != NULL)
+		{
+			if (arr_tokens[i + 1] == NULL)
+			{
+				if (executor(arr_tokens[i], tools) > 0)
+					write(1, "ERROR\n", 6);
+				i++;
+			}
+			else if ((arr_tokens[i + 1]->data[0]->op == 1
+					|| arr_tokens[i + 1]->data[0]->op == 4)
+				&& ft_find_out(arr_tokens[i]) == 0)
+				i++;
+			else
+			{
+				if (executor(arr_tokens[i], tools) > 0)
+					write(1, "ERROR\n", 6);
+				i++;
+			}
+		}
+		list_delete(tokens);
+	}
+	list_delete(built);
+} */

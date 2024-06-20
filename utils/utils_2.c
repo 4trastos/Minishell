@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:49:08 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/18 18:51:51 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:51:48 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_doubles(char *str, int *i, int *test, t_tools *tools)
 {
 	while (*str != '\0')
 	{
-		if (*str == '$')
+		if (*str == '$' && *(str + 1) != ' ' && *(str + 1) != '\0')
 		{
 			*test = ft_hatedollar(str, tools->env, tools);
 			if (*test == -1)
@@ -88,26 +88,23 @@ void	ft_doubles(char *str, int *i, int *test, t_tools *tools)
 	}
 }
 
-void	ft_putquotes(char *echo, char **env, t_tools *tools)
+void	ft_putquotes(char *echo, char **env, t_tools *tools, int *space)
 {
-	int		flag;
-
-	flag = 0;
 	while (*echo != '\0')
 	{
-		if (*echo == ' ' && flag == 0)
-			flag = 1;
+		if (*echo == ' ' && *space == 0)
+			*space = 1;
 		else if (*echo != ' ')
 		{
-			if (flag)
+			if (*space == 1)
 				write(1, " ", 1);
-			flag = 0;
+			*space = 0;
 			if (*echo == '\'' || *echo == '"')
 			{
 				if (!ft_searchquote(echo, &echo, *echo, tools))
 					return ;
 			}
-			else if (*echo == '$' && *(echo + 1) != '\0')
+			else if (*echo == '$' && *(echo + 1) != ' ' && *(echo + 1) != '\0')
 				ft_cstdoubles(&echo, env, tools);
 			else
 				write(1, echo, 1);

@@ -6,13 +6,11 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:40:51 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/05 14:47:43 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:01:14 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/minishell.h"
-
-
 
 static char	**ft_empty_split(void)
 {

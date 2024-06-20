@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:13:54 by nicgonza          #+#    #+#             */
-/*   Updated: 2024/06/19 17:54:18 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:06:25 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,6 @@ int	ft_strlist(char **echo)
 	while (echo[i] != NULL)
 		i++;
 	return (i);
-}
-
-void	ft_doublefree(char **echo)
-{
-	int	i;
-
-	i = 0;
-	while (echo[i] != NULL)
-	{
-		free(echo[i]);
-		i++;
-	}
-	free (echo);
 }
 
 int	custom_strnstr(char *str, char *built)
