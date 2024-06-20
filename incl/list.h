@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:31:05 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/19 17:55:15 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:08:43 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void		list_expresion(t_list *tokens);
 void		ft_addname(t_tools *tools, char *name);
 void		ft_addvalue(char **env, char *name, int index);
 void		ft_putstr(char *str);
-void		ft_doublefree(char **echo);
 void		ft_updatevalue(char **env, char *name, int index);
 void		ft_void(int test);
 void		ft_doubles(char *str, int *i, int *test, t_tools *tools);
@@ -64,6 +63,8 @@ int			custom_strnstr(char *str, char *built);
 
 void		string_delete(t_string *string);
 void		list_delete(t_list *list);
+void		list_matrix_delete(t_list **arr_tokens);
+void		ft_doublefree(char **echo);
 
 /*** REALLOC ***/
 

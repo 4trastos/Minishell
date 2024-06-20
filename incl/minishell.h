@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:14:29 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/19 16:24:52 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:39:04 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,8 +212,9 @@ int			ft_hatedollar(char *str, char **env, t_tools *tools);
 int			ft_testdollar(char *str, char **env);
 char		*ft_updatexport(char *prompt);
 int			ft_validator(char *echo);
-void		ft_putquotes(char *echo, char **env, t_tools *tools);
+void		ft_putquotes(char *echo, char **env, t_tools *tools, int *space);
 void		ft_exit(char *str);
+void		ft_executator(t_list *tokens, t_tools *tools);
 
 /*** SIGNAL ***/
 
