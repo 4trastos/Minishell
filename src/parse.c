@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/20 11:18:20 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/21 17:28:47 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,13 @@ t_string	*parse_tokens(t_tools *tools, t_list *built, char *str,
 	t_string		*new;
 	unsigned int	start;
 	int				flag;
+	int				result;
 
 	start = *i;
 	flag = 0;
+	result = ft_validator(str);
+	if (result == 1)
+		return (NULL);
 	while (str[*i] != 92 && str[*i] != '|' && str[*i]
 		&& str[*i] != '<' && str[*i] != '>' && str[*i] != ';')
 		(*i)++;

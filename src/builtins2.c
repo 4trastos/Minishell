@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/21 16:48:33 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/21 17:37:11 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,11 @@ int	ft_myexport(t_tools *tools, char *prompt)
 	i = 0;
 	while (name[i] != NULL)
 	{
+		if (ft_export_name(name[i]) == 1)
+		{
+			write(1, "Invalid variable\n", 17);
+			return (0);
+		}
 		index = ft_findenv(tools->env, name[i]);
 		if (index == -1)
 			ft_addname(tools, name[i]);
