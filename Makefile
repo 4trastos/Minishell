@@ -6,7 +6,7 @@
 #    By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 16:32:45 by davgalle          #+#    #+#              #
-#    Updated: 2024/06/18 14:19:43 by davgalle         ###   ########.fr        #
+#    Updated: 2024/06/21 14:29:33 by davgalle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRC = src/main.c \
 		src/operator.c \
 		src/executor.c \
 		src/executor_utils.c\
+		src/executor_utils2.c\
 		src/signal.c \
 		src/here_doc.c \
 		src/gnl.c \

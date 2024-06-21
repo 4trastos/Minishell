@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 15:33:23 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/18 14:17:28 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:50:41 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	ft_export_name(char *str)
 	int	i;
 
 	i = 0;
-	if ((str[i] < 'a' && str[i] > 'z') || (str[i] < 'A' && str[i] > 'Z'))
+	if (str[i] >= '0' && str[i] <= '9')
 		return (1);
 	while (str[++i] != '\0' && str[i] != '=')
 	{

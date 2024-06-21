@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:31:05 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/18 10:49:37 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:15:07 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,10 @@ int	execute_cmd(t_list *tokens, t_executor *exe, t_tools *tools)
 		tools->exit_code = WEXITSTATUS(exe->status);
 	else if (WIFSIGNALED(exe->status))
 		tools->exit_code = 128 + WTERMSIG(exe->status);
+	if (exe->chk_fd == 1 && tools->exit_code < 128 && exe->num_cmd == 1)
+		tools->exit_code = 1;
+	else if (exe->chk_fd == 2 && tools->exit_code < 128 && exe->num_cmd == 1)
+		tools->exit_code = 130;
 	ft_close_fd(exe);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/18 10:38:19 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:48:33 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	ft_myexport(t_tools *tools, char *prompt)
 	int		i;
 
 	prompt = ft_updatexport(prompt);
-	if (*prompt == '\0' || tools->sizetokens > 1)
+	if (*prompt == '\0')
 	{
 		ft_customenvp(tools);
 		ft_printenvp(tools);

@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:25:32 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/20 11:02:17 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/21 14:54:50 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ void	ft_setexe(t_executor *executor, t_tools *tools)
 	executor->here_doc_id = 0;
 	executor->env = dup_matrix(tools->env);
 	executor->path = ft_split(ft_findpath(tools->env), ':');
+	executor->chk_fd = 0;
+	if (tools->flag == 1)
+	{
+		executor->outfile = open(".trash.tmp", O_CREAT
+				| O_RDWR | O_TRUNC, 0644);
+	}
 }
 
 static int	ft_count(t_list *t)
@@ -55,7 +61,6 @@ t_list	**ft_split_tokens(t_list *tokens)
 	t_list			**new;
 	int				i;
 	unsigned int	j;
-	int				x;
 
 	new = (t_list **)malloc(sizeof(t_list *) * ft_count(tokens) + 8);
 	i = 0;
@@ -63,28 +68,16 @@ t_list	**ft_split_tokens(t_list *tokens)
 	while (i < ft_count(tokens))
 	{
 		new[i] = new_list();
-		x = 0;
 		while (j < tokens->size)
 		{
 			if (tokens->data[j]->op == OP_PIPE
 				&& (j != 0 || j != tokens->size - 1))
 			{
-				if (tokens->data[j - 1]->op == OP_OUTPUT_REDIRECT
-					|| tokens->data[j - 1]->op == OP_OUTPUT_REDIRECT_APPEND)
-				{
-					j++;
+				if (ft_split_part(tokens, &j) == 1)
 					break ;
-				}
-				else if (tokens->data[j + 1]->op == OP_INPUT_REDIRECT
-					|| tokens->data[j + 1]->op == OP_HERE_DOC)
-				{
-					j++;
-					break ;
-				}
 			}
 			new[i] = insert_in_list(new[i], tokens->data[j]);
 			j++;
-			x++;
 		}
 		i++;
 	}

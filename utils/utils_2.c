@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:49:08 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/20 12:51:48 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:43:44 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,11 @@ static int	ft_searchquote(char *str, char **echo, char quote, t_tools *tools)
 			ft_putstr(new);
 		else if (quote == '"')
 			ft_doubles(new, &i, &test, tools);
-		(*echo) += len;
+		(*echo) += len + 1;
 		free(new);
 		return (1);
 	}
-	else
-		return (0);
+	return (0);
 }
 
 void	ft_cstdoubles(char **echo, char **env, t_tools *tools)
@@ -101,7 +100,7 @@ void	ft_putquotes(char *echo, char **env, t_tools *tools, int *space)
 			*space = 0;
 			if (*echo == '\'' || *echo == '"')
 			{
-				if (!ft_searchquote(echo, &echo, *echo, tools))
+				if (ft_searchquote(echo, &echo, *echo, tools) == 0)
 					return ;
 			}
 			else if (*echo == '$' && *(echo + 1) != ' ' && *(echo + 1) != '\0')

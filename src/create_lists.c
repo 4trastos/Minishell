@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:42:21 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/20 11:21:19 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:04:07 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,24 +104,12 @@ t_list	*create_tokens(t_list *built, t_tools *tools, t_string *cmd_input)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		command = NULL;
-		while (str[i] == ' ' || str[i] == 92 || str[i] == ';')
-			i++;
-		if (str[i] == '|' || str[i] == '$')
-			command = parse_pipes(str[i], str, &i);
-		else if (str[i] == '<' || str[i] == '>')
-			command = parse_operators(str[i], str, &i);
-		else if (str[i] == '"' || str[i] == '\'')
+		command = ft_prcplt(built, tools, str, &i);
+		if (!command)
 		{
-			command = parse_strings(str[i], str, &i);
-			if (!command)
-			{
-				free(command);
-				return (NULL);
-			}
+			free(command);
+			return (NULL);
 		}
-		else
-			command = parse_tokens(tools, built, str, &i);
 		tokens = insert_in_list(tokens, command);
 		string_delete(command);
 		free(command);

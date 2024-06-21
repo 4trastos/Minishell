@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:14:29 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/21 11:48:38 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:02:44 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_tools
 	int				pipe_numb;
 	int				exit_code;
 	int				*pipe;
+	int				flag;
 	unsigned int	sizetokens;
 	char			*commands;
 	char			**env;
@@ -105,6 +106,7 @@ typedef struct s_executor
 	int		outfile;
 	int		num_cmd;
 	int		num_pipes;
+	int		chk_fd;
 	int		*pipe_fd;
 	int		i;
 	int		status;
@@ -147,6 +149,7 @@ void		ft_built_ins(void);
 int			ft_opcmp(char *str, char c);
 bool		ft_opdollar(char *str, char c);
 t_list		**ft_split_tokens(t_list *tokens);
+t_string	*ft_prcplt(t_list *blt, t_tools *tools, char *str, unsigned int *i);
 
 /*** UTILS ***/
 
@@ -184,6 +187,7 @@ int			ft_get_code(int cod);
 int			ft_isdigit(int c);
 int			ft_export_name(char *str);
 int			ft_find_out(t_list *l);
+int			ft_split_part(t_list *tokens, unsigned int *j);
 
 /*** ERROR ***/
 
@@ -215,6 +219,8 @@ int			ft_validator(char *echo);
 void		ft_putquotes(char *echo, char **env, t_tools *tools, int *space);
 void		ft_exit(char *str);
 void		ft_executator(t_list *tokens, t_tools *tools);
+void		ft_execut_part(t_list **arr_tokens, t_tools*tools, unsigned int *i);
+void		ft_get_commpart(t_list *tokens, t_executor *exe, int *flag, int *i);
 
 /*** SIGNAL ***/
 

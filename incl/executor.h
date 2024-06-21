@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:31:05 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/20 09:09:37 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:14:30 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_tools		t_tools;
 typedef struct s_executor	t_executor;
 
 int		here_doc(char *limiter, t_executor *exe);
-int		get_infile(t_string *infile, t_executor *exe);
+int		get_infile(t_string *infile, t_executor *exe, t_tools *tools);
 int		executor(t_list *tokens, t_tools *tools);
 int		get_outfile(t_string *outfile, t_executor *exe);
 char	*ft_new_line(char *board);
