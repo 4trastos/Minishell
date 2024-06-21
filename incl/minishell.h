@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:14:29 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/21 16:02:44 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/21 17:45:00 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ int			ft_opcmp(char *str, char c);
 bool		ft_opdollar(char *str, char c);
 t_list		**ft_split_tokens(t_list *tokens);
 t_string	*ft_prcplt(t_list *blt, t_tools *tools, char *str, unsigned int *i);
+int			ft_exportchek(char *prompt, t_tools *tools);
 
 /*** UTILS ***/
 

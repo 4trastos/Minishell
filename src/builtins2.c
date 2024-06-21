@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/21 17:37:11 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/21 17:50:32 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,8 @@ int	ft_myexport(t_tools *tools, char *prompt)
 	int		i;
 
 	prompt = ft_updatexport(prompt);
-	if (*prompt == '\0')
-	{
-		ft_customenvp(tools);
-		ft_printenvp(tools);
+	if (ft_exportchek(prompt, tools) == 0)
 		return (0);
-	}
 	name = ft_split(prompt, ' ');
 	i = 0;
 	while (name[i] != NULL)

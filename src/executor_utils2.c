@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:28:39 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/21 16:02:29 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/21 17:49:24 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,15 @@ t_string	*ft_prcplt(t_list *blt, t_tools *tools, char *str, unsigned int *i)
 	else
 		command = parse_tokens(tools, blt, str, i);
 	return (command);
+}
+
+int	ft_exportchek(char *prompt, t_tools *tools)
+{
+	if (*prompt == '\0')
+	{
+		ft_customenvp(tools);
+		ft_printenvp(tools);
+		return (0);
+	}
+	return (1);
 }
