@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/21 17:28:47 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/22 16:27:16 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ t_string	*parse_tokens(t_tools *tools, t_list *built, char *str,
 	tools->prompt = ft_substr(str, start, *i - start);
 	check_builtins(tools, built, tools->prompt, &flag);
 	new = terminal_string(tools->prompt);
+	free(tools->prompt);
 	if (flag != 0)
 	{
 		new->op = OP_BUILTIN;

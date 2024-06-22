@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:13:54 by nicgonza          #+#    #+#             */
-/*   Updated: 2024/06/20 11:12:34 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/22 14:34:46 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char	**dup_matrix(char **matrix)
 		i++;
 	}
 	dup[i] = NULL;
+	ft_doublefree(matrix);
 	return (dup);
 }
 
@@ -95,7 +96,7 @@ int	ft_mtx_len(char **mtx)
 	int	len;
 
 	len = 0;
-	while (mtx[len])
+	while (mtx[len] != NULL)
 		len++;
 	return (len);
 }

@@ -79,11 +79,12 @@ void	ft_exec_cmd(t_tools *tools, t_list *tokens, t_executor *exe, int i)
 			ft_dup2(exe->pipe_fd[2 * exe->i - 2], exe->pipe_fd[2 * exe->i + 1]);
 		ft_close_pipes(exe);
 		if (tokens->data[i]->op == OP_BUILTIN)
+		{
 			ft_built(tools, tokens, i);
-		else if (tokens->data[i]->op == OP_NONE)
+			exe->flag = 1;
+		}
+		else if (tokens->data[i]->op == 0 || tokens->data[i]->op == 6)
 			ft_execve(exe, tools);
-		else if (tokens->data[i]->op == OP_DOLLAR_SIGN)
-			ft_expand(tokens, tools, i);
 		exit(tools->exit_code);
 	}
 }
@@ -105,7 +106,7 @@ int	execute_cmd(t_list *tokens, t_executor *exe, t_tools *tools)
 		waitpid(exe->pid[exe->i], &exe->status, 0);
 	if (WIFEXITED(exe->status))
 		tools->exit_code = WEXITSTATUS(exe->status);
-	else if (WIFSIGNALED(exe->status))
+	else if (exe->flag == 0 && WIFSIGNALED(exe->status))
 		tools->exit_code = 128 + WTERMSIG(exe->status);
 	if (exe->chk_fd == 1 && tools->exit_code < 128 && exe->num_cmd == 1)
 		tools->exit_code = 1;

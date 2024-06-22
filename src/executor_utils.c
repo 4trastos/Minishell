@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:25:32 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/21 14:54:50 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/22 13:58:39 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_setexe(t_executor *executor, t_tools *tools)
 	executor->infile = 0;
 	executor->outfile = 1;
 	executor->here_doc_id = 0;
-	executor->env = dup_matrix(tools->env);
+	executor->env = tools->env;
 	executor->path = ft_split(ft_findpath(tools->env), ':');
 	executor->chk_fd = 0;
 	if (tools->flag == 1)

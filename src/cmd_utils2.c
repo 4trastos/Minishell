@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:31:05 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/18 10:45:28 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/22 11:32:54 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	ft_expand(t_list *tokens, t_tools *tools, int i)
 
 void	ft_built(t_tools *tools, t_list *tokens, int i)
 {
-	terminator(tools, tokens->data[i]->str, tokens->data[i]->str,
-		tokens->data[i]->blt);
-	tools->exit_code = 0;
+	tools->exit_code = terminator(tools, tokens->data[i]->str,
+			tokens->data[i]->str, tokens->data[i]->blt);
 }

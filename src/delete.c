@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:04:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/20 11:08:08 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/22 17:04:04 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,24 @@ void	list_matrix_delete(t_list **arr_tokens)
 void	ft_doublefree(char **echo)
 {
 	int	i;
+	int	len;
 
 	i = 0;
-	while (echo[i] != NULL)
+	len = ft_mtx_len(echo);
+	while (i <= len && echo[i] != NULL)
 	{
 		free(echo[i]);
 		i++;
 	}
-	free (echo);
+	free(echo);
+}
+
+void	ft_auxgtf(t_executor *exe, t_tools *tools, char *file)
+{
+	exe->infile = open(file, O_RDONLY);
+	if (exe->infile < 0)
+	{
+		perror("file");
+		ft_empty_doc(exe, tools);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:31:05 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/21 15:46:39 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/22 16:27:01 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,14 @@ void	get_command(t_list *tokens, t_executor *exe, t_tools *tools)
 
 	i = 0;
 	flag = 0;
+	exe->flag = 0;
 	ft_get_commpart(tokens, exe, &flag, &i);
 	if (exe->num_cmd == 1 && tokens->data[i]->op == OP_BUILTIN
 		&& exe->outfile == 1)
 	{
-		terminator(tools, tools->prompt, tokens->data[i]->str,
-			tokens->data[i]->blt);
-		tools->exit_code = 0;
+		tools->exit_code = terminator(tools, tokens->data[i]->str,
+				tokens->data[i]->str, tokens->data[i]->blt);
+		exe->flag = 1;
 	}
 	else
 	{

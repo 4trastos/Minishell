@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/21 16:51:38 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/22 15:27:05 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,27 +80,31 @@ t_list	*builtins(void)
 	return (builtins);
 }
 
-void	terminator(t_tools *tools, char *prompt, char *built, int blt)
+int	terminator(t_tools *tools, char *prompt, char *built, int blt)
 {
+	int	res;
+
 	(void)built;
+	res = 0;
 	if (blt == BT_CD)
-		ft_mychdir(prompt, tools);
+		res = ft_mychdir(prompt, tools);
 	else if (blt == BT_ECHO)
 	{
 		if (ft_strlen(prompt) == 4)
 			write(1, "\n", 1);
 		else
-			ft_myecho(prompt, tools);
+			res = ft_myecho(prompt, tools);
 	}
 	else if (blt == BT_EXPORT)
 	{
-		tools->exp = dup_matrix(tools->env);
-		ft_myexport(tools, prompt);
+		tools->exp = dup_matrix_envp(tools->env);
+		res = ft_myexport(tools, prompt);
 	}
 	else if (blt == BT_UNSET)
-		ft_myunset(tools->env, prompt);
+		res = ft_myunset(tools->env, prompt);
 	else if (blt == BT_ENV)
 		ft_myenv(tools->env);
 	else if (blt == BT_EXIT)
-		ft_void(0);
+		ft_exit(prompt);
+	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:25:32 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/18 10:56:48 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/22 16:10:35 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static int	here_doc_aux(char *limiter, int file)
 		if (!buf || (!ft_strncmp(limiter, buf, ft_strlen(limiter))
 				&& ft_strlen(buf) == ft_strlen(limiter)))
 			break ;
-		write(file, ft_strjoin(buf, "\n"), ft_strlen(buf) + 1);
+		buf = ft_strjoin(buf, "\n");
+		write(file, buf, ft_strlen(buf));
 		free(buf);
 	}
 	free(buf);

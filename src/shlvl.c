@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:13:54 by nicgonza          #+#    #+#             */
-/*   Updated: 2024/06/18 11:07:14 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/22 13:59:22 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	**ft_addshlvl(char **env)
 			break ;
 	}
 	if (i == ft_mtx_len(env))
-		return (ft_create_shlvl(env, ft_mtx_len(env) + 1));
+		return (ft_create_shlvl(env, ft_mtx_len(env)));
 	else
 	{
 		lvl = get_lvl(env[i]);
@@ -65,24 +65,21 @@ char	**ft_addshlvl(char **env)
 
 char	**ft_create_shlvl(char **env, int len)
 {
-	char	**new;
 	char	**aux;
-	int		i;
+	char	*new;
 
 	aux = dup_matrix(env);
-	ft_doublefree(env);
-	new = (char **)malloc(sizeof(char *) * len + 45);
-	if (!new)
+	aux = ft_realloc(aux, sizeof(char *) * (len + 2));
+	if (!aux)
 		return (NULL);
-	i = 0;
-	while (aux[i] != NULL)
+	new = malloc(8);
+	if (!new)
 	{
-		new[i] = ft_strdup(aux[i]);
-		i++;
+		free (aux);
+		return (NULL);
 	}
-	new[i] = (char *)malloc(sizeof(char) * 8);
-	new[i] = "SHLVL=1";
-	new[i + 1] = NULL;
-	ft_doublefree(aux);
-	return (new);
+	new = "SHLVL=1";
+	aux[len] = new;
+	aux[len + 1] = NULL;
+	return (aux);
 }

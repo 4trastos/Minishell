@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:18:50 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/21 15:01:43 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/22 16:57:03 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,37 @@ void	ft_executator(t_list *tokens, t_tools *tools)
 		i++;
 	}
 	list_matrix_delete(arr_tokens);
+}
+
+char	**dup_matrix_envp(char **matrix)
+{
+	int		i;
+	char	**dup;
+
+	i = 0;
+	if (matrix == NULL)
+		return (NULL);
+	while (matrix[i] != NULL)
+		i++;
+	dup = (char **)malloc(sizeof(char *) * (i + 1));
+	if (!dup)
+		return (NULL);
+	i = 0;
+	while (matrix[i] != NULL)
+	{
+		dup[i] = ft_strdup(matrix[i]);
+		i++;
+	}
+	dup[i] = NULL;
+	return (dup);
+}
+
+int	ft_exit_toaux(char c)
+{
+	if (ft_isdigit(c) == 0)
+	{
+		write(2, "only numeric arguments allowed\n", 32);
+		return (1);
+	}
+	return (0);
 }

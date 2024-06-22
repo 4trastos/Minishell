@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/21 17:50:32 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/22 15:13:12 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,19 @@ int	ft_mychdir(char *prompt, t_tools *tools)
 	if (*path == '\0')
 	{
 		if (chdir(ft_findhome(tools->env)) != 0)
-			perror("chdir");
+			return (perror("chdir"), 1);
 	}
 	else if (*path == '$')
 	{
 		path++;
 		i = ft_findenv(tools->env, path);
 		if (chdir(ft_findvarvalue(tools->env[i])) != 0)
-			perror("chdir");
+			return (perror("chdir"), 1);
 	}
 	else if (getcwd(cwd, sizeof(cwd)) == NULL)
-		perror("getcwd");
+		return (perror("getcwd"), 1);
 	else if (chdir(path) != 0)
-		perror("chdir");
+		return (perror("chdir"), 1);
 	return (0);
 }
 
@@ -75,15 +75,16 @@ int	ft_myunset(char **env, char *name)
 	if (index == -1)
 	{
 		printf("Variable de entorno: '%s' no encontrada\n", str);
-		return (0);
+		return (1);
 	}
-	env[index] = NULL;
 	i = index;
 	while (env[i] != NULL)
 	{
 		env[i] = env[i + 1];
 		i++;
 	}
+	i--;
+	env[i] = NULL;
 	return (0);
 }
 
@@ -103,7 +104,7 @@ int	ft_myexport(t_tools *tools, char *prompt)
 		if (ft_export_name(name[i]) == 1)
 		{
 			write(1, "Invalid variable\n", 17);
-			return (0);
+			return (1);
 		}
 		index = ft_findenv(tools->env, name[i]);
 		if (index == -1)

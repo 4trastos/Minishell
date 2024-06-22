@@ -6,13 +6,13 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:25:32 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/18 10:55:13 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/22 17:13:46 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/minishell.h"
 
-static void	ft_empty_doc(t_executor *exe, t_tools *tools)
+void	ft_empty_doc(t_executor *exe, t_tools *tools)
 {
 	int	fd;
 
@@ -38,26 +38,20 @@ void	delete_heredoc(t_executor *exe)
 	}
 	unlink(".trash.tmp");
 	unlink(".empty");
-	ft_doublefree(exe->env);
 	ft_doublefree(exe->path);
 }
 
 int	get_infile(t_string *infile, t_executor *exe, t_tools *tools)
 {
-	int	status;
+	int		status;
+	char	*file;
 
+	file = ft_strtrim(infile->str, "<");
 	if (infile->op == OP_INPUT_REDIRECT)
-	{
-		exe->infile = open(ft_strtrim(infile->str, "<"), O_RDONLY);
-		if (exe->infile < 0)
-		{
-			perror("file");
-			ft_empty_doc(exe, tools);
-		}
-	}
+		ft_auxgtf(exe, tools, file);
 	else
 	{
-		status = here_doc(ft_strtrim(infile->str, "<"), exe);
+		status = here_doc(file, exe);
 		if (status < 0)
 			unlink(get_doc_name(exe));
 		else if (status == 1)
@@ -68,6 +62,7 @@ int	get_infile(t_string *infile, t_executor *exe, t_tools *tools)
 		}
 		exe->here_doc_id++;
 	}
+	free(file);
 	return (1);
 }
 

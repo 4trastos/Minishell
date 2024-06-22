@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:13:54 by nicgonza          #+#    #+#             */
-/*   Updated: 2024/06/20 11:07:19 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/22 16:56:31 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_exit(t_string *cmd_input)
 	str = cmd_input->str;
 	mtx = ft_split(str, ' ');
 	if (ft_mtx_len(mtx) > 2)
-		return (free(mtx), 1);
+		return (ft_doublefree(mtx), 1);
 	i = 0;
 	start = 0;
 	while (str[start] == ' ')
@@ -33,9 +33,7 @@ int	check_exit(t_string *cmd_input)
 		i++;
 	aux = ft_substr(str, start, i - start);
 	if (ft_strcmp("exit", aux) == 0)
-	{
 		ft_exit(cmd_input->str);
-	}
 	ft_doublefree(mtx);
 	free(aux);
 	return (1);
@@ -67,20 +65,23 @@ static void	check_commands(t_string *cmd_input, t_tools *tools)
 	t_list			*built;
 	unsigned int	i;
 
-	built = builtins();
-	tokens = create_tokens(built, tools, cmd_input);
-	i = 0;
-	if (tokens != NULL)
+	if (ft_strlen(cmd_input->str) > 1)
 	{
-		while (i < tokens->size)
+		built = builtins();
+		tokens = create_tokens(built, tools, cmd_input);
+		i = 0;
+		if (tokens != NULL)
 		{
-			get_op(tokens->data[i]);
-			i++;
+			while (i < tokens->size)
+			{
+				get_op(tokens->data[i]);
+				i++;
+			}
+			ft_executator(tokens, tools);
+			list_delete(tokens);
 		}
-		ft_executator(tokens, tools);
-		list_delete(tokens);
+		list_delete(built);
 	}
-	list_delete(built);
 }
 
 bool	prompt_loop(t_string *cmd_input, t_tools *tools)
@@ -121,65 +122,22 @@ void	ft_exit(char *str)
 	mtx = ft_split(str, ' ');
 	if (ft_mtx_len(mtx) > 2)
 	{
+		ft_doublefree(mtx);
 		write(2, "too many arguments\n", 20);
 		return ;
 	}
 	if (ft_mtx_len(mtx) == 1)
+	{
+		ft_doublefree(mtx);
 		exit(0);
+	}
 	i = -1;
 	while (mtx[1][++i] != '\0')
-	{
-		if (ft_isdigit(mtx[1][i]) == 0)
-		{
-			write(2, "only numeric arguments allowed\n", 32);
+		if (ft_exit_toaux(mtx[1][i]) == 1)
 			return (ft_doublefree(mtx));
-		}
-	}
 	code = ft_atoi(mtx[1]);
 	code = ft_get_code(code);
+	ft_doublefree(mtx);
+	free(str);
 	exit(code);
 }
-
-/* static void	check_commands(t_string *cmd_input, t_tools *tools)
-{
-	t_list			*tokens;
-	t_list			**arr_tokens;
-	t_list			*built;
-	unsigned int	i;
-
-	built = builtins();
-	tokens = create_tokens(built, tools, cmd_input);
-	i = 0;
-	// list_app_function(tokens, (t_function)ft_errormsg);
-	if (tokens != NULL)
-	{
-		while (i < tokens->size)
-		{
-			get_op(tokens->data[i]);
-			i++;
-		}
-		arr_tokens = ft_split_tokens(tokens);
-		i = 0;
-		while (arr_tokens[i] != NULL)
-		{
-			if (arr_tokens[i + 1] == NULL)
-			{
-				if (executor(arr_tokens[i], tools) > 0)
-					write(1, "ERROR\n", 6);
-				i++;
-			}
-			else if ((arr_tokens[i + 1]->data[0]->op == 1
-					|| arr_tokens[i + 1]->data[0]->op == 4)
-				&& ft_find_out(arr_tokens[i]) == 0)
-				i++;
-			else
-			{
-				if (executor(arr_tokens[i], tools) > 0)
-					write(1, "ERROR\n", 6);
-				i++;
-			}
-		}
-		list_delete(tokens);
-	}
-	list_delete(built);
-} */

@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:14:29 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/21 17:45:00 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/22 17:04:20 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ typedef struct s_executor
 	int		outfile;
 	int		num_cmd;
 	int		num_pipes;
+	int		flag;
 	int		chk_fd;
 	int		*pipe_fd;
 	int		i;
@@ -189,6 +190,10 @@ int			ft_isdigit(int c);
 int			ft_export_name(char *str);
 int			ft_find_out(t_list *l);
 int			ft_split_part(t_list *tokens, unsigned int *j);
+char		**dup_matrix_envp(char **matrix);
+int			ft_exit_toaux(char c);
+void		ft_auxgtf(t_executor *exe, t_tools *tools, char *file);
+void		ft_empty_doc(t_executor *exe, t_tools *tools);
 
 /*** ERROR ***/
 
@@ -199,7 +204,7 @@ void		ft_errormsg(char *str);
 
 t_list		*builtins(void);
 void		insert_global(t_list *list, char *command, int numb);
-void		terminator(t_tools *tools, char *prompt, char *built, int blt);
+int			terminator(t_tools *tools, char *prompt, char *built, int blt);
 void		check_builtins(t_tools *tools, t_list *built, char *input,
 				int *flag);
 void		ft_myprintecho(char *echo, t_tools *tools, int flag);
