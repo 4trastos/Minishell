@@ -6,13 +6,13 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:49:08 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/21 17:13:36 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/22 18:54:35 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/minishell.h"
 
-static int	ft_checkquote(char *echo, int *len, char quote)
+int	ft_checkquote(char *echo, int *len, char quote)
 {
 	char	*end;
 

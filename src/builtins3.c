@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/19 15:06:55 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/22 20:05:06 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,12 @@ char	*ft_searchqu(char *str, char c, unsigned int *i)
 	char	*end;
 	char	*new;
 	int		len;
+	int		flag;
 
 	end = NULL;
+	flag = 0;
+	if (c == '"')
+		flag = 1;
 	str++;
 	(*i)++;
 	end = ft_strchr(str, c);
@@ -108,6 +112,8 @@ char	*ft_searchqu(char *str, char c, unsigned int *i)
 		len = end - str;
 		new = ft_substr(str, 0, len);
 		*i += len + 1;
+		if (flag == 1 && (ft_strchr(new, '$') != NULL))
+			new = updatedollar(new);
 		return (new);
 	}
 	return (NULL);

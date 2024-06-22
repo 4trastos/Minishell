@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/22 16:27:16 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/22 19:44:51 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,7 @@ t_string	*parse_pipes(char c, char *str, unsigned int *i)
 
 	start = *i;
 	if (str[*i] == '$')
-	{
 		return (new = parse_dollar(c, str, i));
-	}
 	else
 	{
 		while (str[*i] == c)
@@ -81,15 +79,16 @@ t_string	*parse_tokens(t_tools *tools, t_list *built, char *str,
 	unsigned int	start;
 	int				flag;
 	int				result;
+	int				quotes;
 
 	start = *i;
 	flag = 0;
-	result = ft_validator(str);
+	quotes = 0;
+	result = ft_validator_extra(str, &quotes, &flag);
 	if (result == 1)
 		return (NULL);
-	while (str[*i] != 92 && str[*i] != '|' && str[*i]
-		&& str[*i] != '<' && str[*i] != '>' && str[*i] != ';')
-		(*i)++;
+	else if (result != 1)
+		ft_updateprtkn(str, i, result);
 	tools->prompt = ft_substr(str, start, *i - start);
 	check_builtins(tools, built, tools->prompt, &flag);
 	new = terminal_string(tools->prompt);

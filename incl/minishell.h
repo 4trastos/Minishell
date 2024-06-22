@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:14:29 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/22 17:04:20 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/22 20:02:26 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,9 @@ bool		ft_opdollar(char *str, char c);
 t_list		**ft_split_tokens(t_list *tokens);
 t_string	*ft_prcplt(t_list *blt, t_tools *tools, char *str, unsigned int *i);
 int			ft_exportchek(char *prompt, t_tools *tools);
+int			ft_checkquote(char *echo, int *len, char quote);
+void		ft_updateprtkn(char *str, unsigned int *i, int result);
+char		*updatedollar(char *str);
 
 /*** UTILS ***/
 
@@ -194,6 +197,7 @@ char		**dup_matrix_envp(char **matrix);
 int			ft_exit_toaux(char c);
 void		ft_auxgtf(t_executor *exe, t_tools *tools, char *file);
 void		ft_empty_doc(t_executor *exe, t_tools *tools);
+int			ft_validator_extra(char *echo, int *quotes, int *flag);
 
 /*** ERROR ***/
 

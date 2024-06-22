@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:18:54 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/19 17:54:25 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/22 17:59:57 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	ft_errormsg(char *str)
 	int	i;
 
 	i = 0;
+	write(1, "Esto hay en tokens ---->>>> :  ", 28);
 	while (str[i] != '\0')
 	{
 		write(1, &str[i], 1);
