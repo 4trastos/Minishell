@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:25:32 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/28 16:10:08 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 20:27:23 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	executor(t_list *tokens, t_tools *tools)
 		i++;
 	}
 	if (execute_cmd(tokens, &executor, tools) < 0)
-		return (1);
+		return (2);
 	delete_heredoc(&executor);
 	return (0);
 }

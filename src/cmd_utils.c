@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:31:05 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/22 16:27:01 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 20:24:53 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,11 @@ void	ft_close_fd(t_executor *exe)
 		close(exe->infile);
 	if (exe->outfile != 1)
 		close(exe->outfile);
-	free(exe->pipe_fd);
-	free(exe->pid);
+	if (exe->pipe_fd && exe->num_cmd != 0)
+	{
+		free(exe->pipe_fd);
+		free(exe->pid);
+	}
 	exe->num_cmd = 0;
 	exe->num_pipes = 0;
 }

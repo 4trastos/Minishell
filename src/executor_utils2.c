@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:28:39 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/28 15:38:17 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 20:28:47 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_execut_part(t_list **arr_tokens, t_tools*tools, unsigned int *i)
 {
 	if (arr_tokens[*i + 1] == NULL)
 	{
-		if (executor(arr_tokens[*i], tools) > 0)
+		if (executor(arr_tokens[*i], tools) == 1)
 			write(1, "ERROR\n", 6);
 	}
 	else if ((arr_tokens[*i + 1]->data[0]->op == 1
@@ -41,12 +41,12 @@ void	ft_execut_part(t_list **arr_tokens, t_tools*tools, unsigned int *i)
 		&& ft_find_out(arr_tokens[*i]) == 0)
 	{
 		tools->flag = 1;
-		if (executor(arr_tokens[*i], tools) > 0)
+		if (executor(arr_tokens[*i], tools) == 1)
 			write(1, "ERROR\n", 6);
 	}
 	else
 	{
-		if (executor(arr_tokens[*i], tools) > 0)
+		if (executor(arr_tokens[*i], tools) == 1)
 			write(1, "ERROR\n", 6);
 	}
 }
