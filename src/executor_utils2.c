@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:28:39 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/21 17:49:24 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 15:38:17 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,17 +75,20 @@ t_string	*ft_prcplt(t_list *blt, t_tools *tools, char *str, unsigned int *i)
 	while (str[*i] == ' ' || str[*i] == 92 || str[*i] == ';')
 		(*i)++;
 	if (str[*i] == '|' || str[*i] == '$')
-		command = parse_pipes(str[*i], str, i);
+		command = parse_pipes(str[*i], str, i, tools);
 	else if (str[*i] == '<' || str[*i] == '>')
-		command = parse_operators(str[*i], str, i);
+		command = parse_operators(str[*i], str, i, tools);
 	else if (str[*i] == '"' || str[*i] == '\'')
 	{
-		command = parse_strings(str[*i], str, i);
+		command = parse_strings(str[*i], str, i, tools);
 		if (!command)
 			return (NULL);
 	}
 	else
-		command = parse_tokens(tools, blt, str, i);
+	{
+		command = parsetks(tools, blt, str, i);
+		free(tools->prompt);
+	}
 	return (command);
 }
 
@@ -95,7 +98,9 @@ int	ft_exportchek(char *prompt, t_tools *tools)
 	{
 		ft_customenvp(tools);
 		ft_printenvp(tools);
+		ft_doublefree(tools->exp);
 		return (0);
 	}
+	ft_doublefree(tools->exp);
 	return (1);
 }

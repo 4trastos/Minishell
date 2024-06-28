@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:13:54 by nicgonza          #+#    #+#             */
-/*   Updated: 2024/06/22 17:34:26 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 17:26:42 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,12 @@ static void	check_commands(t_string *cmd_input, t_tools *tools)
 	{
 		built = builtins();
 		tokens = create_tokens(built, tools, cmd_input);
-		list_app_function(tokens, (t_function)ft_errormsg);
+		// list_app_function(tokens, (t_function)ft_errormsg);
 		i = 0;
-		if (tokens != NULL)
+		if (tokens->data[0]->str[0] == '|'
+			|| tokens->data[tokens->size -1]->str[0] == '|')
+			write(2, "Unexpected Pipe\n", 16);
+		else if (tokens != NULL)
 		{
 			while (i < tokens->size)
 			{
@@ -79,8 +82,8 @@ static void	check_commands(t_string *cmd_input, t_tools *tools)
 				i++;
 			}
 			ft_executator(tokens, tools);
-			list_delete(tokens);
 		}
+		list_delete(tokens);
 		list_delete(built);
 	}
 }
@@ -94,11 +97,10 @@ bool	prompt_loop(t_string *cmd_input, t_tools *tools)
 	next_command = !cmd_input;
 	if (!cmd_input)
 	{
-		command = readline(PROMPT);
+		command = no_last_space(readline(PROMPT));
 		if (!command)
 			return (false);
 		cmd_input = terminal_string(command);
-		free(command);
 	}
 	add_history(cmd_input->str);
 	next_command = check_exit(cmd_input);
@@ -111,6 +113,7 @@ bool	prompt_loop(t_string *cmd_input, t_tools *tools)
 	check_commands(cmd_input, tools);
 	string_delete(cmd_input);
 	free(cmd_input);
+	free(command);
 	return (next_command);
 }
 

@@ -6,7 +6,7 @@
 #    By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 16:32:45 by davgalle          #+#    #+#              #
-#    Updated: 2024/06/22 18:53:52 by davgalle         ###   ########.fr        #
+#    Updated: 2024/06/28 17:21:12 by davgalle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,9 +26,12 @@ SRC = src/main.c \
 		src/write.c \
 		src/parse.c \
 		src/parse2.c \
+		src/parse3.c \
+		src/cd.c \
 		src/prompt_loop.c \
 		src/create_lists.c \
 		src/create_lists2.c \
+		src/create_lists3.c \
 		src/builtins.c \
 		src/builtins2.c \
 		src/builtins3.c \
@@ -38,6 +41,7 @@ SRC = src/main.c \
 		src/list_iter.c \
 		src/operator.c \
 		src/executor.c \
+		src/expansor.c \
 		src/executor_utils.c\
 		src/executor_utils2.c\
 		src/signal.c \

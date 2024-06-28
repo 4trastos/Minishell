@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 18:43:59 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/22 20:11:04 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 12:07:22 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,37 +41,58 @@ int	ft_validator_extra(char *echo, int *quotes, int *flag)
 	return (*quotes);
 }
 
-void	ft_updateprtkn(char *str, unsigned int *i, int result)
+void	ft_updateprtkn(char *str, unsigned int *i)
 {
-	if (result == 2)
+	while (str[*i] != 92 && str[*i] != '|' && str[*i]
+		&& str[*i] != '<' && str[*i] != '>' && str[*i] != ';'
+		&& str[*i] != '\'' && str[*i] != '"')
+		(*i)++;
+}
+
+void	ft_bzero(void *str, size_t n)
+{
+	unsigned char	*j;
+	size_t			i;
+
+	j = str;
+	i = 0;
+	while (i < n)
 	{
-		while (str[*i] != 92 && str[*i] && str[*i] != '<'
-			&& str[*i] != '>' && str[*i] != ';')
-			(*i)++;
-	}
-	else if (result == 0)
-	{
-		while (str[*i] != 92 && str[*i] != '|' && str[*i]
-			&& str[*i] != '<' && str[*i] != '>' && str[*i] != ';')
-			(*i)++;
+		j[i] = 0;
+		i++;
 	}
 }
 
-char	*updatedollar(char *str)
+void	*ft_calloc(size_t count, size_t size)
+{
+	size_t	i;
+	void	*ptr;
+
+	i = count * size;
+	ptr = malloc(i);
+	if (ptr == NULL)
+	{
+		return (NULL);
+	}
+	ft_bzero(ptr, i);
+	return (ptr);
+}
+
+char	*updatedollar(char *str, t_tools *tools)
 {
 	char	*update;
-	int		len;
+	int		subtract;
+	int		add;
 
-	(void)update;
-	write(1, "Tiene Dollar y tiene que expandir\n", 34);
-	len = 0;
-	while (str[len] != '$')
-		len++;
-	while (str[len] != '\0')
-	{
-		if (str[len] == '$')
-			write(1, "Aqui está el expansor\n", 23);
-		len++;
-	}
-	return (str);
+	add = 0;
+	subtract = 0;
+	update = str;
+	ft_iterone(str, tools, &add, &subtract);
+	str = update;
+	update = ft_calloc(sizeof(char *), (ft_strlen(str) - subtract + add + 1));
+	if (!update)
+		return (NULL);
+	update = ft_itertwo(update, str, tools);
+	free(str);
+	return (update);
 }

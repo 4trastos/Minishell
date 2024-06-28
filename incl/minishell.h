@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:14:29 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/22 20:02:26 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 17:33:29 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_tools
 	char			*commands;
 	char			**env;
 	char			**exp;
-	char			**aux;
+	char			*aux;
 	char			*pwd;
 	char			*old_pwd;
 	bool			init;
@@ -137,12 +137,13 @@ int			check_exit(t_string *cmd_input);
 void		parse_shell(t_tools *tools);
 char		*ft_findpath(char **envp);
 char		*ft_findhome(char **envp);
-t_string	*parse_strings(char c, char *str, unsigned int *i);
-t_string	*parse_operators(char c, char *str, unsigned int *i);
-t_string	*parse_tokens(t_tools *tools, t_list *built, char *str,
+t_string	*parse_strings(char c, char *str, unsigned int *i, t_tools *tools);
+t_string	*parse_operators(char c, char *str, unsigned int *i,
+				t_tools *tools);
+t_string	*parsetks(t_tools *tools, t_list *built, char *str,
 				unsigned int *i);
-t_string	*parse_pipes(char c, char *str, unsigned int *i);
-t_string	*parse_dollar(char c, char *str, unsigned int *i);
+t_string	*parse_pipes(char c, char *str, unsigned int *i, t_tools *tools);
+t_string	*parse_dollar(char c, char *str, unsigned int *i, t_tools *tools);
 bool		next_string(t_list *tokens, unsigned int *i);
 bool		is_operators(t_string *token);
 void		get_op(t_string *token);
@@ -153,35 +154,35 @@ t_list		**ft_split_tokens(t_list *tokens);
 t_string	*ft_prcplt(t_list *blt, t_tools *tools, char *str, unsigned int *i);
 int			ft_exportchek(char *prompt, t_tools *tools);
 int			ft_checkquote(char *echo, int *len, char quote);
-void		ft_updateprtkn(char *str, unsigned int *i, int result);
-char		*updatedollar(char *str);
+void		ft_updateprtkn(char *str, unsigned int *i);
+char		*updatedollar(char *str, t_tools *tools);
 
 /*** UTILS ***/
 
 int			ft_strncmp(char *str, char *dst, int numb);
-size_t		ft_strlen(const char *s);
+size_t		ft_strlen( char *s);
 char		**dup_matrix(char **matrix);
 char		*ft_strdup(char *s1);
-char		*ft_strtrim(char const *s1, char const *set);
+char		*ft_strtrim(char *s1, char *set);
 char		*ft_strchr(char *str, int c);
 char		*ft_strchr_hd(char *s, int c);
-char		*ft_substr(char const *s, unsigned int start, size_t len);
-char		*ft_substrop(char const *s, unsigned int start, size_t len);
-void		*ft_bzero(void *str, size_t n);
+char		*ft_substr(char *s, unsigned int start, size_t len);
+char		*ft_substrop(char *s, unsigned int start, size_t len);
+void		ft_bzero(void *str, size_t n);
 void		*ft_calloc(size_t n, size_t b);
-void		*ft_memcpy(void *dst, const void *src, size_t n);
+void		*ft_memcpy(void *dst, void *src, size_t n);
 int			ft_mtx_len(char **mtx);
 int			get_lvl(char *str);
 char		**ft_addshlvl(char **env);
 char		*add_lvl(int lvl);
-int			ft_atoi(const char *str);
+int			ft_atoi( char *str);
 char		*ft_itoa(int n);
-char		*ft_strjoin(char const *s1, char const *s2);
+char		*ft_strjoin(char *s1, char *s2);
 void		ft_putstr_fd(char *s, int fd);
 void		get_pwd(t_tools *tools);
 void		get_old_pwd(t_tools *tools);
-char		**ft_split(char const *s, char c);
-char		**davsplit(char const *s, char c);
+char		**ft_split(char *s, char c);
+char		**davsplit(char *s, char c);
 int			ft_isgoodenv(char *str);
 int			custom_strncmp(char *prompt, char *built, int len);
 int			ft_isalnum(int c);
@@ -198,6 +199,14 @@ int			ft_exit_toaux(char c);
 void		ft_auxgtf(t_executor *exe, t_tools *tools, char *file);
 void		ft_empty_doc(t_executor *exe, t_tools *tools);
 int			ft_validator_extra(char *echo, int *quotes, int *flag);
+char		*no_last_space(char *str);
+void		ft_updateprtkn2(char *str, unsigned int *i);
+char		*trimspace(char *str);
+void		ft_prstksaux(t_tools *tools, char *str, int start, unsigned int *i);
+void		ft_updatemrtk(char **test, unsigned int *result);
+void		ft_updtfinaltk(char **aux, unsigned int *result);
+int			update_pwd(t_tools *tools);
+int			update_env(t_tools *tools);
 
 /*** ERROR ***/
 
@@ -211,11 +220,11 @@ void		insert_global(t_list *list, char *command, int numb);
 int			terminator(t_tools *tools, char *prompt, char *built, int blt);
 void		check_builtins(t_tools *tools, t_list *built, char *input,
 				int *flag);
-void		ft_myprintecho(char *echo, t_tools *tools, int flag);
+void		ft_myprintecho(char *echo, int flag);
 int			ft_builtcmp(t_list *built, char *str, int len, int post);
 void		get_builts(t_string *built, unsigned int i);
 int			ft_echocmp(char *str, char *dst);
-int			ft_myunset(char **env, char *name);
+int			ft_myunset(t_tools *tools, char *name);
 int			ft_findenv(char **env, char *name);
 int			ft_myexport(t_tools *tools, char *prompt);
 int			ft_customenvp(t_tools *tools);
@@ -226,11 +235,13 @@ int			ft_hatedollar(char *str, char **env, t_tools *tools);
 int			ft_testdollar(char *str, char **env);
 char		*ft_updatexport(char *prompt);
 int			ft_validator(char *echo);
-void		ft_putquotes(char *echo, char **env, t_tools *tools, int *space);
+void		ft_putquotes(char *echo);
 void		ft_exit(char *str);
 void		ft_executator(t_list *tokens, t_tools *tools);
 void		ft_execut_part(t_list **arr_tokens, t_tools*tools, unsigned int *i);
 void		ft_get_commpart(t_list *tokens, t_executor *exe, int *flag, int *i);
+int			ft_updatetspc(char *str);
+char		**ft_updtmyunst(t_tools *tools, int index);
 
 /*** SIGNAL ***/
 

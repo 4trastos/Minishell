@@ -6,28 +6,41 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/22 19:44:51 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 14:47:50 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/minishell.h"
 
-t_string	*parse_strings(char c, char *str, unsigned int *i)
+t_string	*parse_strings(char c, char *str, unsigned int *i, t_tools *tools)
 {
 	t_string		*new;
 	char			*aux;
-	int				result;
+	char			*test;
+	unsigned int	result;
 
-	result = ft_validator(str);
-	if (result == 1)
+	if (ft_validator(str) == 1)
 		return (NULL);
-	aux = ft_searchqu(str, c, i);
+	test = str;
+	result = *i;
+	while (result > 0)
+	{
+		test++;
+		result--;
+	}
+	ft_finaltoken(test, &result);
+	aux = ft_searchqu(test, c, i, tools);
+	while (result > 0)
+	{
+		aux = prsstraux(aux, str, i, tools);
+		result--;
+	}
 	new = terminal_string(aux);
 	free(aux);
 	return (new);
 }
 
-t_string	*parse_operators(char c, char *str, unsigned int *i)
+t_string	*parse_operators(char c, char *str, unsigned int *i, t_tools *tools)
 {
 	t_string		*new;
 	char			*aux;
@@ -36,23 +49,27 @@ t_string	*parse_operators(char c, char *str, unsigned int *i)
 
 	start = *i;
 	rest = 0;
-	while (str[*i] == c)
-		(*i)++;
-	while (str[*i] == ' ')
+	if (str[*i] + 1 != '\0')
 	{
-		rest++;
+		while (str[*i] == c)
+			(*i)++;
+		prsopaux(str, i, &rest);
+		while (istru(c, str[*i]) == 0)
+			(*i)++;
+		aux = ft_substrop(str, start, (*i - start) - rest);
+		aux = updatedollar(aux, tools);
+	}
+	else
+	{
+		aux = ft_substr(str, start, *i);
 		(*i)++;
 	}
-	while (str[*i] != c && str[*i] != '\0' && str[*i] != '>' && str[*i] != '|'
-		&& str[*i] != ' ')
-		(*i)++;
-	aux = ft_substrop(str, start, (*i - start) - rest);
 	new = terminal_string(aux);
 	free(aux);
 	return (new);
 }
 
-t_string	*parse_pipes(char c, char *str, unsigned int *i)
+t_string	*parse_pipes(char c, char *str, unsigned int *i, t_tools *tools)
 {
 	t_string		*new;
 	char			*aux;
@@ -60,7 +77,7 @@ t_string	*parse_pipes(char c, char *str, unsigned int *i)
 
 	start = *i;
 	if (str[*i] == '$')
-		return (new = parse_dollar(c, str, i));
+		return (new = parse_dollar(c, str, i, tools));
 	else
 	{
 		while (str[*i] == c)
@@ -72,8 +89,7 @@ t_string	*parse_pipes(char c, char *str, unsigned int *i)
 	return (new);
 }
 
-t_string	*parse_tokens(t_tools *tools, t_list *built, char *str,
-				unsigned int *i)
+t_string	*parsetks(t_tools *tools, t_list *built, char *str, unsigned int *i)
 {
 	t_string		*new;
 	unsigned int	start;
@@ -87,17 +103,16 @@ t_string	*parse_tokens(t_tools *tools, t_list *built, char *str,
 	result = ft_validator_extra(str, &quotes, &flag);
 	if (result == 1)
 		return (NULL);
-	else if (result != 1)
-		ft_updateprtkn(str, i, result);
-	tools->prompt = ft_substr(str, start, *i - start);
+	else if (result == 0)
+	{
+		ft_updateprtkn(str, i);
+		ft_prstksaux(tools, str, start, i);
+	}
+	else if (result == 2)
+		tools->prompt = ft_updatetokens(str, i, tools);
 	check_builtins(tools, built, tools->prompt, &flag);
 	new = terminal_string(tools->prompt);
-	free(tools->prompt);
-	if (flag != 0)
-	{
-		new->op = OP_BUILTIN;
-		new->blt = flag;
-	}
+	addblt(new, flag);
 	return (new);
 }
 

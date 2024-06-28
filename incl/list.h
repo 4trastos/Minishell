@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:31:05 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/20 11:08:43 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/27 10:44:08 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ t_list		*create_tokens(t_list *built, t_tools *tools, t_string *cmd_input);
 t_list		*insert_in_list(t_list *tokens, t_string *command);
 t_string	*terminal_string(char *str);
 char		*ft_createname(char *name, char c);
-char		*ft_searchqu(char *str, char c, unsigned int *i);
+char		*ft_searchqu(char *str, char c, unsigned int *i, t_tools *tools);
+char		*ft_moretoken(char *str, unsigned int *i, t_tools *tools);
 void		ft_printenvp(t_tools *tools);
 void		ft_printlist(t_list *tokens);
 void		list_app_function(t_list *list, t_function f);
@@ -58,6 +59,19 @@ int			ft_strcmp(char *str1, char *str2);
 int			ft_mychdir(char *prompt, t_tools *tools);
 int			ft_findenv(char **env, char *name);
 int			custom_strnstr(char *str, char *built);
+void		ft_iterone(char *str, t_tools *tools, int *add, int *subtract);
+char		*ft_itertwo(char *update, char *str, t_tools *tools);
+char		*ft_updatetokens(char *str, unsigned int *i, t_tools *tools);
+void		ft_finaltoken(char *test, unsigned int *result);
+void		ft_updatepdll(char *str, char c, unsigned int *i,
+				unsigned int *flag);
+void		ft_upupdatetk(char *str, char **test, unsigned int *i);
+char		*ft_updatemoretk(char *new, char *test, unsigned int *i,
+				t_tools *tools);
+char		*prsstraux(char *aux, char *str, unsigned int *i, t_tools *tools);
+void		prsopaux(char *str, unsigned int *i, unsigned int *rest);
+int			istru(char c, char actual);
+void		addblt(t_string *new, int flag);
 
 /*** DELETE ***/
 

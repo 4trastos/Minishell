@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/22 20:05:06 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 14:50:43 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	ft_customenvp(t_tools *tools)
 	return (0);
 }
 
-char	*ft_searchqu(char *str, char c, unsigned int *i)
+char	*ft_searchqu(char *str, char c, unsigned int *i, t_tools *tools)
 {
 	char	*end;
 	char	*new;
@@ -111,10 +111,11 @@ char	*ft_searchqu(char *str, char c, unsigned int *i)
 	{
 		len = end - str;
 		new = ft_substr(str, 0, len);
-		*i += len + 1;
 		if (flag == 1 && (ft_strchr(new, '$') != NULL))
-			new = updatedollar(new);
+			new = updatedollar(new, tools);
+		*i += len + 1;
 		return (new);
 	}
+	free(str);
 	return (NULL);
 }

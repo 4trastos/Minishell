@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:13:54 by nicgonza          #+#    #+#             */
-/*   Updated: 2024/06/20 11:00:16 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 13:26:51 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	**ft_empty_split(void)
 	return (aux);
 }
 
-static char	*ft_strdup_custom(const char *s, size_t n)
+static char	*ft_strdup_custom( char *s, size_t n)
 {
 	char	*dst;
 	size_t	i;
@@ -57,7 +57,7 @@ static char	**ft_free_str(char **aux)
 	return (NULL);
 }
 
-static int	ft_countc(const char *s, char c)
+static int	ft_countc( char *s, char c)
 {
 	int	i;
 	int	x;
@@ -77,7 +77,7 @@ static int	ft_countc(const char *s, char c)
 	return (x);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char *s, char c)
 {
 	char	**aux;
 	int		i;

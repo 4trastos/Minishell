@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:18:54 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/22 17:59:57 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 14:02:44 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,35 @@ void	error_msg(char *str)
 	exit(1);
 }
 
-void	ft_errormsg(char *str)
+char	*trimspace(char *str)
+{
+	char	*new;
+	int		i;
+	int		subtract;
+
+	subtract = ft_updatetspc(str);
+	new = ft_calloc(sizeof(char *), ft_strlen(str) - subtract + 1);
+	i = 0;
+	while (*str != '\0')
+	{
+		subtract = 0;
+		if (*str == ' ')
+			subtract = 1;
+		while (*str == ' ')
+			str++;
+		if (subtract == 1)
+			new[i] = ' ';
+		else
+		{
+			new[i] = *str;
+			str++;
+		}
+		i++;
+	}
+	return (new);
+}
+
+/* void	ft_errormsg(char *str)
 {
 	int	i;
 
@@ -78,4 +106,4 @@ void	ft_errormsg(char *str)
 		i++;
 	}
 	write(1, "\n", 1);
-}
+} */

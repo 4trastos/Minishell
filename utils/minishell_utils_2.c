@@ -6,13 +6,13 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:13:54 by nicgonza          #+#    #+#             */
-/*   Updated: 2024/06/07 15:49:02 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 13:27:31 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/minishell.h"
 
-static char	*ft_sticky(char const *s1, char const *s2, char *cadena)
+static char	*ft_sticky(char *s1, char *s2, char *cadena)
 {
 	int	j;
 	int	i;
@@ -34,7 +34,7 @@ static char	*ft_sticky(char const *s1, char const *s2, char *cadena)
 	return (cadena);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	int		len1;
 	int		len2;
@@ -61,7 +61,7 @@ void	ft_putstr_fd(char *s, int fd)
 	}
 }
 
-char	*ft_substrop(char const *s, unsigned int start, size_t len)
+char	*ft_substrop(char *s, unsigned int start, size_t len)
 {
 	size_t	j;
 	char	*sub;

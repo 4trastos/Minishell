@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/03 13:20:39 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/26 07:19:05 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	list_app_function(t_list *list, t_function f)
 		}
 	}
 	else
-		write(1, "Error\n", 5);
+		write(1, "Error\n", 6);
 }
 
 bool	next_string(t_list *tokens, unsigned int *i)

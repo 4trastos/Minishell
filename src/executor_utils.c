@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:25:32 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/22 13:58:39 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 16:55:45 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_setexe(t_executor *executor, t_tools *tools)
 	executor->chk_fd = 0;
 	if (tools->flag == 1)
 	{
-		executor->outfile = open(".trash.tmp", O_CREAT
+		executor->outfile = open("/tmp/.trash.tmp", O_CREAT
 				| O_RDWR | O_TRUNC, 0644);
 	}
 }

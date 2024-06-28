@@ -6,13 +6,13 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:13:54 by nicgonza          #+#    #+#             */
-/*   Updated: 2024/06/20 11:00:30 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 11:15:34 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/minishell.h"
 
-static int	ft_transform(const char *str, int i)
+static int	ft_transform( char *str, int i)
 {
 	int	result;
 	int	digit;
@@ -27,7 +27,7 @@ static int	ft_transform(const char *str, int i)
 	return (result);
 }
 
-int	ft_atoi(const char *str)
+int	ft_atoi( char *str)
 {
 	int	i;
 	int	sign;

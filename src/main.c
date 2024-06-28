@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:25:32 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/22 16:51:31 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 17:25:53 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,20 @@ static void	ft_free_main(t_tools *tools)
 	free(tools->old_pwd);
 }
 
-static void	ft_init_tools(t_tools *tools)
+char	*no_last_space(char *str)
 {
-	get_pwd(tools);
-	get_old_pwd(tools);
-	tools->exit_code = 0;
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (NULL);
+	if (ft_strlen(str) < 2)
+		return (str);
+	while (str[i] != '\0')
+		i++;
+	if (str[--i] == ' ')
+		str[i] = '\0';
+	return (str);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -44,7 +53,9 @@ int	main(int argc, char **argv, char **envp)
 	tools.env = ft_addshlvl(aux);
 	if (!tools.env)
 		return (1);
-	ft_init_tools(&tools);
+	get_pwd(&tools);
+	get_old_pwd(&tools);
+	tools.exit_code = 0;
 	rl_catch_signals = 0;
 	while (prompt_loop(cmd_input, &tools))
 		;

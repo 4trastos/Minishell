@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:25:32 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/22 17:13:46 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 16:10:08 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	ft_empty_doc(t_executor *exe, t_tools *tools)
 {
 	int	fd;
 
-	fd = open(".empty", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	fd = open("/tmp/.empty", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	close(fd);
-	exe->infile = open(".empty", O_RDONLY);
+	exe->infile = open("/tmp/.empty", O_RDONLY);
 	if (tools->exit_code == 130)
 		exe->chk_fd = 2;
 	else
@@ -36,8 +36,8 @@ void	delete_heredoc(t_executor *exe)
 		free(file);
 		exe->here_doc_id--;
 	}
-	unlink(".trash.tmp");
-	unlink(".empty");
+	unlink("/tmp/.trash.tmp");
+	unlink("/tmp/.empty");
 	ft_doublefree(exe->path);
 }
 

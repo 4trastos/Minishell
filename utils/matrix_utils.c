@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:13:54 by nicgonza          #+#    #+#             */
-/*   Updated: 2024/06/22 14:34:46 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 13:29:05 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ char	*ft_strdup(char *s1)
 	return (s2);
 }
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+void	*ft_memcpy(void *dst, void *src, size_t n)
 {
-	char		*d;
-	const char	*s;
-	size_t		i;
+	char	*d;
+	char	*s;
+	size_t	i;
 
 	d = dst;
 	s = src;

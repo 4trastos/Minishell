@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:25:32 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/22 16:10:35 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 17:08:03 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_doc_name(t_executor *exe)
 	char	*id;
 
 	id = ft_itoa(exe->here_doc_id);
-	str = ft_strjoin(".here_doc", id);
+	str = ft_strjoin("/tmp/.here_doc", id);
 	file = ft_strjoin(str, ".tmp");
 	free(id);
 	free(str);

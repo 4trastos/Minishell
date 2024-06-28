@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/22 15:13:12 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 17:20:31 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,60 +31,26 @@ void	get_builts(t_string *built, unsigned int i)
 		built->blt = BT_EXIT;
 }
 
-int	ft_mychdir(char *prompt, t_tools *tools)
-{
-	char	cwd[MAX_PATH_LEN];
-	char	*path;
-	int		i;
-
-	path = prompt;
-	while (*path == ' ' || *path == 'c' || *path == 'd')
-		path++;
-	path = ft_strtrim(path, " ");
-	if (*path == '\0')
-	{
-		if (chdir(ft_findhome(tools->env)) != 0)
-			return (perror("chdir"), 1);
-	}
-	else if (*path == '$')
-	{
-		path++;
-		i = ft_findenv(tools->env, path);
-		if (chdir(ft_findvarvalue(tools->env[i])) != 0)
-			return (perror("chdir"), 1);
-	}
-	else if (getcwd(cwd, sizeof(cwd)) == NULL)
-		return (perror("getcwd"), 1);
-	else if (chdir(path) != 0)
-		return (perror("chdir"), 1);
-	return (0);
-}
-
-int	ft_myunset(char **env, char *name)
+int	ft_myunset(t_tools *tools, char *name)
 {
 	char	*str;
+	char	**new;
 	int		index;
-	int		i;
 
 	str = name;
 	index = 0;
 	while (*str == ' ' || *str == 'u' || *str == 'n' || *str == 's'
 		|| *str == 'e' || *str == 't')
 		str++;
-	index = ft_findenv(env, str);
+	index = ft_findenv(tools->env, str);
 	if (index == -1)
 	{
 		printf("Variable de entorno: '%s' no encontrada\n", str);
 		return (1);
 	}
-	i = index;
-	while (env[i] != NULL)
-	{
-		env[i] = env[i + 1];
-		i++;
-	}
-	i--;
-	env[i] = NULL;
+	new = ft_updtmyunst(tools, index);
+	ft_doublefree(tools->env);
+	tools->env = dup_matrix(new);
 	return (0);
 }
 
@@ -115,4 +81,16 @@ int	ft_myexport(t_tools *tools, char *prompt)
 	}
 	ft_doublefree(name);
 	return (0);
+}
+
+char	*prsstraux(char *aux, char *str, unsigned int *i, t_tools *tools)
+{
+	char	*temp;
+	char	*jujur;
+
+	temp = ft_moretoken(str, i, tools);
+	jujur = ft_strjoin(aux, temp);
+	free(temp);
+	free(aux);
+	return (jujur);
 }

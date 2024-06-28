@@ -22,7 +22,7 @@ int	ft_findenv(char **env, char *name)
 	len = 0;
 	aux = name;
 	while (*name != '=' && *name != '\0' && *name != '\'' && *name != ' '
-		&& *name != '"')
+		&& *name != '"' && *name != '$')
 	{
 		len++;
 		name++;
