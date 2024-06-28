@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:49:08 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/28 13:22:25 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 20:02:52 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_updateprtkn2(char *str, unsigned int *i)
 {
 	while (str[*i] != 92 && str[*i] != '|' && str[*i]
-		&& str[*i] != '<' && str[*i] != '>' && str[*i] != ';'
+		&& str[*i] != '<' && str[*i] != '>'
 		&& str[*i] != '\'' && str[*i] != '"' && str[*i] != ' ')
 		(*i)++;
 }

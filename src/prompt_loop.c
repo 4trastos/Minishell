@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:13:54 by nicgonza          #+#    #+#             */
-/*   Updated: 2024/06/28 17:26:42 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 20:07:53 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ static void	check_commands(t_string *cmd_input, t_tools *tools)
 	{
 		built = builtins();
 		tokens = create_tokens(built, tools, cmd_input);
-		// list_app_function(tokens, (t_function)ft_errormsg);
 		i = 0;
 		if (tokens->data[0]->str[0] == '|'
 			|| tokens->data[tokens->size -1]->str[0] == '|')

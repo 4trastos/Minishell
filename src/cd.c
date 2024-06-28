@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/28 17:48:49 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 19:32:02 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@ int	ft_mychdir(char *prompt, t_tools *tools)
 	while (*path == ' ' || *path == 'c' || *path == 'd')
 		path++;
 	res = 0;
+	if (*path == '\0')
+	{
+		if (chdir(ft_findhome(tools->env)) != 0)
+			return (free(path), perror("chdir"), 1);
+		return (0);
+	}
 	res = chdir(path);
 	if (res != 0)
 	{
@@ -69,4 +75,18 @@ int	ft_mychdir(char *prompt, t_tools *tools)
 		update_env(tools);
 	}
 	return (EXIT_SUCCESS);
+}
+
+int	ft_fluki(char *test, unsigned int *i)
+{
+	int	space;
+
+	space = 0;
+	while (*test == ' ' && *test != '\0')
+	{
+		test++;
+		(*i)++;
+		space = 1;
+	}
+	return (space);
 }

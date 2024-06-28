@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:13:54 by nicgonza          #+#    #+#             */
-/*   Updated: 2024/06/28 15:31:39 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 19:53:13 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,23 +48,23 @@ void	ft_updatemrtk(char **test, unsigned int *result)
 	*result = 0;
 }
 
-void	ft_updtfinaltk(char **aux, unsigned int *result)
+void	ft_updtfinaltk(char *aux, unsigned int *result)
 {
 	char	c;
 	char	*end;
 	int		len;
 
-	c = **aux;
-	(*aux)++;
-	end = ft_strchr(*aux, c);
+	c = *aux;
+	(aux)++;
+	end = ft_strchr(aux, c);
 	if (end != NULL)
 	{
-		len = end - *aux;
+		len = end - aux;
 		len = len + 1;
 		while (len > 0)
 		{
 			len--;
-			(*aux)++;
+			(aux)++;
 		}
 		(*result)++;
 	}

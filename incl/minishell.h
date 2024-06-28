@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:14:29 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/28 17:33:29 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 19:53:39 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,9 +204,10 @@ void		ft_updateprtkn2(char *str, unsigned int *i);
 char		*trimspace(char *str);
 void		ft_prstksaux(t_tools *tools, char *str, int start, unsigned int *i);
 void		ft_updatemrtk(char **test, unsigned int *result);
-void		ft_updtfinaltk(char **aux, unsigned int *result);
+void		ft_updtfinaltk(char *aux, unsigned int *result);
 int			update_pwd(t_tools *tools);
 int			update_env(t_tools *tools);
+char		ft_get_char(char num);
 
 /*** ERROR ***/
 
@@ -242,6 +243,12 @@ void		ft_execut_part(t_list **arr_tokens, t_tools*tools, unsigned int *i);
 void		ft_get_commpart(t_list *tokens, t_executor *exe, int *flag, int *i);
 int			ft_updatetspc(char *str);
 char		**ft_updtmyunst(t_tools *tools, int index);
+char		*jujur_thegoat(t_tools *tools, char *str, char *update, int *i);
+void		txurufluki_thegoat(t_tools *tools, char *str,
+				int *add, int *subtract);
+char		*ft_iterthree(char **env, int *index, char *update, int *i);
+void		ft_add_env(char *str, int *subtract, int *add, char *var);
+int			ft_fluki(char *test, unsigned int *i);
 
 /*** SIGNAL ***/
 

@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:25:32 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/28 17:25:53 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:05:49 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,17 @@ char	*no_last_space(char *str)
 {
 	int	i;
 
-	i = 0;
+	i = ft_strlen(str);
 	if (!str)
 		return (NULL);
 	if (ft_strlen(str) < 2)
 		return (str);
-	while (str[i] != '\0')
-		i++;
-	if (str[--i] == ' ')
+	i--;
+	while (str[i] == ' ' && i > 0)
+	{
 		str[i] = '\0';
+		i--;
+	}
 	return (str);
 }
 

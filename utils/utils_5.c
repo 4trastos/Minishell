@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 18:43:59 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/28 12:07:22 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 20:02:59 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_validator_extra(char *echo, int *quotes, int *flag)
 void	ft_updateprtkn(char *str, unsigned int *i)
 {
 	while (str[*i] != 92 && str[*i] != '|' && str[*i]
-		&& str[*i] != '<' && str[*i] != '>' && str[*i] != ';'
+		&& str[*i] != '<' && str[*i] != '>'
 		&& str[*i] != '\'' && str[*i] != '"')
 		(*i)++;
 }

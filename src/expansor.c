@@ -6,13 +6,13 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 15:59:17 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/25 19:13:12 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 19:17:16 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/minishell.h"
 
-static void	ft_add_env(char *str, int *subtract, int *add, char *var)
+void	ft_add_env(char *str, int *subtract, int *add, char *var)
 {
 	while (*str != '\0' && *str != ' ' && *str != '$')
 	{
@@ -24,9 +24,9 @@ static void	ft_add_env(char *str, int *subtract, int *add, char *var)
 
 void	ft_iterone(char *str, t_tools *tools, int *add, int *subtract)
 {
-	int	index;
+	char	*ec;
 
-	index = 0;
+	ec = ft_itoa(tools->exit_code);
 	while (*str != '\0')
 	{
 		if (*str == '$')
@@ -35,22 +35,19 @@ void	ft_iterone(char *str, t_tools *tools, int *add, int *subtract)
 			if (*str == '?')
 			{
 				*subtract += 2;
-				*add += ft_strlen(ft_itoa(tools->exit_code));
+				*add += ft_strlen(ec);
 				str++;
 			}
 			else
-			{
-				index = ft_findenv(tools->env, str);
-				if (index != -1)
-					ft_add_env(str, subtract, add, tools->env[index]);
-			}
+				txurufluki_thegoat(tools, str, add, subtract);
 		}
 		if (*str != '\0')
 			str++;
 	}
+	free(ec);
 }
 
-static char	*ft_iterthree(char **env, int *index, char *update, int *i)
+char	*ft_iterthree(char **env, int *index, char *update, int *i)
 {
 	int	j;
 
@@ -67,27 +64,26 @@ static char	*ft_iterthree(char **env, int *index, char *update, int *i)
 
 static char	*ft_iteraux(char *str, t_tools *tools, int *i, char *update)
 {
-	int		index;
 	char	*exit_code;
+	char	tmp;
+	char	*start;
 
-	index = 0;
 	if (*str == '?')
 	{
 		exit_code = ft_itoa(tools->exit_code);
+		start = exit_code;
 		while (*exit_code != '\0')
 		{
-			update[*i] = *exit_code;
+			tmp = ft_get_char(*exit_code);
+			update[*i] = tmp;
 			(*i)++;
 			exit_code++;
 		}
+		free(start);
 		str++;
 	}
 	else
-	{
-		index = ft_findenv(tools->env, str);
-		if (index != -1)
-			update = ft_iterthree(tools->env, &index, update, i);
-	}
+		update = jujur_thegoat(tools, str, update, i);
 	return (update);
 }
 

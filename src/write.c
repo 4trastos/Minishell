@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:18:54 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/28 14:02:44 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 20:08:20 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,17 +93,3 @@ char	*trimspace(char *str)
 	}
 	return (new);
 }
-
-/* void	ft_errormsg(char *str)
-{
-	int	i;
-
-	i = 0;
-	write(1, "Esto hay en tokens ---->>>> :  ", 28);
-	while (str[i] != '\0')
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
-	write(1, "\n", 1);
-} */

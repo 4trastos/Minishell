@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/06/28 14:29:52 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/06/28 20:02:37 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ char	*ft_moretoken(char *str, unsigned int *i, t_tools *tools)
 {
 	char			*new;
 	char			*test;
+	char			*txuru;
 	unsigned int	result;
 	int				space;
 
@@ -69,18 +70,16 @@ char	*ft_moretoken(char *str, unsigned int *i, t_tools *tools)
 	result = *i;
 	new = NULL;
 	ft_updatemrtk(&test, &result);
-	while (*test == ' ' && *test != '\0')
-	{
-		test++;
-		(*i)++;
-		space = 1;
-	}
+	space = ft_fluki(test, i);
 	if (*test == '\'' || *test == '"')
 		new = ft_searchqu(test, *test, i, tools);
 	else
 		new = ft_updatemoretk(new, test, i, tools);
 	if (space == 1)
-		new = ft_strjoin(" ", new);
+	{
+		txuru = ft_strjoin(" ", new);
+		return (free(new), txuru);
+	}
 	return (new);
 }
 
@@ -93,9 +92,12 @@ void	ft_finaltoken(char *test, unsigned int *result)
 	while (*aux != '\0' && *aux != '|' && *aux != '<' && *aux != '>')
 	{
 		if (*aux == '"' || *aux == '\'')
-			ft_updtfinaltk(&aux, result);
+		{
+			ft_updtfinaltk(aux, result);
+			aux++;
+		}
 		else if (*aux != ' ' && (*(aux + 1) == ' ' || *(aux + 1) == '\0'
-				|| *(aux + 1) == '"'))
+				|| *(aux + 1) == '"' || *(aux + 1) == '\''))
 			(*result)++;
 		if (*aux != '\0')
 			aux++;
@@ -103,10 +105,8 @@ void	ft_finaltoken(char *test, unsigned int *result)
 	if (*aux != '\0')
 		(*result)--;
 	aux--;
-	if (*aux == '"' && *result == 0)
-	{
+	if ((*aux == '"' || *aux == '\'') && *result <= 1)
 		*result = 0;
-	}
 }
 
 void	ft_updatepdll(char *str, char c, unsigned int *i, unsigned int *flag)
@@ -114,8 +114,7 @@ void	ft_updatepdll(char *str, char c, unsigned int *i, unsigned int *flag)
 	while (str[*i] == c)
 		(*i)++;
 	while (str[*i] != '"' && str[*i] != 92 && str[*i] != '|' && str[*i]
-		&& str[*i] != '<' && str[*i] != '>'
-		&& str[*i] != ';' && str[*i] != 39
+		&& str[*i] != '<' && str[*i] != '>' && str[*i] != 39
 		&& str[*i] && str[*i] != ' ' && *flag == 0)
 	{
 		(*i)++;
