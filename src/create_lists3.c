@@ -68,11 +68,12 @@ int	istru(char c, char actual)
 		return (0);
 }
 
-void	addblt(t_string *new, int flag)
+void	addblt(t_string *new, int *flag)
 {
-	if (flag != 0)
+	if (*flag != 0)
 	{
 		new->op = OP_BUILTIN;
-		new->blt = flag;
+		new->blt = *flag;
+		*flag = 0;
 	}
 }

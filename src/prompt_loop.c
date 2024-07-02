@@ -72,6 +72,8 @@ static void	check_commands(t_string *cmd_input, t_tools *tools)
 		i = -1;
 		if (tokens != NULL)
 		{
+			printf("BLT: %i\n", tokens->data[0]->blt);
+			printf("STR: %s\n", tokens->data[0]->str);
 			if (tokens->data[0]->str[0] == '|'
 				|| tokens->data[tokens->size -1]->str[0] == '|')
 				write(2, "Unexpected Pipe\n", 16);

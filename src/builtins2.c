@@ -29,6 +29,8 @@ void	get_builts(t_string *built, unsigned int i)
 		built->blt = BT_ENV;
 	else if (i == 6)
 		built->blt = BT_EXIT;
+	else if (i == 7)
+		built->blt = BT_PWD;
 }
 
 int	ft_myunset(t_tools *tools, char *name)
@@ -44,10 +46,7 @@ int	ft_myunset(t_tools *tools, char *name)
 		str++;
 	index = ft_findenv(tools->env, str);
 	if (index == -1)
-	{
-		printf("Variable de entorno: '%s' no encontrada\n", str);
 		return (1);
-	}
 	new = ft_updtmyunst(tools, index);
 	ft_doublefree(tools->env);
 	tools->env = dup_matrix(new);
@@ -67,20 +66,20 @@ int	ft_myexport(t_tools *tools, char *prompt)
 	i = 0;
 	while (name[i] != NULL)
 	{
+		index = ft_findenv(tools->env, name[i]);
 		if (ft_export_name(name[i]) == 1)
 		{
 			write(1, "Invalid variable\n", 17);
-			return (ft_doublefree(name), 1);
+			i++;
 		}
-		index = ft_findenv(tools->env, name[i]);
-		if (index == -1)
+		else if (index == -1)
 			ft_addname(tools, name[i]);
 		else
 			ft_updatevalue(tools->env, name[i], index);
-		i++;
+		if (name[i] != NULL)
+			i++;
 	}
-	ft_doublefree(name);
-	return (0);
+	return (ft_doublefree(name), 0);
 }
 
 char	*prsstraux(char *aux, char *str, unsigned int *i, t_tools *tools)

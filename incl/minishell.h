@@ -67,6 +67,7 @@ typedef enum s_builtin
 	BT_UNSET,
 	BT_ENV,
 	BT_EXIT,
+	BT_PWD,
 }	t_builtin;
 
 typedef enum s_operator
@@ -221,7 +222,7 @@ void		ft_errormsg(char *str);
 
 t_list		*builtins(void);
 void		insert_global(t_list *list, char *command, int numb);
-int			terminator(t_tools *tools, char *prompt, char *built, int blt);
+int			terminator(t_tools *tools, char *prompt, int blt);
 void		check_builtins(t_tools *tools, t_list *built, char *input,
 				int *flag);
 void		ft_myprintecho(char *echo, int flag);

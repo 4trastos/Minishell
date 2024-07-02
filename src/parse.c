@@ -110,7 +110,7 @@ t_string	*parsetks(t_tools *tools, t_list *built, char *str, unsigned int *i)
 		tools->prompt = ft_updatetokens(str, i, tools);
 	check_builtins(tools, built, tools->prompt, &flag);
 	new = terminal_string(tools->prompt);
-	addblt(new, flag);
+	addblt(new, &flag);
 	free(tools->prompt);
 	return (new);
 }

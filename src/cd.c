@@ -96,7 +96,7 @@ int	get_n_red(char *str, unsigned int i, char c)
 	unsigned int	count;
 
 	count = 0;
-	while (str[i] != '\0')
+	while (str[i] != '\0' && str[i] != ' ')
 	{
 		if (str[i] == c)
 			count++;

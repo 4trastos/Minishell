@@ -19,7 +19,7 @@
 # include <limits.h>
 # include <stddef.h>
 
-# define BUILTS "cd echo export unset env exit"
+# define BUILTS "cd echo export unset env exit pwd"
 # define MAX_PATH_LEN 4096
 
 typedef struct s_tools	t_tools;
@@ -71,7 +71,7 @@ char		*ft_updatemoretk(char *new, char *test, unsigned int *i,
 char		*prsstraux(char *aux, char *str, unsigned int *i, t_tools *tools);
 void		prsopaux(char *str, unsigned int *i, unsigned int *rest);
 int			istru(char c, char actual);
-void		addblt(t_string *new, int flag);
+void		addblt(t_string *new, int *flag);
 
 /*** DELETE ***/
 

@@ -52,7 +52,10 @@ void	ft_execve(t_executor *exe, t_tools *tools)
 		perror("comand");
 	tools->exit_code = execve(exe->rute, exe->fullcmd, tools->env);
 	if (tools->exit_code == -1)
+	{
 		perror("excve");
+		tools->exit_code = 127;
+	}
 }
 
 void	ft_expand(t_list *tokens, t_tools *tools, int i)
@@ -64,5 +67,5 @@ void	ft_expand(t_list *tokens, t_tools *tools, int i)
 void	ft_built(t_tools *tools, t_list *tokens, int i)
 {
 	tools->exit_code = terminator(tools, tokens->data[i]->str,
-			tokens->data[i]->str, tokens->data[i]->blt);
+			tokens->data[i]->blt);
 }

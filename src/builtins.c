@@ -71,11 +71,10 @@ t_list	*builtins(void)
 	return (builtins);
 }
 
-int	terminator(t_tools *tools, char *prompt, char *built, int blt)
+int	terminator(t_tools *tools, char *prompt, int blt)
 {
 	int	res;
 
-	(void)built;
 	res = 0;
 	if (blt == BT_CD)
 		res = ft_mychdir(prompt, tools);
@@ -97,5 +96,7 @@ int	terminator(t_tools *tools, char *prompt, char *built, int blt)
 		ft_myenv(tools->env);
 	else if (blt == BT_EXIT)
 		ft_exit(prompt);
+	else if (blt == BT_PWD)
+		printf("%s\n", tools->pwd);
 	return (res);
 }
