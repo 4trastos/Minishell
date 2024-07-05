@@ -68,10 +68,7 @@ int	ft_myexport(t_tools *tools, char *prompt)
 	{
 		index = ft_findenv(tools->env, name[i]);
 		if (ft_export_name(name[i]) == 1)
-		{
 			write(1, "Invalid variable\n", 17);
-			i++;
-		}
 		else if (index == -1)
 			ft_addname(tools, name[i]);
 		else
