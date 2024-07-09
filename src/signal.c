@@ -22,6 +22,14 @@ void	handle_sigint(int sig)
 		ioctl(0, TIOCSTI, "\n");
 		return ;
 	}
+	if (g_signal == 200)
+	{
+		g_signal = 1;
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		return ;
+	}
 	printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);

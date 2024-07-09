@@ -60,17 +60,16 @@ int	ft_mychdir(char *prompt, t_tools *tools)
 		path++;
 	path = ft_strtrim(path, " ");
 	res = 0;
+	dir = getcwd(NULL, 0);
+	res = chdir(path);
 	if (*path == '\0')
 	{
 		if (chdir(ft_findhome(tools->env)) != 0)
 			return (free(path), perror("chdir"), 1);
-		return (0);
 	}
-	dir = getcwd(NULL, 0);
-	if (dir == NULL)
+	else if (dir == NULL)
 		return (free(dir), free(path), EXIT_FAILURE);
-	res = chdir(path);
-	if (res != 0)
+	else if (res != 0)
 		return (perror("Error"), free(dir), free(path), EXIT_FAILURE);
 	if (tools->env)
 		update_pwd(tools);

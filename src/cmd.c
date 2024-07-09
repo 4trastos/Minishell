@@ -63,6 +63,7 @@ void	create_pipes(t_executor *exe)
 
 void	ft_exec_cmd(t_tools *tools, t_list *tokens, t_executor *exe, int i)
 {
+	g_signal = 200;
 	exe->pid[exe->i] = fork();
 	if (!exe->pid[exe->i])
 	{

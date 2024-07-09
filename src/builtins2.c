@@ -38,6 +38,8 @@ int	ft_myunset(t_tools *tools, char *name)
 	char	*str;
 	char	**new;
 	int		index;
+	char	**uns;
+	int		i;
 
 	str = name;
 	index = 0;
@@ -89,4 +91,12 @@ char	*prsstraux(char *aux, char *str, unsigned int *i, t_tools *tools)
 	free(temp);
 	free(aux);
 	return (jujur);
+}
+
+int	iter_str(char c)
+{
+	if (c == ' ' || c == '\0' || c == '$' || c == '\'' || c == '"')
+		return (0);
+	else
+		return (1);
 }

@@ -71,7 +71,7 @@ void	get_command(t_list *tokens, t_executor *exe, t_tools *tools)
 		&& exe->outfile == 1)
 	{
 		tools->exit_code = terminator(tools, tokens->data[i]->str,
-			tokens->data[i]->blt);
+				tokens->data[i]->blt);
 		exe->flag = 1;
 	}
 	else

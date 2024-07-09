@@ -72,6 +72,7 @@ char		*prsstraux(char *aux, char *str, unsigned int *i, t_tools *tools);
 void		prsopaux(char *str, unsigned int *i, unsigned int *rest);
 int			istru(char c, char actual);
 void		addblt(t_string *new, int *flag);
+int			iter_str(char c);
 
 /*** DELETE ***/
 

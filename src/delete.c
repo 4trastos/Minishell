@@ -74,5 +74,6 @@ void	ft_auxgtf(t_executor *exe, t_tools *tools, char *file)
 	{
 		perror("file");
 		ft_empty_doc(exe, tools);
+		tools->exit_code = 1;
 	}
 }

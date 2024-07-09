@@ -71,6 +71,20 @@ t_list	*builtins(void)
 	return (builtins);
 }
 
+static int	echo_aux(char *prompt)
+{
+	int	res;
+
+	if (ft_strlen(prompt) == 4)
+	{
+		write(1, "\n", 1);
+		return (0);
+	}
+	else
+		res = ft_myecho(prompt);
+	return (res);
+}
+
 int	terminator(t_tools *tools, char *prompt, int blt)
 {
 	int	res;
@@ -79,12 +93,7 @@ int	terminator(t_tools *tools, char *prompt, int blt)
 	if (blt == BT_CD)
 		res = ft_mychdir(prompt, tools);
 	else if (blt == BT_ECHO)
-	{
-		if (ft_strlen(prompt) == 4)
-			write(1, "\n", 1);
-		else
-			res = ft_myecho(prompt);
-	}
+		res = echo_aux(prompt);
 	else if (blt == BT_EXPORT)
 	{
 		tools->exp = dup_matrix_envp(tools->env);

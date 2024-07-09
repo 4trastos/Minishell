@@ -98,7 +98,7 @@ char	*ft_itertwo(char *update, char *str, t_tools *tools)
 		{
 			str++;
 			update = ft_iteraux(str, tools, &i, update);
-			while (*str != ' ' && *str != '\0' && *str != '$')
+			while (iter_str(*str) == 1)
 				str++;
 			if (*str == '\0')
 				break ;
