@@ -6,7 +6,7 @@
 /*   By: davgalle <davgalle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:41:49 by davgalle          #+#    #+#             */
-/*   Updated: 2024/07/01 10:03:29 by davgalle         ###   ########.fr       */
+/*   Updated: 2024/07/09 09:08:34 by davgalle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,26 @@ int	ft_myunset(t_tools *tools, char *name)
 {
 	char	*str;
 	char	**new;
+	char	**temp;
 	int		index;
-	char	**uns;
 	int		i;
 
-	str = name;
 	index = 0;
-	while (*str == ' ' || *str == 'u' || *str == 'n' || *str == 's'
-		|| *str == 'e' || *str == 't')
-		str++;
-	index = ft_findenv(tools->env, str);
-	if (index == -1)
-		return (1);
-	new = ft_updtmyunst(tools, index);
-	ft_doublefree(tools->env);
-	tools->env = dup_matrix(new);
+	str = ft_updateunset(name);
+	temp = ft_split(str, ' ');
+	i = 0;
+	while (temp[i] != NULL)
+	{
+		index = ft_findenv(tools->env, temp[i]);
+		if (index != -1)
+		{
+			new = ft_updtmyunst(tools, index);
+			ft_doublefree(tools->env);
+			tools->env = dup_matrix(new);
+		}
+		i++;
+	}
+	ft_doublefree(temp);
 	return (0);
 }
 
@@ -95,7 +100,8 @@ char	*prsstraux(char *aux, char *str, unsigned int *i, t_tools *tools)
 
 int	iter_str(char c)
 {
-	if (c == ' ' || c == '\0' || c == '$' || c == '\'' || c == '"')
+	if (c == ' ' || c == '\0' || c == '$' || c == '\'' || c == '"'
+		|| c == '\n')
 		return (0);
 	else
 		return (1);

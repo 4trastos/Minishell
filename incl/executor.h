@@ -32,7 +32,9 @@ typedef struct s_tools		t_tools;
 
 typedef struct s_executor	t_executor;
 
-int		here_doc(char *limiter, t_executor *exe);
+int		here_doc(char *limiter, t_executor *exe, t_tools *tools);
+void	write_env(char *env, int fd);
+void	free_here_doc(char *buf, char *file, t_tools *tools);
 int		get_infile(t_string *infile, t_executor *exe, t_tools *tools);
 int		executor(t_list *tokens, t_tools *tools);
 int		get_outfile(t_string *outfile, t_executor *exe);

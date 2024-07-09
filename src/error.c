@@ -20,3 +20,14 @@ void	piticli_boniko(char *str, unsigned int *i, char c, unsigned int *rest)
 	while (istru(c, str[*i]) == 0)
 		(*i)++;
 }
+
+char	*ft_updateunset(char *prompt)
+{
+	while (*prompt == ' ')
+		prompt++;
+	while (ft_strncmp(prompt, "unset", 5) == 0)
+		prompt += 5;
+	while (*prompt == ' ')
+		prompt++;
+	return (prompt);
+}

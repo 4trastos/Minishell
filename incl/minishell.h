@@ -44,6 +44,8 @@ typedef struct s_tools
 	int				exit_code;
 	int				*pipe;
 	int				flag;
+	int				hd_flag;
+	int				index;
 	unsigned int	sizetokens;
 	char			*commands;
 	char			**env;
@@ -253,6 +255,7 @@ void		txurufluki_thegoat(t_tools *tools, char *str,
 char		*ft_iterthree(char **env, int *index, char *update, int *i);
 void		ft_add_env(char *str, int *subtract, int *add, char *var);
 int			ft_fluki(char **test, unsigned int *i);
+char		*ft_updateunset(char *prompt);
 
 /*** SIGNAL ***/
 

@@ -53,7 +53,7 @@ int	get_infile(t_string *infile, t_executor *exe, t_tools *tools)
 		ft_auxgtf(exe, tools, file);
 	else
 	{
-		status = here_doc(file, exe);
+		status = here_doc(file, exe, tools);
 		if (status < 0)
 			unlink(get_doc_name(exe));
 		else if (status == 1)
@@ -63,7 +63,8 @@ int	get_infile(t_string *infile, t_executor *exe, t_tools *tools)
 		}
 		exe->here_doc_id++;
 	}
-	free(file);
+	if (tools->hd_flag != 1)
+		free(file);
 	return (1);
 }
 

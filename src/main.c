@@ -14,6 +14,13 @@
 
 int	g_signal = 1;
 
+void	free_here_doc(char *buf, char *file, t_tools *tools)
+{
+	if (tools->hd_flag == 1)
+		free(file);
+	free(buf);
+}
+
 static void	ft_free_main(t_tools *tools)
 {
 	free(tools->pwd);

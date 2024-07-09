@@ -62,6 +62,8 @@ t_string	*parse_operators(char c, char *str, unsigned int *i, t_tools *tools)
 		aux = ft_substr(str, start, *i);
 		(*i)++;
 	}
+	if (ft_strchr(aux, '\'') != NULL || strchr(aux, '"'))
+		tools->hd_flag = 1;
 	new = terminal_string(aux);
 	free(aux);
 	return (new);

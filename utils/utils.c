@@ -64,3 +64,18 @@ int	ft_isalnum(int c)
 	else
 		return (0);
 }
+
+void	write_env(char *env, int fd)
+{
+	int	i;
+
+	i = 0;
+	while (env[i] != '=' && env[i] != '\0')
+		i++;
+	i++;
+	while (env[i] != '\0' && env[i])
+	{
+		write(fd, &env[i], 1);
+		i++;
+	}
+}
